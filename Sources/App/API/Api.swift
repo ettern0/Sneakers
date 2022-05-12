@@ -12,10 +12,10 @@ import FoundationNetworking
 
 //DD1391-100
 
-func getProductData(keyWord: String, count: Int) async throws -> String {
+func getProductData(keyWord: String, page:Int = 1, count: Int) async throws -> String {
 
     do {
-        var sneakers = try await getDataFromStockX(keyWord: keyWord, count: count)
+        var sneakers = try await getDataFromStockX(keyWord: keyWord, page: page, count: count)
         for i in 0..<sneakers.count {
             //MARK: additional data from secondary API
             //let dataFromStadiumGoods = try await getDataFromStadiumgoods(styleID: sneakers[i].styleID)
