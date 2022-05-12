@@ -24,7 +24,11 @@ func routes(_ app: Application) throws {
         }
         keyWord = (keyWord == "_" ? "" : keyWord)
         let result = try await getProductData(keyWord: keyWord, page: page, count: count)
-        return result
+
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let jsonData = try encoder.encode(result)
+        return String(decoding: jsonData, as: UTF8.self)
     }
 
     app.get("sneakerInfo", ":urlKey") { req async throws -> String in
