@@ -10,8 +10,8 @@ import Foundation
 import FoundationNetworking
 #endif
 
-func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws -> [SneakerAPI] {
-    var sneakers: [SneakerAPI] = []
+func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws -> [SneakerDTO] {
+    var sneakers: [SneakerDTO] = []
     let url = URL(string: "https://xw7sbct9v6-1.algolianet.com/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.32.1&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6b5e76b49705eb9f51a06d3c82f7acee")
     guard let requestUrl = url else { fatalError() }
 
@@ -45,7 +45,7 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
                 thumbnail = dict["imageUrl"] as? String ?? ""
             }
 
-            let sneaker = SneakerAPI(shoeName: el["name"] as? String ?? "",
+            let sneaker = SneakerDTO(shoeName: el["name"] as? String ?? "",
                                   brand: el["brand"] as? String ?? "",
                                   silhoutte: el["make"] as? String ?? "",
                                   styleID: el["style_id"] as? String ?? "",
@@ -53,7 +53,7 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
                                   releaseDate: el["release_date"] as? String ?? "",
                                   description: el["description"] as? String ?? "",
                                   thumbnail: thumbnail,
-                                  urlKey: URL(string: el["url"] as? String ?? "")!,
+                                  urlKey: el["url"] as? String ?? "",
                                   make: el["make"] as? String ?? "",
                                   colorway: el["colorway"] as? String ?? "",
                                   resellLinkStockX: el["url"] as? String ?? "",
@@ -74,10 +74,28 @@ func getProductInfoFromStockX(urlKey: String) async throws -> String {
     }
 }
 
-func getPricesFromStockX(urlKey: String) async throws -> [SneakerAPI.ResellPrice] {
-    var result: [SneakerAPI.ResellPrice] = []
-    let info = try await getProductInfoFromStockX(urlKey: urlKey)
+func get360FromStockX(urlKey: String) async throws -> [String] {
+    let url = URL(string: "https://stockx.com/api/products/\(urlKey)?includes=market")
+    guard let requestUrl = url else { fatalError() }
+    let request = URLRequest(url: requestUrl)
+    let (data, _) = try await URLSession.shared.data(for: request)
+    do {
+        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
+        let product = json?["Product"] as? [String: Any]
+        let media = product?["media"] as? [String:Any]
+        let has360 = media?["has360"] as? Bool
+        guard has360 ?? false else { return [] }
+        let image360 = media?["360"] as? [String]
+        return image360 ?? []
+    }
+    catch {
+        return []
+    }
+}
 
+func getPricesFromStockX(urlKey: String) async throws -> [SneakerDTO.ResellPrice] {
+    var result: [SneakerDTO.ResellPrice] = []
+    let info = try await getProductInfoFromStockX(urlKey: urlKey)
     do {
         let data = Data(info.utf8)
         let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
@@ -88,7 +106,7 @@ func getPricesFromStockX(urlKey: String) async throws -> [SneakerAPI.ResellPrice
                let size = value["shoeSize"] as? String,
                let market = value["market"] as? [String:Any],
                let price = market["lowestAsk"] as? Double {
-                result.append(SneakerAPI.ResellPrice(size: size, price: price))
+                result.append(SneakerDTO.ResellPrice(size: size, price: price))
             }
         }
         return result
