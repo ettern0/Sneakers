@@ -15,10 +15,19 @@ struct SneakersController: RouteCollection {
         try await Sneaker.query(on: req.db).all()
     }
 
-    func create(req: Request) async throws -> Sneaker {
-        let sneaker = try req.content.decode(Sneaker.self)
-        try await sneaker.save(on: req.db)
-        return sneaker
+    func create(req: Request) async throws -> HTTPStatus {
+        var count = 1000
+        var page = 1
+        while count >= 1000 {
+            let sneakers = try await getDataFromStockX(keyWord: "", page: page, count: 1000)
+            for i in 0..<sneakers.count {
+                let sneaker = Sneaker(id: sneakers[i].urlKey.absoluteString)
+                try await sneaker.create(on: req.db)
+            }
+            count = sneakers.count
+            page += 1
+        }
+        return .ok
     }
 
     func delete(req: Request) async throws -> HTTPStatus {
