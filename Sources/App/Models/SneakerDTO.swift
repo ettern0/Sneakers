@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SneakerAPI: Codable {
+struct SneakerDTO: Codable {
     var shoeName: String
     var brand: String
     var silhoutte: String
@@ -17,7 +17,7 @@ struct SneakerAPI: Codable {
     var description: String
     var imageLinks: [String] = []
     var thumbnail: String
-    var urlKey: URL
+    var urlKey: String
     var make: String
     var goatProductId: Int = 0
     var colorway: String
@@ -42,11 +42,13 @@ struct SneakerAPI: Codable {
         var size: String
         var price: Double
     }
+
+    var images360: [String] = []
 }
 
 struct ResponseFromSecondaryAPI {
     var resellLink = ""
     var lowestResellPrice = ""
-    var resellPrices: [SneakerAPI.ResellPrice] = []
+    var resellPrices: [SneakerDTO.ResellPrice] = []
     var goatProductId: Int = 0
 }
