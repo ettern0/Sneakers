@@ -48,8 +48,8 @@ func getDataFromGoat(styleID: String) async throws -> ResponseFromSecondaryAPI {
     }
 }
 
-func getPricesFromGoat(productID: Int) async throws -> [SneakerAPI.ResellPrice] {
-    var result: [SneakerAPI.ResellPrice] = []
+func getPricesFromGoat(productID: Int) async throws -> [SneakerDTO.ResellPrice] {
+    var result: [SneakerDTO.ResellPrice] = []
 
     let url = URL(string: "http://www.goat.com/web-api/v1/product_variants/buy_bar_data?productTemplateId=\(productID)")
     guard let requestUrl = url else { fatalError() }
@@ -73,7 +73,7 @@ func getPricesFromGoat(productID: Int) async throws -> [SneakerAPI.ResellPrice] 
                 price = value / 100
             }
             if condition != "used" {
-                result.append(SneakerAPI.ResellPrice(size: size, price: price))
+                result.append(SneakerDTO.ResellPrice(size: size, price: price))
             }
         }
         return result
