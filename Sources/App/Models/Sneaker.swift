@@ -7,13 +7,9 @@ final class Sneaker: Model, Content {
     @ID(key: .id)
     var id: UUID?
 
-    @Field(key: "title")
-    var title: String
-
     init() { }
 
-    init(id: UUID? = nil, title: String) {
-        self.id = id
-        self.title = title
+    init(id: String) {
+        self.id = UUID(uuidString: id)
     }
 }
