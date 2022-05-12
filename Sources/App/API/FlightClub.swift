@@ -45,8 +45,8 @@ func getDataFromFlightClub(styleID: String) async throws -> ResponseFromSecondar
     }
 }
 
-func getPricesFromFlightClub(resellLink: String, styleID: String) async throws -> [SneakerAPI.ResellPrice] {
-    var result: [SneakerAPI.ResellPrice] = []
+func getPricesFromFlightClub(resellLink: String, styleID: String) async throws -> [SneakerDTO.ResellPrice] {
+    var result: [SneakerDTO.ResellPrice] = []
 
     var url = URL(string: "https://www.flightclub.com/token")
     guard let requestUrl = url else { fatalError() }
@@ -69,10 +69,10 @@ func getPricesFromFlightClub(resellLink: String, styleID: String) async throws -
     do {
         let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
         let results = json?["results"] as? [[String: Any]] ?? []
-        return [SneakerAPI.ResellPrice(size: "", price: 0.0)]
+        return [SneakerDTO.ResellPrice(size: "", price: 0.0)]
     }
     catch {
-        return [SneakerAPI.ResellPrice(size: "", price: 0.0)]
+        return [SneakerDTO.ResellPrice(size: "", price: 0.0)]
     }
 }
 
