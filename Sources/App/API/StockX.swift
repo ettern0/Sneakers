@@ -10,8 +10,8 @@ import Foundation
 import FoundationNetworking
 #endif
 
-func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws -> [Sneaker] {
-    var sneakers: [Sneaker] = []
+func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws -> [SneakerAPI] {
+    var sneakers: [SneakerAPI] = []
     let url = URL(string: "https://xw7sbct9v6-1.algolianet.com/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.32.1&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6b5e76b49705eb9f51a06d3c82f7acee")
     guard let requestUrl = url else { fatalError() }
 
@@ -45,7 +45,7 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
                 thumbnail = dict["imageUrl"] as? String ?? ""
             }
 
-            let sneaker = Sneaker(shoeName: el["name"] as? String ?? "",
+            let sneaker = SneakerAPI(shoeName: el["name"] as? String ?? "",
                                   brand: el["brand"] as? String ?? "",
                                   silhoutte: el["make"] as? String ?? "",
                                   styleID: el["style_id"] as? String ?? "",
@@ -74,8 +74,8 @@ func getProductInfoFromStockX(urlKey: String) async throws -> String {
     }
 }
 
-func getPricesFromStockX(urlKey: String) async throws -> [Sneaker.ResellPrice] {
-    var result: [Sneaker.ResellPrice] = []
+func getPricesFromStockX(urlKey: String) async throws -> [SneakerAPI.ResellPrice] {
+    var result: [SneakerAPI.ResellPrice] = []
     let info = try await getProductInfoFromStockX(urlKey: urlKey)
 
     do {
@@ -88,7 +88,7 @@ func getPricesFromStockX(urlKey: String) async throws -> [Sneaker.ResellPrice] {
                let size = value["shoeSize"] as? String,
                let market = value["market"] as? [String:Any],
                let price = market["lowestAsk"] as? Double {
-                result.append(Sneaker.ResellPrice(size: size, price: price))
+                result.append(SneakerAPI.ResellPrice(size: size, price: price))
             }
         }
         return result
