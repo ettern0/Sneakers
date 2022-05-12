@@ -6,8 +6,6 @@ import Vapor
 public func configure(_ app: Application) throws {
     // uncomment to serve files from /Public folder
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-
-    //try app.databases.use(.postgres(url: Environment.databaseURL), as: .psql)
     if var postgresConfig = PostgresConfiguration(url: Environment.databaseURL) {
         postgresConfig.tlsConfiguration = .makeClientConfiguration()
         postgresConfig.tlsConfiguration?.certificateVerification = .none
