@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  StockX.swift
 //  
 //
 //  Created by Evgeny Serdyukov on 28.04.2022.
@@ -33,7 +33,14 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
         let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
         let hits = json?["hits"] as? [[String: Any]] ?? []
 
-        hits.forEach { el in
+        for index in 0..<hits.count {
+            let el = hits[index]
+
+            guard el["url"] as? String ?? "" != "",
+                  el["style_id"] as? String ?? "" != "" else {
+                continue
+            }
+
             var retailPrice: Double = 0
             var thumbnail: String = ""
 
