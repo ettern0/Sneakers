@@ -1,3 +1,10 @@
+//
+//  CreateSneakers.swift
+//
+//
+//  Created by Evgeny Serdyukov on 13.05.2022.
+//
+
 import Fluent
 
 struct CreateSneaker: AsyncMigration {
@@ -11,15 +18,9 @@ struct CreateSneaker: AsyncMigration {
             .field("shoeName", .string, .required)
             .field("description", .string, .required)
             .create()
-        try await database.schema("sneakers360Presentation")
-            .id()
-            .field("sneakerID", .uuid, .required)
-            .field("image", .string, .required)
-            .create()
     }
 
     func revert(on database: Database) async throws {
         try await database.schema("sneakers").delete()
-        try await database.schema("sneakers360Presentation").delete()
     }
 }
