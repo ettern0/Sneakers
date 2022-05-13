@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SneakerDTO.swift
 //
 //
 //  Created by Evgeny Serdyukov on 28.04.2022.
