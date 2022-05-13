@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Sneaker.swift
 //
 //
 //  Created by Evgeny Serdyukov on 12.05.2022.
