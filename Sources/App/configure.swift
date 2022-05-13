@@ -1,3 +1,10 @@
+//
+//  configure.swift
+//
+//
+//  Created by Evgeny Serdyukov on 28.04.2022.
+//
+
 import Fluent
 import FluentPostgresDriver
 import Vapor
@@ -17,6 +24,7 @@ public func configure(_ app: Application) throws {
     }
 
     app.migrations.add(CreateSneaker())
+    app.migrations.add(CreateSneaker360Presentation())
     app.logger.logLevel = .debug
 
     if app.environment == .development {
