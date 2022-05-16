@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97A28327861008A9A49 /* .swiftlint.yml */; };
+		8897D97D28327867008A9A49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97C28327867008A9A49 /* README.md */; };
 		92C2208E28326AD500EC7D39 /* SneakersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C2208D28326AD500EC7D39 /* SneakersApp.swift */; };
 		92C2209228326AD700EC7D39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C2209128326AD700EC7D39 /* Assets.xcassets */; };
 		92C2209528326AD700EC7D39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C2209428326AD700EC7D39 /* Preview Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8897D97A28327861008A9A49 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
+		8897D97C28327867008A9A49 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		92C2208A28326AD500EC7D39 /* Sneakers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sneakers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C2208D28326AD500EC7D39 /* SneakersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakersApp.swift; sourceTree = "<group>"; };
 		92C2209128326AD700EC7D39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 		92C2208C28326AD500EC7D39 /* Sneakers */ = {
 			isa = PBXGroup;
 			children = (
+				8897D97A28327861008A9A49 /* .swiftlint.yml */,
+				8897D97C28327867008A9A49 /* README.md */,
 				92C220AD28326B6A00EC7D39 /* Utilities */,
 				92C220AA28326B6600EC7D39 /* ViewModels */,
 				92C220A528326B5D00EC7D39 /* Views */,
@@ -188,7 +194,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */,
 				92C2209528326AD700EC7D39 /* Preview Assets.xcassets in Resources */,
+				8897D97D28327867008A9A49 /* README.md in Resources */,
 				92C2209228326AD700EC7D39 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
