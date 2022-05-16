@@ -7,23 +7,24 @@
 
 import Foundation
 
-enum HttpError: Error {
-    case badURL, badResponse, errorDecodeingData, invalidURL
+enum HTTPError: Error {
+    case badResponse, invalidDataFormat
 }
 
-class HttpClient {
+final class HTTPClient {
     private init() {}
-    static let shared = HttpClient()
 
-    func fetch<T: Codable>(url: URL) async throws ->[T] {
+    static let shared = HTTPClient()
+
+    func fetch<T: Codable>(url: URL) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: url)
 
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw HttpError.badResponse
+            throw HTTPError.badResponse
         }
 
-        guard let object = try? JSONDecoder().decode([T].self, from: data) else {
-            throw HttpError.errorDecodeingData
+        guard let object = try? JSONDecoder().decode(T.self, from: data) else {
+            throw HTTPError.invalidDataFormat
         }
         return object
     }

@@ -14,10 +14,11 @@ final class SneakersListViewModel: ObservableObject {
         let urlString = Constants.baseURL + Endpoints.portion
 
         guard let url = URL(string: urlString) else {
-            throw HttpError.badURL
+            self.sneakers = []
+            return assertionFailure("Invalid URL.")
         }
 
-        let sneakerResponse: [Sneaker] = try await HttpClient.shared.fetch(url: url)
+        let sneakerResponse: [Sneaker] = try await HTTPClient.shared.fetch(url: url)
 
         DispatchQueue.main.async {
             self.sneakers = sneakerResponse
