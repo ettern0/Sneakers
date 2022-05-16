@@ -17,7 +17,7 @@ final class SneakersListViewModel: ObservableObject {
             throw HttpError.badURL
         }
 
-        let sneakerResponse : [Sneaker] = try await HttpClient.shared.fetch(url: url)
+        let sneakerResponse: [Sneaker] = try await HttpClient.shared.fetch(url: url)
 
         DispatchQueue.main.async {
             self.sneakers = sneakerResponse

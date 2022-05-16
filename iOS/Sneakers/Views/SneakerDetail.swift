@@ -14,8 +14,7 @@ struct SneakerDetail: View {
 
     var body: some View {
         // Title Bar Product Image
-        VStack{
-
+        VStack {
             Button {
 
             } label: {
@@ -41,7 +40,4 @@ struct SneakerDetail: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
     }
-
-
 }
-
