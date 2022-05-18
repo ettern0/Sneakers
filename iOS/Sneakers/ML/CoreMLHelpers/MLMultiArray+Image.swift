@@ -99,14 +99,18 @@ extension MLMultiArray {
                                          max: T,
                                          channel: Int?,
                                          axes: (Int, Int, Int)?) -> CGImage? {
-    if let (b, w, h, c) = toRawBytes(min: min, max: max, channel: channel, axes: axes) {
-      if c == 1 {
-        return CGImage.fromByteArrayGray(b, width: w, height: h)
-      } else {
-        return CGImage.fromByteArrayRGBA(b, width: w, height: h)
+      if let (info, size) = toRawBytes(min: min, max: max, channel: channel, axes: axes) {
+          let bbbb = info.bytes
+          let cccc = info.channels
+          let wwww = size.width
+          let hhhh = size.height
+          if cccc == 1 {
+              return CGImage.fromByteArrayGray(bbbb, width: wwww, height: hhhh)
+          } else {
+              return CGImage.fromByteArrayRGBA(bbbb, width: wwww, height: hhhh)
+          }
       }
-    }
-    return nil
+      return nil
   }
 
   /**
@@ -125,8 +129,8 @@ extension MLMultiArray {
                                             max: T,
                                             channel: Int? = nil,
                                             axes: (Int, Int, Int)? = nil)
-                  -> (bytes: [UInt8], width: Int, height: Int, channels: Int)? {
-    // MLMultiArray with unsupported shape?
+                  -> ((bytes: [UInt8],channels: Int),(width: Int, height: Int))? {
+                      // MLMultiArray with unsupported shape?
     if shape.count < 2 {
       print("Cannot convert MLMultiArray of shape \(shape) to image")
       return nil
@@ -213,17 +217,17 @@ extension MLMultiArray {
     ptr = ptr.advanced(by: channelOffset * cStride)
 
     // Loop through all the pixels and all the channels and copy them over.
-    for c in 0..<channels {
-      for y in 0..<height {
-        for x in 0..<width {
-          let value = ptr[c*cStride + y*yStride + x*xStride]
+    for c_index in 0..<channels {
+      for y_index in 0..<height {
+        for x_index in 0..<width {
+          let value = ptr[c_index*cStride + y_index*yStride + x_index*xStride]
           let scaled = (value - min) * T(255) / (max - min)
           let pixel = clamp(scaled, min: T(0), max: T(255)).toUInt8
-          pixels[(y*width + x)*bytesPerPixel + c] = pixel
+          pixels[(y_index*width + x_index)*bytesPerPixel + c_index] = pixel
         }
       }
     }
-    return (pixels, width, height, channels)
+    return ((pixels,channels), (width, height))
   }
 }
 
@@ -273,7 +277,8 @@ public func createCGImage(fromFloatArray features: MLMultiArray,
   var pixels = [UInt8](repeating: 0, count: height * destRowBytes)
 
   pixels.withUnsafeMutableBufferPointer { ptr in
-    var destBuffer = vImage_Buffer(data: ptr.baseAddress!,
+    guard let baseAddress = ptr.baseAddress else { return }
+    var destBuffer = vImage_Buffer(data: baseAddress,
                                    height: vImagePixelCount(height),
                                    width: vImagePixelCount(width),
                                    rowBytes: destRowBytes)

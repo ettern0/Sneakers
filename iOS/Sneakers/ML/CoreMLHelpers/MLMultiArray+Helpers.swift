@@ -72,7 +72,7 @@ extension MLMultiArray {
     let dstStride = newArray.strides.map { $0.intValue }
     var idx = [Int](repeating: 0, count: ndim)
 
-    for j in 0..<count {
+    for j_index in 0..<count {
       // Map the source index to the destination index.
       var dstIndex = 0
       for i in 0..<ndim {
@@ -80,7 +80,7 @@ extension MLMultiArray {
       }
 
       // Copy the value.
-      dstPtr[dstIndex] = srcPtr[j]
+      dstPtr[dstIndex] = srcPtr[j_index]
 
       // Update the source index.
       var i = ndim - 1

@@ -95,7 +95,7 @@ public func _createPixelBuffer(width: Int, height: Int, pixelFormat: OSType) -> 
   return pixelBuffer
 }
 
-public extension CVPixelBuffer {
+extension CVPixelBuffer {
   /**
     Copies a CVPixelBuffer to a new CVPixelBuffer that is compatible with Metal.
 
@@ -158,9 +158,9 @@ public extension CVPixelBuffer {
         let srcBytesPerRow = CVPixelBufferGetBytesPerRowOfPlane(srcPixelBuffer, plane)
         let dstBytesPerRow = CVPixelBufferGetBytesPerRowOfPlane(dstPixelBuffer, plane)
 
-        for h in 0..<CVPixelBufferGetHeightOfPlane(srcPixelBuffer, plane) {
-          let srcPtr = srcAddr.advanced(by: h*srcBytesPerRow)
-          let dstPtr = dstAddr.advanced(by: h*dstBytesPerRow)
+        for index in 0..<CVPixelBufferGetHeightOfPlane(srcPixelBuffer, plane) {
+          let srcPtr = srcAddr.advanced(by: index*srcBytesPerRow)
+          let dstPtr = dstAddr.advanced(by: index*dstBytesPerRow)
           dstPtr.copyMemory(from: srcPtr, byteCount: srcBytesPerRow)
         }
       }

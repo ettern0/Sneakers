@@ -75,15 +75,18 @@ extension CGImage {
                                     bytesPerRow: Int,
                                     colorSpace: CGColorSpace,
                                     alphaInfo: CGImageAlphaInfo) -> CGImage? {
-    return bytes.withUnsafeBytes { ptr in
-      let context = CGContext(data: UnsafeMutableRawPointer(mutating: ptr.baseAddress!),
-                              width: width,
-                              height: height,
-                              bitsPerComponent: 8,
-                              bytesPerRow: bytesPerRow,
-                              space: colorSpace,
-                              bitmapInfo: alphaInfo.rawValue)
-      return context?.makeImage()
-    }
+      return bytes.withUnsafeBytes { ptr in
+          if let baseAddress = ptr.baseAddress {
+              let context = CGContext(data: UnsafeMutableRawPointer(mutating: baseAddress),
+                                      width: width,
+                                      height: height,
+                                      bitsPerComponent: 8,
+                                      bytesPerRow: bytesPerRow,
+                                      space: colorSpace,
+                                      bitmapInfo: alphaInfo.rawValue)
+              return context?.makeImage()
+          }
+          return nil
+      }
   }
 }

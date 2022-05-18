@@ -24,7 +24,7 @@
 
 import UIKit
 
-public extension CGImagePropertyOrientation {
+extension CGImagePropertyOrientation {
   init(_ orientation: UIImage.Orientation) {
     switch orientation {
     case .up: self = .up
@@ -42,7 +42,7 @@ public extension CGImagePropertyOrientation {
 
 #if !os(tvOS)
 
-public extension CGImagePropertyOrientation {
+extension CGImagePropertyOrientation {
   init(_ orientation: UIDeviceOrientation) {
     switch orientation {
     case .portraitUpsideDown: self = .left

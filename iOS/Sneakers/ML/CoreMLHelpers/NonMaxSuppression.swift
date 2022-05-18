@@ -43,17 +43,17 @@ public struct BoundingBox {
 /**
   Computes intersection-over-union overlap between two bounding boxes.
 */
-public func IOU(_ a: CGRect, _ b: CGRect) -> Float {
-  let areaA = a.width * a.height
+public func IOU(_ aaaa: CGRect, _ bbbb: CGRect) -> Float {
+  let areaA = aaaa.width * aaaa.height
   if areaA <= 0 { return 0 }
 
-  let areaB = b.width * b.height
+  let areaB = bbbb.width * bbbb.height
   if areaB <= 0 { return 0 }
 
-  let intersectionMinX = max(a.minX, b.minX)
-  let intersectionMinY = max(a.minY, b.minY)
-  let intersectionMaxX = min(a.maxX, b.maxX)
-  let intersectionMaxY = min(a.maxY, b.maxY)
+  let intersectionMinX = max(aaaa.minX, bbbb.minX)
+  let intersectionMinY = max(aaaa.minY, bbbb.minY)
+  let intersectionMaxX = min(aaaa.maxX, bbbb.maxX)
+  let intersectionMaxY = min(aaaa.maxY, bbbb.maxY)
   let intersectionArea = max(intersectionMaxY - intersectionMinY, 0) *
                          max(intersectionMaxX - intersectionMinX, 0)
   return Float(intersectionArea / (areaA + areaB - intersectionArea))
@@ -111,8 +111,8 @@ public func nonMaxSuppression(boundingBoxes: [BoundingBox],
 
     // Does the current box overlap one of the selected boxes more than the
     // given threshold amount? Then it's too similar, so don't keep it.
-    for j in 0..<selected.count {
-      let boxB = boundingBoxes[selected[j]]
+    for j_index in 0..<selected.count {
+      let boxB = boundingBoxes[selected[j_index]]
       if IOU(boxA.rect, boxB.rect) > iouThreshold {
         shouldSelect = false
         break
@@ -160,17 +160,17 @@ public func nonMaxSuppressionMultiClass(numClasses: Int,
   var selectedBoxes: [Int] = []
 
   // Look at all the classes one-by-one.
-  for c in 0..<numClasses {
+  for c_index in 0..<numClasses {
     var filteredBoxes = [Int]()
 
     // Look at every bounding box for this class.
-    for p in 0..<boundingBoxes.count {
-      let prediction = boundingBoxes[p]
-      if prediction.classIndex == c {
+    for p_index in 0..<boundingBoxes.count {
+      let prediction = boundingBoxes[p_index]
+      if prediction.classIndex == c_index {
 
         // Only keep the box if its score is over the threshold.
         if prediction.score > scoreThreshold {
-          filteredBoxes.append(p)
+          filteredBoxes.append(p_index)
         }
       }
     }
