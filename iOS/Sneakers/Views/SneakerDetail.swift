@@ -12,6 +12,7 @@ struct SneakerDetailView: View {
     var sneaker: Sneaker
     var animation: Namespace.ID
     @EnvironmentObject var sharedData: SharedDataModel
+    @State var show360: Bool = false
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false, content: {
@@ -31,18 +32,45 @@ struct SneakerDetailView: View {
                     }
             }
             .frame(width: getRect().width, height: getRect().width)
-            SneakerDescriptionView(sneaker: sneaker)
+            SneakerDescriptionView(sneaker: sneaker, show360: $show360)
+        })
+        .sheet(isPresented: $show360) {
+            View360()
         }
-        )
+        .ignoresSafeArea()
         .edgesIgnoringSafeArea(.all)
-        .background(Color.white.edgesIgnoringSafeArea(.all))
     }
 
     private struct SneakerDescriptionView: View {
         let sneaker: Sneaker
+        @EnvironmentObject var sharedData: SharedDataModel
+        @Binding var show360: Bool
 
         var body: some View {
             VStack(alignment: .leading, spacing: 15) {
+                HStack {
+                    Button {
+                        withAnimation(.easeInOut) {
+                            sharedData.showDetailProduct = false
+                        }
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .resizable()
+                            .frame(width: 24, height: 24, alignment: .trailing)
+                            .foregroundColor(.black)
+                            .opacity(0.5)
+                    }
+                    .padding(.horizontal, 20)
+                    Button {
+                        show360 = true
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                            .resizable()
+                            .frame(width: 24, height: 24, alignment: .trailing)
+                            .foregroundColor(.black)
+                            .opacity(0.5)
+                    }
+                }
                 Text(sneaker.shoeName)
                     .font(Font.title).bold()
                 Text(sneaker.description)
