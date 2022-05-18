@@ -13,7 +13,6 @@ struct SneakersListView: View {
     @StateObject var sharedData = SharedDataModel()
     @Namespace var animation
 
-
     var spcaing: CGFloat { 10 }
     var widthOfHiddenCards: CGFloat {
         getRect().width / 8
@@ -21,7 +20,6 @@ struct SneakersListView: View {
     var sizeOfCentralCard: CGFloat {
         getRect().width - (widthOfHiddenCards * 2) - (spacing * 2)
     }
-
     var spacing: CGFloat { 10 }
 
     var body: some View {
@@ -33,10 +31,12 @@ struct SneakersListView: View {
                     ForEach(viewModel.sneakers) { sneaker in
                         if let id_db = sneaker.id, let id = viewModel.cache.map[id_db] {
                             Item( _id: id) {
-                                SneakerCardView(sneaker: sneaker, sharedData: sharedData)
+                                SneakerCardView(sneaker: sneaker, viewModel: viewModel, sharedData: sharedData)
                                     .matchedGeometryEffect(id: sneaker.id, in: animation)
-                                    .frame(width: sizeOfCentralCard, height: sizeOfCentralCard)
+                                    .frame(width: sizeOfCentralCard,
+                                           height: sizeOfCentralCard)
                                     .transition(AnyTransition.slide)
+                                    .opacity(sharedData.showDetailProduct ? 0 : 1)
                                     .animation(.spring(), value: viewModel.active)
                             }
                         }
@@ -49,7 +49,7 @@ struct SneakersListView: View {
             // MARK: Details of sneaker
             if let sneaker = sharedData.detail, sharedData.showDetailProduct {
                 SneakerDetailView(sneaker: sneaker, animation: animation)
-                    .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
                     .zIndex(1)
                     .environmentObject(sharedData)
             }
@@ -81,16 +81,23 @@ struct SneakersListView: View {
 
     private struct SneakerCardView: View {
         let sneaker: Sneaker
+        @StateObject var viewModel: SneakersListViewModel
         let sharedData: SharedDataModel
 
         var body: some View {
+            VStack {
             LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
                 .onTapGesture {
-                    withAnimation(Animation.easeInOut(duration: 2)) {
+                    withAnimation(Animation.easeInOut(duration: 0.3)) {
                         sharedData.detail = sneaker
                         sharedData.showDetailProduct = true
                     }
                 }
+
+                if let id_db = sneaker.id, let id = viewModel.cache.map[id_db], id == viewModel.active {
+                    Text(sneaker.shoeName.capitalized)
+                }
+            }
         }
 
         private func getImageWithoutBackground(from source: String) -> some View {
