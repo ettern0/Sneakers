@@ -6,38 +6,56 @@
 //
 
 import SwiftUI
+import NukeUI
 
-struct SneakerDetail: View {
+struct SneakerDetailView: View {
     var sneaker: Sneaker
-
+    var animation: Namespace.ID
     @EnvironmentObject var sharedData: SharedDataModel
 
     var body: some View {
-        // Title Bar Product Image
-        VStack {
-            Button {
-
-            } label: {
-                Image(systemName: "arrow.left")
-                    .font(.title2)
-                    .foregroundColor(Color.black.opacity(0.7))
-
-                Spacer()
-
-                Button {
-
-                } label: {
-                    Image(systemName: "arrow.right")
-                }
+        ScrollView(.vertical, showsIndicators: false, content: {
+            GeometryReader { proxy in
+                LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
+                    .matchedGeometryEffect(id: sneaker.id, in: animation)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: getRect().width,
+                           height: proxy.frame(in: .global).minY > 0 ?
+                           proxy.frame(in: .global).minY + getRect().width :
+                            getRect().width)
+                    .offset(y: -proxy.frame(in: .global).minY)
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            sharedData.showDetailProduct = false
+                        }
+                    }
             }
-
+            .frame(width: getRect().width, height: getRect().width)
+            SneakerDescriptionView(sneaker: sneaker)
         }
+        )
+        .edgesIgnoringSafeArea(.all)
+        .background(Color.white.edgesIgnoringSafeArea(.all))
+    }
 
-        // product details
-        ScrollView(.vertical, showsIndicators: false) {
+    private struct SneakerDescriptionView: View {
+        let sneaker: Sneaker
 
+        var body: some View {
+            VStack(alignment: .leading, spacing: 15) {
+                Text(sneaker.shoeName)
+                    .font(Font.title).bold()
+                Text(sneaker.description)
+                Text(sneaker.description)
+                Text(sneaker.description)
+                Text(sneaker.description)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                Color(.init(white: 0.98, alpha: 1))
+                    .clipShape(CustomCorners(corners: [.topLeft, .topRight], radius: 25))
+                    .ignoresSafeArea())
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
     }
 }
