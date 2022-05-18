@@ -13,6 +13,7 @@ struct SneakersController: RouteCollection {
         let sneakers = routes.grouped("sneakers")
         sneakers.get("all", use: all)
         sneakers.get("portion", use: portion)
+        sneakers.get("360", ":id", use: get360)
         sneakers.post("create", use: create)
         sneakers.group(":sneakerID") { sneaker in
             sneaker.delete(use: delete)
@@ -25,6 +26,12 @@ struct SneakersController: RouteCollection {
 
     private func portion(req: Request) async throws -> [Sneaker] {
         try await Sneaker.query(on: req.db).limit(20).all()
+    }
+
+    private func get360(req: Request) async throws -> [Sneaker360Presentation] {
+        try await Sneaker360Presentation.query(on: req.db)
+            .filter(\.$sneakerID == req.parameters.get("id"))
+            .all()
     }
 
     private func create(req: Request) async throws -> HTTPStatus {
