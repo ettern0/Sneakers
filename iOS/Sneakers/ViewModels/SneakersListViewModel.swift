@@ -12,7 +12,7 @@ final class SneakersListViewModel: ObservableObject {
     @Published var active: Int = 0
     @Published var drag: Float = 0.0
 
-    var map: MapSneakersID = MapSneakersID.shared
+    var cache = SneakerCache.shared
 
     func fetchSneakers() async throws {
         let urlString = Constants.baseURL + Endpoints.portion
@@ -28,7 +28,7 @@ final class SneakersListViewModel: ObservableObject {
             self.sneakers = sneakerResponse
             self.sneakers.forEach { sneaker in
                 if let id = sneaker.id {
-                    self.map.map[id] = self.map.map.count
+                    self.cache.map[id] = self.cache.map.count
                 }
             }
         }

@@ -31,7 +31,7 @@ struct SneakersListView: View {
             Canvas {
                 Carousel(numberOfItems: CGFloat( viewModel.sneakers.count ), spacing: spacing, widthOfHiddenCards: widthOfHiddenCards ) {
                     ForEach(viewModel.sneakers) { sneaker in
-                        if let id_db = sneaker.id, let id = viewModel.map.map[id_db] {
+                        if let id_db = sneaker.id, let id = viewModel.cache.map[id_db] {
                             Item( _id: id) {
                                 SneakerCardView(sneaker: sneaker, sharedData: sharedData)
                                     .matchedGeometryEffect(id: sneaker.id, in: animation)
@@ -43,12 +43,13 @@ struct SneakersListView: View {
                     }
                 }
                 .environmentObject(self.viewModel)
-            } .opacity(sharedData.showDetailProduct ? 0 : 1)
+            }
+            .opacity(sharedData.showDetailProduct ? 0 : 1)
 
             // MARK: Details of sneaker
             if let sneaker = sharedData.detail, sharedData.showDetailProduct {
                 SneakerDetailView(sneaker: sneaker, animation: animation)
-                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
+                    .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
                     .zIndex(1)
                     .environmentObject(sharedData)
             }
@@ -65,7 +66,6 @@ struct SneakersListView: View {
     }
 
     private struct Item<Content: View>: View {
-        @EnvironmentObject var UIState: UIStateModel
         var _id: Int
         var content: Content
 
@@ -84,13 +84,22 @@ struct SneakersListView: View {
         let sharedData: SharedDataModel
 
         var body: some View {
-            Button {
-                withAnimation(.easeInOut) {
-                    sharedData.detail = sneaker
-                    sharedData.showDetailProduct = true
+            LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
+                .onTapGesture {
+                    withAnimation(Animation.easeInOut(duration: 2)) {
+                        sharedData.detail = sneaker
+                        sharedData.showDetailProduct = true
+                    }
                 }
-            } label: {
-                LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
+        }
+
+        private func getImageWithoutBackground(from source: String) -> some View {
+            LazyImage(source: source) { state in
+                if let container = state.imageContainer,
+                    let image = container.image,
+                    let prepImage = image.removeBackground(returnResult: .finalImage) {
+                    Image(prepImage)
+                }
             }
         }
     }

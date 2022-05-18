@@ -15,7 +15,4 @@ struct Sneaker: Identifiable, Codable, Hashable {
     var shoeName: String
 }
 
-final class MapSneakersID {
-    static let shared = MapSneakersID()
-    var map: [UUID: Int] = [:]
-}
+
