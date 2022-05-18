@@ -9,6 +9,10 @@ import Foundation
 
 final class SneakersListViewModel: ObservableObject {
     @Published var sneakers: [Sneaker] = []
+    @Published var active: Int = 0
+    @Published var drag: Float = 0.0
+
+    var map: MapSneakersID = MapSneakersID.shared
 
     func fetchSneakers() async throws {
         let urlString = Constants.baseURL + Endpoints.portion
@@ -22,6 +26,11 @@ final class SneakersListViewModel: ObservableObject {
 
         DispatchQueue.main.async {
             self.sneakers = sneakerResponse
+            self.sneakers.forEach { sneaker in
+                if let id = sneaker.id {
+                    self.map.map[id] = self.map.map.count
+                }
+            }
         }
     }
 }
