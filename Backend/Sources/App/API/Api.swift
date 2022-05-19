@@ -19,8 +19,15 @@ func getProductData(keyWord: String, page:Int = 1, count: Int) async throws -> [
         for i in 0..<sneakers.count {
 
             //MARK: get 360 representation from stockX
-            let dataFromStocX = try await get360FromStockX(urlKey: sneakers[i].urlKey)
-            sneakers[i].images360 = dataFromStocX
+            let data = try await getProductInfoFromStockX(urlKey: sneakers[i].urlKey)
+            sneakers[i].brand = data.brand
+            sneakers[i].condition = data.condition
+            sneakers[i].countryOfManufacture = data.countryOfManufacture
+            sneakers[i].primaryCategory = data.primaryCategory
+            sneakers[i].secondaryCategory = data.secondaryCategory
+            sneakers[i].releaseDate = data.releaseDate
+            sneakers[i].year = data.year
+            sneakers[i].images360 = data.images360
 
             //MARK: TODO additional, comment false
             if false {
@@ -36,7 +43,6 @@ func getProductData(keyWord: String, page:Int = 1, count: Int) async throws -> [
                 sneakers[i].lowestResellPriceFlightClub = dataFromFlightClub.lowestResellPrice
 
                 //MARK: Prices and sizes
-                sneakers[i].resellPricesStockX = try await getPricesFromStockX(urlKey: sneakers[i].urlKey)
                 //            let pricesFromStadiumGoods = try await getPricesFromStadiumGoods(urlKey: sneaker.urlKey)
                 sneakers[i].resellPricesGoat = try await getPricesFromGoat(productID: sneakers[i].goatProductId)
                 // sneakers[i].resellPricesFlightClub = try await getPricesFromFlightClub(resellLink: sneakers[i].resellLinkFlightClub, styleID: sneakers[i].styleID)

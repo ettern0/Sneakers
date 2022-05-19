@@ -71,54 +71,47 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
     }
 }
 
-func getProductInfoFromStockX(urlKey: String) async throws -> String {
+func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO {
     let url = URL(string: "https://stockx.com/api/products/\(urlKey)?includes=market")
     guard let requestUrl = url else { fatalError() }
     let request = URLRequest(url: requestUrl)
     let (data, _) = try await URLSession.shared.data(for: request)
-    do {
-        return String(data: data, encoding: String.Encoding.utf8) ?? ""
-    }
-}
 
-func get360FromStockX(urlKey: String) async throws -> [String] {
-    let url = URL(string: "https://stockx.com/api/products/\(urlKey)?includes=market")
-    guard let requestUrl = url else { fatalError() }
-    let request = URLRequest(url: requestUrl)
-    let (data, _) = try await URLSession.shared.data(for: request)
+    var prices: [SneakerDTO.ResellPrice] = []
+
     do {
         let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
-        let product = json?["Product"] as? [String: Any]
-        let media = product?["media"] as? [String:Any]
+        let info = json?["Product"] as? [String: Any]
+        let media = info?["media"] as? [String:Any]
         let has360 = media?["has360"] as? Bool
-        guard has360 ?? false else { return [] }
         let image360 = media?["360"] as? [String]
-        return image360 ?? []
-    }
-    catch {
-        return []
-    }
-}
 
-func getPricesFromStockX(urlKey: String) async throws -> [SneakerDTO.ResellPrice] {
-    var result: [SneakerDTO.ResellPrice] = []
-    let info = try await getProductInfoFromStockX(urlKey: urlKey)
-    do {
-        let data = Data(info.utf8)
-        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
-        let product = json?["Product"] as? [String: Any]
-        let children = product?["children"] as? [String:Any]
+        let children = info?["children"] as? [String:Any]
         children?.forEach { el in
             if let value = el.value as? [String: Any],
                let size = value["shoeSize"] as? String,
                let market = value["market"] as? [String:Any],
                let price = market["lowestAsk"] as? Double {
-                result.append(SneakerDTO.ResellPrice(size: size, price: price))
+                prices.append(SneakerDTO.ResellPrice(size: size, price: price))
             }
         }
-        return result
-    }
-    catch {
+
+        let brand = info?["brand"] as? String ?? ""
+        let releaseDate = info?["releaseDate"] as? String ?? ""
+        let condition = info?["condition"] as? String ?? ""
+        let countryOfManufacture = info?["countryOfManufacture"] as? String ?? ""
+        let primaryCategory = info?["primaryCategory"] as? String ?? ""
+        let secondaryCategory = info?["secondaryCategory"] as? String ?? ""
+        let year = info?["year"] as? String ?? ""
+
+        let result = SneakerDTO(brand: brand,
+                                releaseDate: releaseDate,
+                                condition: condition,
+                                countryOfManufacture: countryOfManufacture,
+                                primaryCategory: primaryCategory,
+                                secondaryCategory: secondaryCategory,
+                                year: year,
+                                images360: image360 ?? [""])
         return result
     }
 }

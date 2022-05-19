@@ -25,14 +25,6 @@ func routes(_ app: Application) throws {
         return String(decoding: jsonData, as: UTF8.self)
     }
 
-    app.get("sneakerInfo", ":urlKey") { req async throws -> String in
-        guard let urlKey = req.parameters.get("urlKey") else {
-            throw Abort(.internalServerError)
-        }
-        let result = try await getProductInfoFromStockX(urlKey: urlKey)
-        return result
-    }
-
     //MARK: Sneakers DB Controller
     try app.register(collection: SneakersController())
 }

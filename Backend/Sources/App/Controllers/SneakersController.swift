@@ -8,6 +8,20 @@
 import Fluent
 import Vapor
 
+extension Sequence {
+    func asyncMap<T>(
+        _ transform: (Element) async throws -> T
+    ) async rethrows -> [T] {
+        var values = [T]()
+
+        for element in self {
+            try await values.append(transform(element))
+        }
+
+        return values
+    }
+}
+
 struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let sneakers = routes.grouped("sneakers")
@@ -24,8 +38,17 @@ struct SneakersController: RouteCollection {
         try await Sneaker.query(on: req.db).all()
     }
 
-    private func portion(req: Request) async throws -> [Sneaker] {
-        try await Sneaker.query(on: req.db).limit(20).all()
+    private func portion(req: Request) async throws -> [SneakerDTO] {
+        let sneakers = try await Sneaker.query(on: req.db).limit(20).all()
+        let result: [SneakerDTO] = try await sneakers.asyncMap { sneaker in
+            var item = SneakerDTO(from: sneaker)
+            if let id = sneaker.id?.uuidString {
+                req.parameters.set("id", to: id)
+                item.images360 = try await get360(req: req).map(\.image)
+            }
+            return item
+        }
+        return result
     }
 
     private func get360(req: Request) async throws -> [Sneaker360Presentation] {
