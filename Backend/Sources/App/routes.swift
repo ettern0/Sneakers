@@ -16,21 +16,8 @@ func routes(_ app: Application) throws {
     }
 
     //MARK: Check API
-    app.get("sneakers", ":keyWord", ":page", ":count") { req async throws -> String in
-        var keyWord = ""
-        var count = 1000
-        var page = 1
-        if let param = req.parameters.get("keyWord") {
-            keyWord = param
-        }
-        if let param = req.parameters.get("page") {
-            page = Int(param) ?? page
-        }
-        if let param = req.parameters.get("count") {
-            count = Int(param) ?? count
-        }
-        keyWord = (keyWord == "_" ? "" : keyWord)
-        let result = try await getProductData(keyWord: keyWord, page: page, count: count)
+    app.get("CheckSneakersExternalAPI") { req async throws -> String in
+        let result = try await getProductData(keyWord: "", page: 0, count: 10)
 
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted

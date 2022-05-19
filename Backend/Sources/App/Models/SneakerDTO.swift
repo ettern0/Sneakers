@@ -23,6 +23,12 @@ struct SneakerDTO: Codable {
     var colorway: String
     var size: Double = 0.0
 
+    var condition: String = ""
+    var countryOfManufacture: String = ""
+    var primaryCategory: String = ""
+    var secondaryCategory: String = ""
+    var year: String = ""
+
     var resellLinkStockX: String = ""
     var resellLinkStadiumGoods: String = ""
     var resellLinkGoat: String = ""
