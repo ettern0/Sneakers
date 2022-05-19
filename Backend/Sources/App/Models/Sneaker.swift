@@ -32,6 +32,28 @@ final class Sneaker: Model, Content {
     @Field(key: "description")
     var description: String
 
+    @Field(key: "brand")
+    var brand: String
+
+    @Field(key: "condition")
+    var condition: String
+
+    @Field(key: "countryOfManufacture")
+    var countryOfManufacture: String
+
+    @Field(key: "primaryCategory")
+    var primaryCategory: String
+
+    @Field(key: "secondaryCategory")
+    var secondaryCategory: String
+
+    @Field(key: "releaseDate")
+    var releaseDate: String
+
+    @Field(key: "year")
+    var year: String
+
+
     init() { }
 
     init(id: UUID?) {
@@ -48,6 +70,13 @@ extension Sneaker {
         self.colorway = sneakerDTO.colorway
         self.shoeName = sneakerDTO.shoeName
         self.description = sneakerDTO.description
+        self.brand = sneakerDTO.brand
+        self.condition = sneakerDTO.condition
+        self.countryOfManufacture = sneakerDTO.countryOfManufacture
+        self.primaryCategory = sneakerDTO.primaryCategory
+        self.secondaryCategory = sneakerDTO.secondaryCategory
+        self.releaseDate = sneakerDTO.releaseDate
+        self.year = sneakerDTO.year
     }
 
     func update(with sneakerDTO: SneakerDTO) {
@@ -57,5 +86,12 @@ extension Sneaker {
         self.colorway = sneakerDTO.colorway
         self.shoeName = sneakerDTO.shoeName
         self.description = sneakerDTO.description
+        self.brand = sneakerDTO.brand
+        self.condition = sneakerDTO.condition
+        self.countryOfManufacture = sneakerDTO.countryOfManufacture
+        self.primaryCategory = sneakerDTO.primaryCategory
+        self.secondaryCategory = sneakerDTO.secondaryCategory
+        self.releaseDate = sneakerDTO.releaseDate
+        self.year = sneakerDTO.year
     }
 }
