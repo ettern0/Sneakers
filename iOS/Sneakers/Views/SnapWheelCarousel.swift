@@ -7,8 +7,9 @@
 
 import SwiftUI
 import NukeUI
+import SwiftUIPager
 
-struct SnapCarausel<Content: View, T: Identifiable>: View {
+struct SnapCarousel<Content: View, T: Identifiable>: View {
     var content: (T) -> Content
     var list: [T]
 
@@ -37,24 +38,26 @@ struct SnapCarausel<Content: View, T: Identifiable>: View {
 
             let width = proxy.size.width
 
+            let itemWidth = width - trailingSpace
+
             HStack(spacing: spacing) {
                 ForEach(list) { item in
                     content(item)
-                        .frame(width: proxy.size.width - trailingSpace)
+                        .frame(width: itemWidth)
                 }
             }
             .padding(.horizontal, spacing)
-            .offset(x: (CGFloat(currentIndex) * -width) + offset)
+            .offset(x: (CGFloat(currentIndex) * -itemWidth))
             .gesture(
                 DragGesture()
-                    .updating($offset, body: { value, out, _ in
-                        out = value.translation.width
-                    })
+//                    .updating($offset, body: { value, out, _ in
+//                        out = value.translation.width
+//                    })
                     .onEnded({ value in
                         let offsetX = value.translation.width
                         let progress = -offsetX / width
-                        let roundIndex = progress.rounded()
-                        currentIndex = max(min(currentIndex + Int(roundIndex), list.count - 2), 0)
+                        let roundIndex = Int(progress.rounded())
+                        currentIndex = (currentIndex + roundIndex) % list.count
                     })
             )
         }
@@ -67,29 +70,24 @@ struct Home: View {
     @StateObject var viewModel: SneakersListViewModel = SneakersListViewModel()
     @State var currentIndex: Int = 0
 
+    @StateObject var page: Page = .first()
+
     var body: some View {
         VStack(spacing: 15) {
-            SnapCarausel(index: $currentIndex, items: viewModel.sneakers) { sneaker in
-                GeometryReader { proxy in
-                    let size = proxy.size
-                    let url = sneaker.thumbnail
-                    VStack {
+            Pager(page: page, data: viewModel.sneakers) { sneaker in
+                VStack {
                     LazyImage(source: sneaker.thumbnail) { state in
                         if let image = state.imageContainer?.image {
                             Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                                .frame(width: size.width)
                                 .cornerRadius(12)
-                        } else {
-                            var ds = 1
                         }
                     }
-                        Text(url)
-                    }
-                    .padding(.vertical, 80)
                 }
             }
+            .preferredItemSize(CGSize(width: 300, height: 400))
+            .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
         }
         .onAppear {
             Task {

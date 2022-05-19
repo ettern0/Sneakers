@@ -26,11 +26,11 @@ final class SneakersListViewModel: ObservableObject {
 
         DispatchQueue.main.async {
             self.sneakers = sneakerResponse
-            self.sneakers.forEach { sneaker in
-                if let id = sneaker.id {
-                    self.cache.map[id] = self.cache.map.count
-                }
-            }
+//            self.sneakers.forEach { sneaker in
+//                if let id = sneaker.id {
+//                    self.cache.map[id] = self.cache.map.count
+//                }
+//            }
         }
     }
 }

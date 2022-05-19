@@ -7,43 +7,39 @@
 
 import SwiftUI
 import NukeUI
+import SwiftUIPager
 
 struct SneakersListView: View {
     @StateObject var viewModel = SneakersListViewModel()
     @StateObject var sharedData = SharedDataModel()
+    @StateObject var page: Page = .first()
     @Namespace var animation
-
-    var spcaing: CGFloat { 10 }
-    var widthOfHiddenCards: CGFloat {
-        getRect().width / 8
-    }
-    var sizeOfCentralCard: CGFloat {
-        getRect().width - (widthOfHiddenCards * 2) - (spacing * 2)
-    }
-    var spacing: CGFloat { 10 }
 
     var body: some View {
 
         ZStack {
             // MARK: The carausel of sneakers
-            Canvas {
-                Carousel(numberOfItems: CGFloat( viewModel.sneakers.count ), spacing: spacing, widthOfHiddenCards: widthOfHiddenCards ) {
-                    ForEach(viewModel.sneakers) { sneaker in
-                        if let id_db = sneaker.id, let id = viewModel.cache.map[id_db] {
-                            Item( _id: id) {
-                                SneakerCardView(sneaker: sneaker, viewModel: viewModel, sharedData: sharedData)
-                                    .matchedGeometryEffect(id: sneaker.id, in: animation)
-                                    .frame(width: sizeOfCentralCard,
-                                           height: sizeOfCentralCard)
-                                    .transition(AnyTransition.slide)
-                                    .opacity(sharedData.showDetailProduct ? 0 : 1)
-                                    .animation(.spring(), value: viewModel.active)
+            Pager(page: page, data: viewModel.sneakers) { sneaker in
+                LazyImage(source: sneaker.thumbnail) { state in
+                    if let image = state.imageContainer?.image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .matchedGeometryEffect(id: sneaker.id, in: animation)
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: 0.3)) {
+                                    sharedData.detail = sneaker
+                                    sharedData.showDetailProduct = true
+                                }
                             }
-                        }
                     }
                 }
-                .environmentObject(self.viewModel)
             }
+            .preferredItemSize(CGSize(width: getRect().width * 0.8, height: getRect().width * 0.8))
+            .itemSpacing(10)
+            .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
+            .interactive(rotation: true)
+            .interactive(scale: 0.5)
             .opacity(sharedData.showDetailProduct ? 0 : 1)
 
             // MARK: Details of sneaker
@@ -60,52 +56,6 @@ struct SneakersListView: View {
                     try await viewModel.fetchSneakers()
                 } catch {
                     assertionFailure("error downloading data in views")
-                }
-            }
-        }
-    }
-
-    private struct Item<Content: View>: View {
-        var _id: Int
-        var content: Content
-
-        init(_id: Int, @ViewBuilder _ content: () -> Content) {
-            self.content = content()
-            self._id = _id
-        }
-
-        var body: some View {
-            content
-        }
-    }
-
-    private struct SneakerCardView: View {
-        let sneaker: Sneaker
-        @StateObject var viewModel: SneakersListViewModel
-        let sharedData: SharedDataModel
-
-        var body: some View {
-            VStack {
-            LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
-                .onTapGesture {
-                    withAnimation(Animation.easeInOut(duration: 0.3)) {
-                        sharedData.detail = sneaker
-                        sharedData.showDetailProduct = true
-                    }
-                }
-
-                if let id_db = sneaker.id, let id = viewModel.cache.map[id_db], id == viewModel.active {
-                    Text(sneaker.shoeName.capitalized)
-                }
-            }
-        }
-
-        private func getImageWithoutBackground(from source: String) -> some View {
-            LazyImage(source: source) { state in
-                if let container = state.imageContainer,
-                    let image = container.image,
-                    let prepImage = image.removeBackground(returnResult: .finalImage) {
-                    Image(prepImage)
                 }
             }
         }
