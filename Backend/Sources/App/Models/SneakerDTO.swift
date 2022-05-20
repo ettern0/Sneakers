@@ -102,6 +102,10 @@ struct SneakerDTO: Codable {
         self.primaryCategory = sneaker.primaryCategory
         self.secondaryCategory = sneaker.secondaryCategory
         self.year = sneaker.year
+        self.resellLinkStockX = sneaker.resellLinkStockX
+        self.resellLinkStadiumGoods = sneaker.resellLinkStadiumGoods
+        self.resellLinkGoat = sneaker.resellLinkGoat
+        self.resellLinkFlightClub = sneaker.resellLinkFlightClub
     }
 }
 
