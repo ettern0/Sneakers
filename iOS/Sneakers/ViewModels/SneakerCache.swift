@@ -9,5 +9,5 @@ import Foundation
 
 final class SneakerCache {
     static let shared = SneakerCache()
-    var map: [UUID: Int] = [:]
+    var map: [AnyHashable: Int] = [:]
 }

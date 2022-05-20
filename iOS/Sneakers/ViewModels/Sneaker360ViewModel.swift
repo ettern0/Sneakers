@@ -16,7 +16,7 @@ class Sneaker360ViewModel: ObservableObject {
     init() {
         self.images.removeAll()
         self.active = nil
-        
+
         fetchImages(forURLs: urls) { images in
             var buffer: [UIImage] = []
             images.sorted(by: { $0 < $1 }).forEach { image in
@@ -40,7 +40,7 @@ class Sneaker360ViewModel: ObservableObject {
         let group = DispatchGroup()
         var images: [ImageURL] = []
 
-        for (_, urlString) in urls.enumerated() {
+        for urlString in urls {
             group.enter()
             DispatchQueue.global().async {
                 var image: UIImage?

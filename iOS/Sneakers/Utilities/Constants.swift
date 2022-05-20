@@ -13,5 +13,5 @@ enum Constants {
 
 enum Endpoints {
     static let all = "sneakers/all"
-    static let portion = "sneakers/portion"
+    static let portion = "sneakers/portion/20"
 }

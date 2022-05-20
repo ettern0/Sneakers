@@ -11,7 +11,7 @@ import NukeUI
 struct SneakerDetailView: View {
     var sneaker: Sneaker
     var animation: Namespace.ID
-    @EnvironmentObject var sharedData: SharedDataModel
+    @EnvironmentObject var viewModel: SneakersViewModel
     @State var show360: Bool = false
 
     var body: some View {
@@ -27,7 +27,7 @@ struct SneakerDetailView: View {
                     .offset(y: -proxy.frame(in: .global).minY)
                     .onTapGesture {
                         withAnimation(.easeInOut) {
-                            sharedData.showDetailProduct = false
+                            viewModel.showDetail = false
                         }
                     }
             }
@@ -43,7 +43,7 @@ struct SneakerDetailView: View {
 
     private struct SneakerDescriptionView: View {
         let sneaker: Sneaker
-        @EnvironmentObject var sharedData: SharedDataModel
+        @EnvironmentObject var viewModel: SneakersViewModel
         @Binding var show360: Bool
 
         var body: some View {
@@ -51,7 +51,7 @@ struct SneakerDetailView: View {
                 HStack {
                     Button {
                         withAnimation(.easeInOut) {
-                            sharedData.showDetailProduct = false
+                            viewModel.showDetail = false
                         }
                     } label: {
                         Image(systemName: "arrow.left")

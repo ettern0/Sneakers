@@ -67,7 +67,7 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
 
 struct Home: View {
 
-    @StateObject var viewModel: SneakersListViewModel = SneakersListViewModel()
+    @StateObject var viewModel: SneakersViewModel = SneakersViewModel()
     @State var currentIndex: Int = 0
 
     @StateObject var page: Page = .first()

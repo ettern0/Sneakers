@@ -39,7 +39,7 @@ struct View360: View {
         } else {
             index += 1
         }
-        if index > viewModel.images.count - 1{
+        if index > viewModel.images.count - 1 {
             index = 0
         } else if index < 0 {
             index = viewModel.images.count - 1
@@ -47,5 +47,3 @@ struct View360: View {
         viewModel.active = viewModel.images[index]
     }
 }
-
-

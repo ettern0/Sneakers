@@ -10,13 +10,11 @@ import NukeUI
 import SwiftUIPager
 
 struct SneakersListView: View {
-    @StateObject var viewModel = SneakersListViewModel()
-    @StateObject var sharedData = SharedDataModel()
+    @StateObject var viewModel = SneakersViewModel()
     @StateObject var page: Page = .first()
     @Namespace var animation
 
     var body: some View {
-
         ZStack {
             // MARK: The carausel of sneakers
             Pager(page: page, data: viewModel.sneakers) { sneaker in
@@ -28,8 +26,8 @@ struct SneakersListView: View {
                             .matchedGeometryEffect(id: sneaker.id, in: animation)
                             .onTapGesture {
                                 withAnimation(Animation.easeInOut(duration: 0.3)) {
-                                    sharedData.detail = sneaker
-                                    sharedData.showDetailProduct = true
+                                    viewModel.detail = sneaker
+                                    viewModel.showDetail = true
                                 }
                             }
                     }
@@ -40,14 +38,14 @@ struct SneakersListView: View {
             .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
             .interactive(rotation: true)
             .interactive(scale: 0.5)
-            .opacity(sharedData.showDetailProduct ? 0 : 1)
+            .opacity(viewModel.showDetail ? 0 : 1)
 
             // MARK: Details of sneaker
-            if let sneaker = sharedData.detail, sharedData.showDetailProduct {
+            if let sneaker = viewModel.detail, viewModel.showDetail {
                 SneakerDetailView(sneaker: sneaker, animation: animation)
                     .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
                     .zIndex(1)
-                    .environmentObject(sharedData)
+                    .environmentObject(viewModel)
             }
         }
         .onAppear {
