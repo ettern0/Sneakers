@@ -53,6 +53,17 @@ final class Sneaker: Model, Content {
     @Field(key: "year")
     var year: String
 
+    @Field(key: "resellLinkStockX")
+    var resellLinkStockX: String
+
+    @Field(key: "resellLinkStadiumGoods")
+    var resellLinkStadiumGoods: String
+
+    @Field(key: "resellLinkGoat")
+    var resellLinkGoat: String
+
+    @Field(key: "resellLinkFlightClub")
+    var resellLinkFlightClub: String
 
     init() { }
 
@@ -77,6 +88,10 @@ extension Sneaker {
         self.secondaryCategory = sneakerDTO.secondaryCategory
         self.releaseDate = sneakerDTO.releaseDate
         self.year = sneakerDTO.year
+        self.resellLinkStockX = sneakerDTO.resellLinkStockX
+        self.resellLinkStadiumGoods = sneakerDTO.resellLinkStadiumGoods
+        self.resellLinkGoat = sneakerDTO.resellLinkGoat
+        self.resellLinkFlightClub = sneakerDTO.resellLinkFlightClub
     }
 
     func update(with sneakerDTO: SneakerDTO) {
@@ -93,5 +108,9 @@ extension Sneaker {
         self.secondaryCategory = sneakerDTO.secondaryCategory
         self.releaseDate = sneakerDTO.releaseDate
         self.year = sneakerDTO.year
+        self.resellLinkStockX = sneakerDTO.resellLinkStockX
+        self.resellLinkStadiumGoods = sneakerDTO.resellLinkStadiumGoods
+        self.resellLinkGoat = sneakerDTO.resellLinkGoat
+        self.resellLinkFlightClub = sneakerDTO.resellLinkFlightClub
     }
 }
