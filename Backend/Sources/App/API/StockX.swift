@@ -43,6 +43,7 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
 
             var retailPrice: Double = 0
             var thumbnail: String = ""
+            var resellLinkStockX: String = ""
 
             if let traits = el["searchable_traits"], let dict = traits as? [String:Any] {
                 retailPrice = dict["Retail Price"] as? Double ?? 0
@@ -50,6 +51,10 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
 
             if let traits = el["media"], let dict = traits as? [String:Any] {
                 thumbnail = dict["imageUrl"] as? String ?? ""
+            }
+
+            if let url = el["url"] {
+                resellLinkStockX = "https://stockx.com/'\(url)"
             }
 
             let sneaker = SneakerDTO(shoeName: el["name"] as? String ?? "",
@@ -63,7 +68,7 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
                                   urlKey: el["url"] as? String ?? "",
                                   make: el["make"] as? String ?? "",
                                   colorway: el["colorway"] as? String ?? "",
-                                  resellLinkStockX: el["url"] as? String ?? "",
+                                  resellLinkStockX: resellLinkStockX,
                                   lowestResellPriceStockX: el["lowest_ask"] as? String ?? "")
             sneakers.append(sneaker)
         }
@@ -77,7 +82,7 @@ func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO {
     let request = URLRequest(url: requestUrl)
     let (data, _) = try await URLSession.shared.data(for: request)
 
-    var prices: [SneakerDTO.ResellPrice] = []
+    var resellPrices: [SneakerDTO.ResellPrice] = []
 
     do {
         let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
@@ -92,7 +97,7 @@ func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO {
                let size = value["shoeSize"] as? String,
                let market = value["market"] as? [String:Any],
                let price = market["lowestAsk"] as? Double {
-                prices.append(SneakerDTO.ResellPrice(size: size, price: price))
+                resellPrices.append(SneakerDTO.ResellPrice(size: size, price: price))
             }
         }
 
@@ -111,6 +116,7 @@ func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO {
                                 primaryCategory: primaryCategory,
                                 secondaryCategory: secondaryCategory,
                                 year: year,
+                                resellPricesStockX: resellPrices,
                                 images360: image360 ?? [""])
         return result
     }
