@@ -28,6 +28,7 @@ func getProductData(keyWord: String, page:Int = 1, count: Int) async throws -> [
             sneakers[i].releaseDate = data.releaseDate
             sneakers[i].year = data.year
             sneakers[i].images360 = data.images360
+            sneakers[i].resellPricesStockX = data.resellPricesStockX
 
             //MARK: TODO additional, comment false
             if false {
