@@ -28,6 +28,8 @@ struct CreateSneaker: AsyncMigration {
             .field("resellLinkStadiumGoods", .string)
             .field("resellLinkGoat", .string)
             .field("resellLinkFlightClub", .string)
+            .field("has360", .bool)
+            .field("detailsDownloaded", .bool)
             .create()
     }
 

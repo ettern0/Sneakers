@@ -7,6 +7,7 @@
 
 import Fluent
 import Vapor
+import Foundation
 
 extension Sequence {
     func asyncMap<T>(
@@ -27,6 +28,7 @@ struct SneakersController: RouteCollection {
         let sneakers = routes.grouped("sneakers")
         sneakers.get("all", use: all)
         sneakers.get("portion", ":count", use: portion)
+        sneakers.get("portion", use: portion) // With query parameter "id"
         sneakers.get("360", ":id", use: get360)
         sneakers.post("create", use: create)
         sneakers.group(":sneakerID") { sneaker in
@@ -39,18 +41,46 @@ struct SneakersController: RouteCollection {
     }
 
     private func portion(req: Request) async throws -> [SneakerDTO] {
-        let count_p = req.parameters.get("count")
-        let count = Int(count_p ?? "") ?? 20//default value
-        let sneakers = try await Sneaker.query(on: req.db).limit(count).all()
-        let result: [SneakerDTO] = try await sneakers.asyncMap { sneaker in
-            var item = SneakerDTO(from: sneaker)
-            if let id = sneaker.id?.uuidString {
-                req.parameters.set("id", to: id)
-                item.images360 = try await get360(req: req).map(\.image)
+        if let count_p = req.parameters.get("count") {
+            let count = Int(count_p) ?? 20 // default value
+            let sneakers = try await Sneaker.query(on: req.db).limit(count).all()
+            let result: [SneakerDTO] = try await sneakers.asyncMap { sneaker in
+                var item = SneakerDTO(from: sneaker)
+                if let id = sneaker.id?.uuidString {
+                    req.parameters.set("id", to: id)
+                    item.images360 = try await get360(req: req).map(\.image)
+                }
+                return item
             }
-            return item
+            return result
+        } else if let ids_p =  req.query[[String].self, at: "id"] {
+            let sneakers = try await Sneaker.query(on: req.db)
+                .filter(\.$idStockX ~~ ids_p)
+                .all()
+            let result: [SneakerDTO] = try await sneakers.asyncMap { sneaker in
+                var item = SneakerDTO(from: sneaker)
+                if let id = sneaker.id?.uuidString {
+                    req.parameters.set("id", to: id)
+                    var images360 = try await get360(req: req).map(\.image)
+
+                    if images360.isEmpty {
+                        if let data = try await getProductInfoFromStockX(urlKey: sneaker.idStockX) {
+                            try await create360(
+                                req: req,
+                                sneakerID: sneaker.id,
+                                images: data.images360
+                            )
+                            images360 = try await get360(req: req).map(\.image)
+                    }
+                }
+                item.images360 = images360
+            }
+                return item
+            }
+            return result
+        } else {
+            return []
         }
-        return result
     }
 
     private func get360(req: Request) async throws -> [Sneaker360Presentation] {
@@ -60,16 +90,16 @@ struct SneakersController: RouteCollection {
     }
 
     private func create(req: Request) async throws -> HTTPStatus {
-        var count = 100
+//        var count = 900
         var page = 1
-        while count > 0 {
-            let sneakers = try await getProductData(keyWord: "", page: page, count: 100)
+//        while count > 0 {
+            let sneakers = try await getProductData(keyWord: "", page: page, count: 10000)
             for i in 0..<sneakers.count {
                 try await handleSneaker(with: sneakers[i], req: req)
             }
-            count = sneakers.count
-            page += 1
-        }
+//            count = sneakers.count
+//            page += 1
+//        }
         return .ok
     }
 
@@ -81,18 +111,12 @@ struct SneakersController: RouteCollection {
             //update info in main table
             sneaker.update(with: sneakerDTO)
             //Rewrite 360 representation
-            try await delete360(req: req, id: sneaker.id)
+            try await delete360(req: req, sneakerID: sneaker.id)
             try await create360(req: req, sneakerID: sneaker.id, images: sneakerDTO.images360)
 
             //Rewrite prices
-            try await deleteSizeAndPrices(req: req, id: sneaker.id)
+            try await deleteSizeAndPrices(req: req, sneakerID: sneaker.id)
             try await createSizeAndPrices(req: req, sneakerID: sneaker.id, data: sneakerDTO.resellPricesStockX, shop: Shop.stockX)
-
-            for i in 0..<sneakerDTO.images360.count {
-                let image = sneakerDTO.images360[i]
-                let sneaker360 = Sneaker360Presentation(sneakerID: sneaker.id, image: image)
-                try await sneaker360.create(on: req.db)
-            }
 
         } else {
             let sneaker = Sneaker(sneakerDTO: sneakerDTO)
@@ -110,15 +134,15 @@ struct SneakersController: RouteCollection {
         return .ok
     }
 
-    private func delete360(req: Request, id: UUID?) async throws -> Void {
+    private func delete360(req: Request, sneakerID: UUID?) async throws -> Void {
         try await Sneaker360Presentation.query(on: req.db)
-            .filter(\.$sneakerID == id)
+            .filter(\.$sneakerID == sneakerID)
             .delete(force: true)
     }
 
-    private func deleteSizeAndPrices(req: Request, id: UUID?) async throws -> Void {
-        try await Sneaker360Presentation.query(on: req.db)
-            .filter(\.$sneakerID == id)
+    private func deleteSizeAndPrices(req: Request, sneakerID: UUID?) async throws -> Void {
+        try await SneakerSizeAndPrice.query(on: req.db)
+            .filter(\.$sneakerID == sneakerID)
             .delete(force: true)
     }
 

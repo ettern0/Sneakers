@@ -15,20 +15,9 @@ import FoundationNetworking
 func getProductData(keyWord: String, page:Int = 1, count: Int) async throws -> [SneakerDTO] {
 
     do {
-        var sneakers = try await getDataFromStockX(keyWord: keyWord, page: page, count: count)
+        var detailDownloadIsApproved = true
+        var sneakers = try await getDataFromStockX(keyWord: keyWord, page: page, count: count, detailDownloadIsApproved: &detailDownloadIsApproved)
         for i in 0..<sneakers.count {
-
-            //MARK: get 360 representation from stockX
-            let data = try await getProductInfoFromStockX(urlKey: sneakers[i].urlKey)
-            sneakers[i].brand = data.brand
-            sneakers[i].condition = data.condition
-            sneakers[i].countryOfManufacture = data.countryOfManufacture
-            sneakers[i].primaryCategory = data.primaryCategory
-            sneakers[i].secondaryCategory = data.secondaryCategory
-            sneakers[i].releaseDate = data.releaseDate
-            sneakers[i].year = data.year
-            sneakers[i].images360 = data.images360
-            sneakers[i].resellPricesStockX = data.resellPricesStockX
 
             //MARK: TODO additional, comment false
             if false {

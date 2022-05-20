@@ -42,8 +42,8 @@ func getDataFromStadiumgoods(styleID: String) async throws -> ResponseFromSecond
     let (data, _) = try await URLSession.shared.data(for: request)
 
     do {
-        let jsonString = String(data: data, encoding: String.Encoding.utf8) ?? ""
-        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
+        //let jsonString = String(data: data, encoding: String.Encoding.utf8) ?? ""
+        //let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
     }
     return ResponseFromSecondaryAPI()
 }

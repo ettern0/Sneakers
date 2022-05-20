@@ -10,7 +10,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws -> [SneakerDTO] {
+func getDataFromStockX(keyWord: String, page: Int = 1, count: Int, detailDownloadIsApproved: inout Bool) async throws -> [SneakerDTO] {
     var sneakers: [SneakerDTO] = []
     let url = URL(string: "https://xw7sbct9v6-1.algolianet.com/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.32.1&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6b5e76b49705eb9f51a06d3c82f7acee")
     guard let requestUrl = url else { fatalError() }
@@ -24,7 +24,8 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
     request.setValue("sec-fetch-mode", forHTTPHeaderField: "cors")
     request.setValue("sec-fetch-site", forHTTPHeaderField: "cross-site")
 
-    let postString = "{\"params\":\"query=\(keyWord)&facets=*&filters=&page=\(page)&hitsPerPage=\(count)\"}"
+    //let postString = "{\"params\":\"query=\(keyWord)&facets=*&filters=&page=\(page)&hitsPerPage=\(count)\"}"
+    let postString = "{\"params\":\"query=\(keyWord)&facets=*&filters=&hitsPerPage=\(count)\"}"
     request.httpBody = postString.data(using: String.Encoding.utf8);
 
     let (data, _) = try await URLSession.shared.data(for: request)
@@ -55,9 +56,9 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
 
             if let url = el["url"] {
                 resellLinkStockX = "https://stockx.com/'\(url)"
-            }
+            }            
 
-            let sneaker = SneakerDTO(shoeName: el["name"] as? String ?? "",
+            var sneaker = SneakerDTO(shoeName: el["name"] as? String ?? "",
                                   brand: el["brand"] as? String ?? "",
                                   silhoutte: el["make"] as? String ?? "",
                                   styleID: el["style_id"] as? String ?? "",
@@ -70,17 +71,43 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int) async throws 
                                   colorway: el["colorway"] as? String ?? "",
                                   resellLinkStockX: resellLinkStockX,
                                   lowestResellPriceStockX: el["lowest_ask"] as? String ?? "")
-            sneakers.append(sneaker)
+
+            do {
+                if detailDownloadIsApproved {
+                    sleep(1)
+                    if let data = try await getProductInfoFromStockX(urlKey: sneaker.urlKey) {
+                        sneaker.detailsDownloaded = true
+                        sneaker.brand = data.brand
+                        sneaker.condition = data.condition
+                        sneaker.countryOfManufacture = data.countryOfManufacture
+                        sneaker.primaryCategory = data.primaryCategory
+                        sneaker.secondaryCategory = data.secondaryCategory
+                        sneaker.releaseDate = data.releaseDate
+                        sneaker.year = data.year
+                        sneaker.images360 = data.images360
+                        sneaker.has360 = data.has360
+                        sneaker.resellPricesStockX = data.resellPricesStockX
+                    } else {
+                        detailDownloadIsApproved = false
+                    }
+                }
+                sneakers.append(sneaker)
+            } catch {
+                print("Fetching product details failed with error \(error)")
+            }
         }
         return sneakers
+    } catch {
+        print("Fetching images failed with error \(error)")
+        return []
     }
 }
 
-func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO {
+func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO? {
     let url = URL(string: "https://stockx.com/api/products/\(urlKey)?includes=market")
     guard let requestUrl = url else { fatalError() }
     let request = URLRequest(url: requestUrl)
-    let (data, _) = try await URLSession.shared.data(for: request)
+    let (data, response) = try await URLSession.shared.data(for: request)
 
     var resellPrices: [SneakerDTO.ResellPrice] = []
 
@@ -88,7 +115,7 @@ func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO {
         let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
         let info = json?["Product"] as? [String: Any]
         let media = info?["media"] as? [String:Any]
-        let has360 = media?["has360"] as? Bool
+        let has360 = media?["has360"] as? Bool ?? false
         let image360 = media?["360"] as? [String]
 
         let children = info?["children"] as? [String:Any]
@@ -117,7 +144,11 @@ func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO {
                                 secondaryCategory: secondaryCategory,
                                 year: year,
                                 resellPricesStockX: resellPrices,
-                                images360: image360 ?? [""])
+                                images360: image360 ?? [""],
+                                has360: has360)
         return result
+    } catch {
+        print("Fetching product details failed with error \(error)")
+        return nil
     }
 }

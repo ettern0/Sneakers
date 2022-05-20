@@ -11,7 +11,7 @@ struct CreateSneakerSizeAndPrice: AsyncMigration {
     func prepare(on database: Database) async throws {
         try await database.schema("sneakerSizeAndPrice")
             .id()
-            .field("sneakerID", .string, .required)
+            .field("sneakerID", .uuid, .required)
             .field("shop", .string, .required)
             .field("size", .string, .required)
             .field("price", .double, .required)

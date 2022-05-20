@@ -65,6 +65,12 @@ final class Sneaker: Model, Content {
     @Field(key: "resellLinkFlightClub")
     var resellLinkFlightClub: String
 
+    @Field(key: "has360")
+    var has360: Bool
+
+    @Field(key: "detailsDownloaded")
+    var detailsDownloaded: Bool
+
     init() { }
 
     init(id: UUID?) {
@@ -92,6 +98,8 @@ extension Sneaker {
         self.resellLinkStadiumGoods = sneakerDTO.resellLinkStadiumGoods
         self.resellLinkGoat = sneakerDTO.resellLinkGoat
         self.resellLinkFlightClub = sneakerDTO.resellLinkFlightClub
+        self.has360 = sneakerDTO.has360
+        self.detailsDownloaded = sneakerDTO.detailsDownloaded
     }
 
     func update(with sneakerDTO: SneakerDTO) {
@@ -112,5 +120,6 @@ extension Sneaker {
         self.resellLinkStadiumGoods = sneakerDTO.resellLinkStadiumGoods
         self.resellLinkGoat = sneakerDTO.resellLinkGoat
         self.resellLinkFlightClub = sneakerDTO.resellLinkFlightClub
+        self.detailsDownloaded = sneakerDTO.detailsDownloaded
     }
 }
