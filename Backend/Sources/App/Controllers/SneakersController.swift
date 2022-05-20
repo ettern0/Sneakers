@@ -44,7 +44,10 @@ struct SneakersController: RouteCollection {
     private func portion(req: Request) async throws -> [SneakerDTO] {
         if let count_p = req.parameters.get("count") {
             let count = Int(count_p) ?? 20 // default value
-            let sneakers = try await Sneaker.query(on: req.db).limit(count).all()
+            let sneakers = try await Sneaker.query(on: req.db)
+                .filter(\.$detailsDownloaded == true)
+                .limit(count)
+                .all()
             let result: [SneakerDTO] = try await sneakers.asyncMap { sneaker in
                 var item = SneakerDTO(from: sneaker)
                 if let id = sneaker.id?.uuidString {
