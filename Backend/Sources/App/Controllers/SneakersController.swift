@@ -26,7 +26,7 @@ struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let sneakers = routes.grouped("sneakers")
         sneakers.get("all", use: all)
-        sneakers.get("portion", use: portion)
+        sneakers.get("portion", ":count", use: portion)
         sneakers.get("360", ":id", use: get360)
         sneakers.post("create", use: create)
         sneakers.group(":sneakerID") { sneaker in
@@ -39,7 +39,9 @@ struct SneakersController: RouteCollection {
     }
 
     private func portion(req: Request) async throws -> [SneakerDTO] {
-        let sneakers = try await Sneaker.query(on: req.db).limit(20).all()
+        let count_p = req.parameters.get("count")
+        let count = Int(count_p ?? "") ?? 20//default value
+        let sneakers = try await Sneaker.query(on: req.db).limit(count).all()
         let result: [SneakerDTO] = try await sneakers.asyncMap { sneaker in
             var item = SneakerDTO(from: sneaker)
             if let id = sneaker.id?.uuidString {
@@ -82,6 +84,10 @@ struct SneakersController: RouteCollection {
             try await delete360(req: req, id: sneaker.id)
             try await create360(req: req, sneakerID: sneaker.id, images: sneakerDTO.images360)
 
+            //Rewrite prices
+            try await deleteSizeAndPrices(req: req, id: sneaker.id)
+            try await createSizeAndPrices(req: req, sneakerID: sneaker.id, data: sneakerDTO.resellPricesStockX, shop: Shop.stockX)
+
             for i in 0..<sneakerDTO.images360.count {
                 let image = sneakerDTO.images360[i]
                 let sneaker360 = Sneaker360Presentation(sneakerID: sneaker.id, image: image)
@@ -90,12 +96,9 @@ struct SneakersController: RouteCollection {
 
         } else {
             let sneaker = Sneaker(sneakerDTO: sneakerDTO)
-
-            //create sneakers main table
             try await sneaker.create(on: req.db)
-            //create 360 represenation
             try await create360(req: req, sneakerID: sneaker.id, images: sneakerDTO.images360)
-
+            try await createSizeAndPrices(req: req, sneakerID: sneaker.id, data: sneakerDTO.resellPricesStockX, shop: Shop.stockX)
         }
     }
 
@@ -113,11 +116,25 @@ struct SneakersController: RouteCollection {
             .delete(force: true)
     }
 
+    private func deleteSizeAndPrices(req: Request, id: UUID?) async throws -> Void {
+        try await Sneaker360Presentation.query(on: req.db)
+            .filter(\.$sneakerID == id)
+            .delete(force: true)
+    }
+
     private func create360(req: Request, sneakerID: UUID?, images: [String]) async throws -> Void {
         for i in 0..<images.count {
             let image = images[i]
-            let sneaker360 = Sneaker360Presentation(sneakerID: sneakerID, image: image)
-            try await sneaker360.create(on: req.db)
+            let item = Sneaker360Presentation(sneakerID: sneakerID, image: image)
+            try await item.create(on: req.db)
         }
     }
+
+    private func createSizeAndPrices(req: Request, sneakerID: UUID?, data: [SneakerDTO.ResellPrice], shop: Shop) async throws -> Void {
+        for index in 0..<data.count {
+            let item = SneakerSizeAndPrice(sneakerID: sneakerID, shop: shop.rawValue, size: data[index].size, price: data[index].price)
+            try await item.create(on: req.db)
+        }
+    }
+
 }
