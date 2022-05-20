@@ -31,6 +31,7 @@ struct SneakersController: RouteCollection {
         sneakers.get("portion", use: portion) // With query parameter "id"
         sneakers.get("360", ":id", use: get360)
         sneakers.post("create", use: create)
+        sneakers.post("update", use: updateDetailInfo)
         sneakers.group(":sneakerID") { sneaker in
             sneaker.delete(use: delete)
         }
@@ -83,6 +84,38 @@ struct SneakersController: RouteCollection {
         }
     }
 
+    private func updateDetailInfo(req: Request) async throws -> String {
+        let sneakers = try await Sneaker.query(on: req.db)
+            .filter(\.$detailsDownloaded == false)
+            .all()
+
+        var count = 0
+
+        for index in 0..<sneakers.count {
+            var item = SneakerDTO(from: sneakers[index])
+            do {
+                if let data = try await getProductInfoFromStockX(urlKey: sneakers[index].idStockX) {
+                    item.detailsDownloaded = true
+                    item.brand = data.brand
+                    item.condition = data.condition
+                    item.countryOfManufacture = data.countryOfManufacture
+                    item.primaryCategory = data.primaryCategory
+                    item.secondaryCategory = data.secondaryCategory
+                    item.releaseDate = data.releaseDate
+                    item.year = data.year
+                    item.images360 = data.images360
+                    item.has360 = data.has360
+                    item.resellPricesStockX = data.resellPricesStockX
+                    try await handleSneaker(with: item, req: req)
+                    count += 1
+                } else {
+                    return ("Updated \(count) from \(sneakers.count)")
+                }
+            }
+        }
+        return ("Updated \(count) from \(sneakers.count)")
+    }
+
     private func get360(req: Request) async throws -> [Sneaker360Presentation] {
         try await Sneaker360Presentation.query(on: req.db)
             .filter(\.$sneakerID == req.parameters.get("id"))
@@ -90,16 +123,10 @@ struct SneakersController: RouteCollection {
     }
 
     private func create(req: Request) async throws -> HTTPStatus {
-//        var count = 900
-        var page = 1
-//        while count > 0 {
-            let sneakers = try await getProductData(keyWord: "", page: page, count: 10000)
-            for i in 0..<sneakers.count {
-                try await handleSneaker(with: sneakers[i], req: req)
-            }
-//            count = sneakers.count
-//            page += 1
-//        }
+        let sneakers = try await getProductData(keyWord: "", count: 10000)
+        for i in 0..<sneakers.count {
+            try await handleSneaker(with: sneakers[i], req: req)
+        }
         return .ok
     }
 
@@ -107,13 +134,11 @@ struct SneakersController: RouteCollection {
         if let sneaker = try await Sneaker.query(on: req.db)
             .filter(\.$idStockX == sneakerDTO.urlKey)
             .first() {
-
             //update info in main table
             sneaker.update(with: sneakerDTO)
             //Rewrite 360 representation
             try await delete360(req: req, sneakerID: sneaker.id)
             try await create360(req: req, sneakerID: sneaker.id, images: sneakerDTO.images360)
-
             //Rewrite prices
             try await deleteSizeAndPrices(req: req, sneakerID: sneaker.id)
             try await createSizeAndPrices(req: req, sneakerID: sneaker.id, data: sneakerDTO.resellPricesStockX, shop: Shop.stockX)
@@ -147,18 +172,20 @@ struct SneakersController: RouteCollection {
     }
 
     private func create360(req: Request, sneakerID: UUID?, images: [String]) async throws -> Void {
-        for i in 0..<images.count {
-            let image = images[i]
-            let item = Sneaker360Presentation(sneakerID: sneakerID, image: image)
+        if images.count != 0 {
+            let jsonData = try JSONEncoder().encode(images)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            let item = Sneaker360Presentation(sneakerID: sneakerID, image: jsonString)
             try await item.create(on: req.db)
         }
     }
 
     private func createSizeAndPrices(req: Request, sneakerID: UUID?, data: [SneakerDTO.ResellPrice], shop: Shop) async throws -> Void {
-        for index in 0..<data.count {
-            let item = SneakerSizeAndPrice(sneakerID: sneakerID, shop: shop.rawValue, size: data[index].size, price: data[index].price)
+        if data.count != 0 {
+            let jsonData = try JSONEncoder().encode(data)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            let item = SneakerSizeAndPrice(sneakerID: sneakerID, shop: shop.rawValue, prices: jsonString)
             try await item.create(on: req.db)
         }
     }
-
 }

@@ -12,11 +12,11 @@ import FoundationNetworking
 
 //DD1391-100
 
-func getProductData(keyWord: String, page:Int = 1, count: Int) async throws -> [SneakerDTO] {
+func getProductData(keyWord: String, count: Int) async throws -> [SneakerDTO] {
 
     do {
         var detailDownloadIsApproved = true
-        var sneakers = try await getDataFromStockX(keyWord: keyWord, page: page, count: count, detailDownloadIsApproved: &detailDownloadIsApproved)
+        var sneakers = try await getDataFromStockX(keyWord: keyWord, count: count, detailDownloadIsApproved: &detailDownloadIsApproved)
         for i in 0..<sneakers.count {
 
             //MARK: TODO additional, comment false

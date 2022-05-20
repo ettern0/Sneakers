@@ -23,11 +23,8 @@ final class SneakerSizeAndPrice: Model, Content {
     @Field(key: "shop")
     var shop: String
 
-    @Field(key: "size")
-    var size: String
-
-    @Field(key: "price")
-    var price: Double
+    @Field(key: "prices")
+    var prices: String
 
     init() { }
 
@@ -37,16 +34,14 @@ final class SneakerSizeAndPrice: Model, Content {
 }
 
 extension SneakerSizeAndPrice {
-    convenience init(id: UUID? = nil, sneakerID: UUID? = nil, shop: String, size: String, price: Double) {
+    convenience init(id: UUID? = nil, sneakerID: UUID? = nil, shop: String, prices: String) {
         self.init(id: id)
         self.sneakerID = sneakerID
         self.shop = shop
-        self.size = size
-        self.price = price
+        self.prices = prices
     }
 
-    func update(image: String) {
-        self.size = size
-        self.price = price
+    func update(prices: String) {
+        self.prices = prices
     }
 }

@@ -121,5 +121,6 @@ extension Sneaker {
         self.resellLinkGoat = sneakerDTO.resellLinkGoat
         self.resellLinkFlightClub = sneakerDTO.resellLinkFlightClub
         self.detailsDownloaded = sneakerDTO.detailsDownloaded
+        self.has360 = sneakerDTO.has360
     }
 }

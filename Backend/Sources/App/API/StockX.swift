@@ -10,7 +10,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-func getDataFromStockX(keyWord: String, page: Int = 1, count: Int, detailDownloadIsApproved: inout Bool) async throws -> [SneakerDTO] {
+func getDataFromStockX(keyWord: String, count: Int, detailDownloadIsApproved: inout Bool) async throws -> [SneakerDTO] {
     var sneakers: [SneakerDTO] = []
     let url = URL(string: "https://xw7sbct9v6-1.algolianet.com/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.32.1&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6b5e76b49705eb9f51a06d3c82f7acee")
     guard let requestUrl = url else { fatalError() }
@@ -106,7 +106,8 @@ func getDataFromStockX(keyWord: String, page: Int = 1, count: Int, detailDownloa
 func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO? {
     let url = URL(string: "https://stockx.com/api/products/\(urlKey)?includes=market")
     guard let requestUrl = url else { fatalError() }
-    let request = URLRequest(url: requestUrl)
+    var request = URLRequest(url: requestUrl)
+    request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
     let (data, response) = try await URLSession.shared.data(for: request)
 
     var resellPrices: [SneakerDTO.ResellPrice] = []

@@ -13,8 +13,7 @@ struct CreateSneakerSizeAndPrice: AsyncMigration {
             .id()
             .field("sneakerID", .uuid, .required)
             .field("shop", .string, .required)
-            .field("size", .string, .required)
-            .field("price", .double, .required)
+            .field("prices", .string, .required)
             .create()
     }
 
