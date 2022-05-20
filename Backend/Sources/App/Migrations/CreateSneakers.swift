@@ -24,6 +24,10 @@ struct CreateSneaker: AsyncMigration {
             .field("secondaryCategory", .string, .required)
             .field("releaseDate", .string, .required)
             .field("year", .string, .required)
+            .field("resellLinkStockX", .string, .required)
+            .field("resellLinkStadiumGoods", .string)
+            .field("resellLinkGoat", .string)
+            .field("resellLinkFlightClub", .string)
             .create()
     }
 
