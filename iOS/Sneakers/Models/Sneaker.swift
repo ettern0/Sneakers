@@ -11,13 +11,19 @@ import SwiftUI
 struct Sneaker: Identifiable, Codable, Hashable {
     let id: String
     let thumbnail: String
-    var description: String
-    var shoeName: String
+    let description: String
+    let name: String
+    let brand: String
+    let has360: Bool
+    let images360: [String]
 
     private enum CodingKeys: String, CodingKey {
         case id = "urlKey"
         case thumbnail
         case description
-        case shoeName
+        case name = "shoeName"
+        case brand
+        case has360
+        case images360
     }
 }
