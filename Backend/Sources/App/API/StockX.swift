@@ -107,8 +107,8 @@ func getProductInfoFromStockX(urlKey: String) async throws -> SneakerDTO? {
     let url = URL(string: "https://stockx.com/api/products/\(urlKey)?includes=market")
     guard let requestUrl = url else { fatalError() }
     var request = URLRequest(url: requestUrl)
-    request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
-    let (data, response) = try await URLSession.shared.data(for: request)
+    request.setValue("Mozilla/5.1 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
+    let (data, _) = try await URLSession.shared.data(for: request)
 
     var resellPrices: [SneakerDTO.ResellPrice] = []
 
