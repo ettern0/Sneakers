@@ -97,6 +97,7 @@ struct SneakersController: RouteCollection {
         for index in 0..<sneakers.count {
             var item = SneakerDTO(from: sneakers[index])
             do {
+                sleep(1)
                 if let data = try await getProductInfoFromStockX(urlKey: sneakers[index].idStockX) {
                     item.detailsDownloaded = true
                     item.brand = data.brand
