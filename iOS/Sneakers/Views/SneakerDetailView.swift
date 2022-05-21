@@ -62,19 +62,18 @@ struct SneakerDetailView: View {
                                    proxy.frame(in: .global).minY + imageFrame :
                                     imageFrame)
                             .offset(y: -proxy.frame(in: .global).minY)
-                        HStack {
-                            Spacer()
-                            Button360(show360: $show360)
-                                .frame(width: 36, height: 36, alignment: .trailing)
-                                .padding(.top, safeAreaInsets?.top)
-                                .padding()
-                                .offset(y: -proxy.frame(in: .global).minY)
-                        }
+                            HStack {
+                                Spacer()
+                                Button360(sneaker: sneaker, show360: $show360)
+                                    .frame(width: 36, height: 36, alignment: .trailing)
+                                    .padding(.top, safeAreaInsets?.top)
+                                    .padding()
+                                    .offset(y: -proxy.frame(in: .global).minY)
+                            }
                     }
                 }
                 .onAppear {
-                    // Set first position
-                    yOld = proxy.frame(in: .global).minY
+                    yOld = proxy.frame(in: .global).minY// Set first position
                 }
                 .onChange(of: proxy.frame(in: .global).minY) { minY in
                     if minY >= getRect().height * 0.15 {
@@ -117,15 +116,17 @@ struct SneakerDetailView: View {
         }
 
         private struct Button360: View {
+            let sneaker: Sneaker
             @Binding var show360: Bool
+
             var body: some View {
                 Button {
-                    show360 = true
+                    show360 = sneaker.has360
                 } label: {
                     Image(systemName: "arkit")
                         .resizable()
                         .foregroundColor(.black)
-                        .opacity(0.5)
+                        .opacity(sneaker.has360 ? 0.5 : 0)
                 }
             }
         }
@@ -153,7 +154,6 @@ struct SneakerDetailView: View {
             withAnimation {
                 view360Model.active = view360Model.images[index]
             }
-            print(index)
             return true
         }
     }
