@@ -8,7 +8,7 @@
 import SwiftUI
 import Lottie
 
-struct View360: View {
+struct Sneaker360View: View {
     @StateObject var viewModel: Sneaker360ViewModel = Sneaker360ViewModel()
 
     var body: some View {
@@ -16,15 +16,16 @@ struct View360: View {
                 VStack(spacing: 20) {
                 Image(uiImage: uiImage)
                     .resizable()
-                    .frame(width: getRect().width, height: getRect().width)
+                    .scaledToFit()
+                    .frame(width: getRect().width)
                     .gesture(
                         DragGesture()
                             .onChanged { value in
                                 changeImage(xOld: value.startLocation.x, xNew: value.location.x)
-                            })}
-                LottieView(lottieFile: "lottieSwipe")
-                    .frame(width: getRect().width, height: getRect().height / 10)
-            }
+                            })
+                }
+               SwipeView()
+            } else { UpdateView() }
     }
 
     func changeImage(xOld: CGFloat, xNew: CGFloat) {
