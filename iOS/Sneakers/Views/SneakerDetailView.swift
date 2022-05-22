@@ -20,8 +20,11 @@ struct SneakerDetailView: View {
                 .ignoresSafeArea()
             ScrollView(.vertical, showsIndicators: false) {
                 SneakerHeaderView(sneaker: sneaker, view360Model: view360Model, show360: $show360)
+                    .zIndex(1)
                 SneakerDescriptionView(sneaker: sneaker)
+                    .zIndex(0)
             }
+            .coordinateSpace(name: "DETAILSCROLL")
             .ignoresSafeArea()
             .edgesIgnoringSafeArea(.all)
             .sheet(isPresented: $show360) {
@@ -39,42 +42,43 @@ struct SneakerDetailView: View {
         let rollUpHeight: CGFloat = 5
         let paletteHeight: CGFloat = UIScreen.main.bounds.height * 0.03
         @State var yOld: CGFloat = 0// First y position of geometry reader
-
         let spacing: CGFloat = 10
         var imageFrame: CGFloat {
             UIScreen.main.bounds.width - rollUpHeight - paletteHeight - spacing - (safeAreaInsets?.top ?? 0)
         }
 
+        let maxHeight: CGFloat = UIScreen.main.bounds.width
+        let topBarHeight: CGFloat = UIScreen.main.bounds.height / 10
+        @State var offset: CGFloat = 0
+
         var body: some View {
             GeometryReader { proxy in
-                VStack(spacing: spacing) {
+                VStack {
                     RollUpView()
                         .frame(width: getRect().width / 4, height: rollUpHeight)
                         .padding(.top, safeAreaInsets?.top)
-                        .offset(y: -proxy.frame(in: .global).minY)
-                    PaletteView(addHeader: false)
+                        .opacity(getHeaderOpacity() == 1 ? 1 : 0)
+                    PaletteView(addHeader: false, position: .horizontal)
                         .frame(width: getRect().width * 0.7, height: paletteHeight)
-                        .offset(y: -proxy.frame(in: .global).minY + spacing)
+                        .opacity(getHeaderOpacity() == 1 ? 1 : 0)
                     ZStack(alignment: .top) {
                         SneakerImageView(sneaker: sneaker, view360Model: view360Model)
                             .frame(width: imageFrame,
-                                   height: proxy.frame(in: .global).minY > 0 ?
-                                   proxy.frame(in: .global).minY + imageFrame :
-                                    imageFrame)
-                            .offset(y: -proxy.frame(in: .global).minY)
-                            HStack {
-                                Spacer()
-                                Button360(sneaker: sneaker, show360: $show360)
-                                    .frame(width: 36, height: 36, alignment: .trailing)
-                                    .padding(.top, safeAreaInsets?.top)
-                                    .padding()
-                                    .offset(y: -proxy.frame(in: .global).minY)
-                            }
+                                   height: proxy.frame(in: .global).minY > 0 ? proxy.frame(in: .global).minY + imageFrame : imageFrame)
+                        HStack {
+                            Spacer()
+                            Button360(sneaker: sneaker, show360: $show360)
+                                .frame(width: topBarHeight / 2, height: topBarHeight / 2, alignment: .trailing)
+                                .padding(.top, safeAreaInsets?.top)
+                                .padding()
+                        }
                     }
                 }
-                .onAppear {
-                    yOld = proxy.frame(in: .global).minY// Set first position
-                }
+                .offset(y: -proxy.frame(in: .global).minY)
+                .opacity(getHeaderOpacity())
+                .frame(height: getHeaderHeight())
+                .modifier(OffsetModifier(offset: $offset))
+                .onAppear { yOld = proxy.frame(in: .global).minY }// Set first position
                 .onChange(of: proxy.frame(in: .global).minY) { minY in
                     if minY >= getRect().height * 0.15 {
                         withAnimation(.easeInOut) {
@@ -85,6 +89,28 @@ struct SneakerDetailView: View {
                         yOld = minY
                     }
                 }
+                .background(
+                    ZStack(alignment: .top) {
+                        Color.white
+                            .offset(y: -proxy.frame(in: .global).minY)
+                        HStack(alignment: .center) {
+                            LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
+                                .frame(width: topBarHeight, height: topBarHeight)
+                            VStack(alignment: .leading) {
+                                Text(sneaker.name.capitalized)
+                                PaletteView(addHeader: false, position: .horizontal)
+                                    .frame(width: topBarHeight, height: topBarHeight * 0.1)
+                            }
+                            Spacer()
+                            Button360(sneaker: sneaker, show360: $show360)
+                                .frame(width: topBarHeight / 2, height: topBarHeight / 2)
+                        }
+                        .offset(y: -proxy.frame(in: .global).minY)
+                        .padding(.top, safeAreaInsets?.top)
+                        .padding([.trailing, .leading])
+                        .opacity(getTopBarTitleOpacity())
+                        .animation(.easeInOut, value: offset)
+                    })
             }
             .frame(width: getRect().width, height: getRect().width)
         }
@@ -155,6 +181,25 @@ struct SneakerDetailView: View {
                 view360Model.active = view360Model.images[index]
             }
             return true
+        }
+
+        func getHeaderHeight() -> CGFloat {
+            let topHeight = maxHeight + offset
+            let result = topHeight > topBarHeight ? topHeight : topBarHeight
+            return result
+        }
+
+        func getHeaderOpacity() -> CGFloat {
+            let progress = -offset / 200
+            let opacity = 1 - progress
+            return offset < 0 ? opacity : 1
+        }
+
+        func getTopBarTitleOpacity() -> CGFloat {
+            if getHeaderOpacity() <= 0 {
+               return topBarHeight / getHeaderHeight()
+            }
+            return 0
         }
     }
 
