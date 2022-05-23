@@ -140,6 +140,7 @@ struct SneakersController: RouteCollection {
             .first() {
             //update info in main table
             sneaker.update(with: sneakerDTO)
+            try await sneaker.update(on: req.db)
             //Rewrite 360 representation
             try await delete360(req: req, sneakerID: sneaker.id)
             try await create360(req: req, sneakerID: sneaker.id, images: sneakerDTO.images360)
