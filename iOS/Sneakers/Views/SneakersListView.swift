@@ -11,6 +11,7 @@ import SwiftUIPager
 
 struct SneakersListView: View {
     @StateObject var viewModel = SneakersViewModel.instance
+    @State var showDetails: Bool = false
 
     var body: some View {
         ZStack {
@@ -22,16 +23,21 @@ struct SneakersListView: View {
                     PaletteView(addHeader: true, position: .horizontal)
                         .frame(width: getRect().width * 0.7, height: getRect().height * 0.07)
                     // MARK: The carausel of sneakers
-                    PagerView()
+                    PagerView(showDetail: $showDetails)
                 }
                 .frame(maxHeight: getRect().height / 2)
-
-                // MARK: Details of sneaker
-                if let sneaker = viewModel.detail, viewModel.showDetail {
-                    SneakerDetailView(sneaker: sneaker)
-                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
-                        .zIndex(1)
+                .sheet(isPresented: $showDetails) {
+                    if let sneaker = viewModel.detail {
+                        SneakerDetailView(sneaker: sneaker)
+                    }
                 }
+
+//                // MARK: Details of sneaker
+//                if let sneaker = viewModel.detail, viewModel.showDetail {
+//                    SneakerDetailView(sneaker: sneaker)
+//                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
+//                        .zIndex(1)
+//                }
             } else { UpdateView() }
         }
         .onAppear {
@@ -48,6 +54,7 @@ struct SneakersListView: View {
     struct PagerView: View {
         @StateObject var viewModel = SneakersViewModel.instance
         @StateObject var page: Page = .first()
+        @Binding var showDetail: Bool
 
         var body: some View {
             Pager(page: page, data: viewModel.sneakers) { sneaker in
@@ -62,6 +69,7 @@ struct SneakersListView: View {
                                     withAnimation(Animation.easeInOut(duration: 0.3)) {
                                         viewModel.detail = sneaker
                                         viewModel.showDetail = true
+                                        showDetail = true
                                     }
                                 }
                             VStack(alignment: .leading, spacing: 5) {

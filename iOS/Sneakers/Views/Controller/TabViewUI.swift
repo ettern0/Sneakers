@@ -20,7 +20,7 @@ struct TabView: View {
             Spacer(minLength: 20)
             TabButton(imageName: "camera", systemImage: true, menuName: "Gallery", view: .gallery, active: $active)
         }
-        .padding(.vertical, -10)
+        .padding()
         .padding(.horizontal, 25)
         .background(Color.white)
         .animation(.spring(), value: active)
@@ -48,27 +48,12 @@ struct TabButton: View {
             active = view
         } label: {
             VStack {
-                if view != active {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 20)
-                        .foregroundColor(.black.opacity(0.2))
-                        .padding(.horizontal)
-                } else {
-                    image
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.red)
-                        .clipShape(Circle())
-                        .offset(y: -20)
-                        .padding(.bottom, -20)
-                    Text(menuName).fontWeight(.light)
-                        .font(.system(size: 15))
-                        .foregroundColor(Color.black.opacity(0.7))
-                }
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                    .foregroundColor(.black.opacity(view != active ? 0.2 : 1))
+                    .padding(.horizontal)
             }
         }
     }

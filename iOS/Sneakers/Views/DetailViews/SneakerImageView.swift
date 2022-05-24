@@ -16,12 +16,12 @@ struct SneakerImageView: View {
         if sneaker.has360, let image = view360Model.active {
             Image(uiImage: image)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
         } else if sneaker.has360 {
             UpdateView()
         } else {
             LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
         }
     }
 }
