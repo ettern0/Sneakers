@@ -43,7 +43,7 @@ final class TabBarController: UITabBarController {
 
 struct SearchView: View {
     var body: some View {
-        SneakersListView()
+        ChooseView()
     }
 }
 
