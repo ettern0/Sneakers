@@ -15,7 +15,6 @@ final class SneakersViewModel: ObservableObject {
     @Published var active: Int = 0
     @Published var drag: Float = 0.0
     @Published var detail: Sneaker?
-    @Published var showDetail: Bool = false
 
     func fetchSneakers() async throws {
         let urlString = Constants.baseURL + Endpoints.portion
