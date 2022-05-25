@@ -31,13 +31,6 @@ struct SneakersListView: View {
                         SneakerDetailView(sneaker: sneaker)
                     }
                 }
-
-//                // MARK: Details of sneaker
-//                if let sneaker = viewModel.detail, viewModel.showDetail {
-//                    SneakerDetailView(sneaker: sneaker)
-//                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
-//                        .zIndex(1)
-//                }
             } else { UpdateView() }
         }
         .onAppear {
@@ -68,7 +61,6 @@ struct SneakersListView: View {
                                 .onTapGesture {
                                     withAnimation(Animation.easeInOut(duration: 0.3)) {
                                         viewModel.detail = sneaker
-                                        viewModel.showDetail = true
                                         showDetail = true
                                     }
                                 }
@@ -85,7 +77,6 @@ struct SneakersListView: View {
             .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
             .interactive(rotation: true)
             .interactive(scale: 0.5)
-            .opacity(viewModel.showDetail ? 0 : 1)
         }
     }
 }
