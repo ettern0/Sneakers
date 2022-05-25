@@ -12,20 +12,23 @@ struct Sneaker360View: View {
     @StateObject var viewModel: Sneaker360ViewModel = Sneaker360ViewModel()
 
     var body: some View {
+        VStack {
             if let uiImage = viewModel.active {
                 VStack(spacing: 20) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: getRect().width)
-                    .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                changeImage(xOld: value.startLocation.x, xNew: value.location.x)
-                            })
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: getRect().width)
+
                 }
-               SwipeView()
+                SwipeView()
             } else { UpdateView() }
+        }
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    changeImage(xOld: value.startLocation.x, xNew: value.location.x)
+                })
     }
 
     func changeImage(xOld: CGFloat, xNew: CGFloat) {
