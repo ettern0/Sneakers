@@ -36,13 +36,9 @@ struct SneakerDetailView: View {
         @StateObject var viewModel: SneakersViewModel = SneakersViewModel.instance
         @StateObject var view360Model: Sneaker360ViewModel
         @Binding var show360: Bool
-        let rollUpHeight: CGFloat = 5
-        let paletteHeight: CGFloat = UIScreen.main.bounds.height * 0.03
         @State var yOld: CGFloat = 0// First y position of geometry reader
-        let spacing: CGFloat = 10
-        var imageFrame: CGFloat {
-            UIScreen.main.bounds.width - rollUpHeight - paletteHeight - spacing// - (safeAreaInsets?.top ?? 0)
-        }
+        @State var initialGlobalYPosition: CGFloat = 0 // initial global y position on page
+        let paletteHeight: CGFloat = UIScreen.main.bounds.height * 0.03
 
         let maxHeight: CGFloat = UIScreen.main.bounds.width
         let topBarHeight: CGFloat = UIScreen.main.bounds.height / 10
@@ -62,26 +58,29 @@ struct SneakerDetailView: View {
                         main360Button
                     }
                 }
-                //.offset(y: -proxy.frame(in: .global).minY)
+
                 .opacity(getHeaderOpacity())
-                //.frame(height: getHeaderHeight())
                 .modifier(OffsetModifier(offset: $offset))
-                .onAppear { yOld = proxy.frame(in: .local).minY }// Set first position
-                .onChange(of: proxy.frame(in: .local).minY) { minY in
-                    if minY >= getRect().height * 0.15 {
-                        withAnimation(.easeInOut) { viewModel.showDetail = false }
-                    }
+                .onAppear {
+                    yOld = proxy.frame(in: .global).minY
+                    initialGlobalYPosition = proxy.frame(in: .global).minY
+                }
+                .onChange(of: proxy.frame(in: .global).minY) { minY in
                     if changeImage(yOld: yOld, yNew: minY) { yOld = minY }
                 }
                 .background(
+                    VStack {
                     ZStack(alignment: .top) {
                         Color.white
-                            .offset(y: -proxy.frame(in: .local).minY)
+                            .offset(y: -proxy.frame(in: .global).minY + initialGlobalYPosition)
+                            .frame(maxHeight: topBarHeight)
                         SneakerTopBarView(sneaker: sneaker, height: topBarHeight, show360: $show360, offset: 0)
-                            .offset(y: -proxy.frame(in: .local).minY)
-                            .opacity(getTopBarTitleOpacity())
+                            .offset(y: -proxy.frame(in: .global).minY + initialGlobalYPosition)
                             .animation(.easeInOut, value: offset)
-                    })
+                    }
+                        Spacer()
+                    }.opacity(getTopBarTitleOpacity())
+                )
             }
             .frame(width: getRect().width, height: getRect().width)
         }
@@ -91,22 +90,23 @@ struct SneakerDetailView: View {
                 Spacer()
                 Button360(sneaker: sneaker, show360: $show360)
                     .frame(width: topBarHeight / 2, height: topBarHeight / 2, alignment: .trailing)
-                   // .padding(.top, safeAreaInsets?.top)
-                    .padding()
+                    .padding(.horizontal)
             }
         }
 
         func changeImage(yOld: CGFloat, yNew: CGFloat) -> Bool {
 
-            //guard abs(yOld - yNew) > getRect().height / 100 else { return false }
+
             guard view360Model.images.count != 0 else { return false }
 
-            if yNew <= 0 {
+            if yNew <= initialGlobalYPosition {
                 withAnimation {
                     view360Model.active = view360Model.images[0]
                 }
                 return true
             }
+
+            guard abs(yOld - yNew) > getRect().height / 100 else { return false }
 
             guard yNew > 0 else { return false }
             var index: Int = 0
