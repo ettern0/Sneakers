@@ -12,13 +12,16 @@ struct PaletteView: View {
     let addHeader: Bool
     let position: Axis.Set
 
+    let paletteHeight: CGFloat = 12
+
     var body: some View {
+        GeometryReader {
         VStack(spacing: 10) {
             if addHeader {
                 Text("Your Palette")
             }
             if position == .horizontal {
-                HStack(spacing: 0) {
+                HStack(spacing: 4) {
                     ForEach(viewModel.palette, id: \.self) { color in
                         color
                     }
@@ -32,5 +35,7 @@ struct PaletteView: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+        .frame(width: $0.size.width * 0.6, height: paletteHeight)
+        }
     }
 }
