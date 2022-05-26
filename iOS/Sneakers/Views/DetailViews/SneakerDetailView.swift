@@ -38,17 +38,15 @@ struct SneakerDetailView: View {
         @Binding var show360: Bool
         @State var yOld: CGFloat = 0// First y position of geometry reader
         @State var initialGlobalYPosition: CGFloat = 0 // initial global y position on page
-        let paletteHeight: CGFloat = UIScreen.main.bounds.height * 0.03
-
+        @State var offset: CGFloat = 0
         let maxHeight: CGFloat = UIScreen.main.bounds.width
         let topBarHeight: CGFloat = UIScreen.main.bounds.height / 10
-        @State var offset: CGFloat = 0
 
         var body: some View {
             GeometryReader { proxy in
                 VStack {
                     PaletteView(addHeader: false, position: .horizontal)
-                        .frame(width: getRect().width * 0.6, height: paletteHeight)
+                        .frame(width: getRect().width * 0.6, height: 16)
                         .opacity(getHeaderOpacity() == 1 ? 1 : 0)
                         .padding(.top)
                     ZStack(alignment: .top) {
@@ -58,7 +56,6 @@ struct SneakerDetailView: View {
                         main360Button
                     }
                 }
-
                 .opacity(getHeaderOpacity())
                 .modifier(OffsetModifier(offset: $offset))
                 .onAppear {
@@ -95,8 +92,6 @@ struct SneakerDetailView: View {
         }
 
         func changeImage(yOld: CGFloat, yNew: CGFloat) -> Bool {
-
-
             guard view360Model.images.count != 0 else { return false }
 
             if yNew <= initialGlobalYPosition {
@@ -144,7 +139,7 @@ struct SneakerDetailView: View {
         }
 
         func getTopBarTitleOpacity() -> CGFloat {
-            if getHeaderOpacity() <= 0 {
+            if getHeaderOpacity() <= 0.2 {
                 return topBarHeight / getHeaderHeight()
             }
             return 0
