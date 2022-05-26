@@ -10,12 +10,16 @@ import SwiftUI
 class PaletteViewModel: ObservableObject {
     static let instance = PaletteViewModel()
     @Published var palette: [Color] = []
+    var key: [UInt32] = []
 
     init() {
         if palette.isEmpty {
             for _ in 0..<5 {
                 palette.append(Color.random)
             }
+        }
+        palette.forEach { color in
+            
         }
     }
 }
