@@ -17,4 +17,3 @@ db.sqlite
 .swiftpm
 .env
 *.resolved
-*.pbxproj
