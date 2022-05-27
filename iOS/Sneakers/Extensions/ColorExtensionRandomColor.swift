@@ -16,3 +16,17 @@ extension Color {
         )
     }
 }
+
+
+extension Color {
+    init(rgb: UInt32) {
+        self.init(UIColor(rgb: rgb))
+    }
+}
+
+
+extension Color {
+    var uiColor: UIColor {
+        .init(self)
+    }
+}
