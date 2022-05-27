@@ -44,9 +44,9 @@ class Sneaker360ViewModel: ObservableObject {
         if SneakersViewModel.instance.detail?.images360.count != 0, let images360_str = SneakersViewModel.instance.detail?.images360[0] {
             let data = Data(images360_str.utf8)
             if let images = try? JSONDecoder().decode([String].self, from: data) {
-                for urlString in images {
-                    group.enter()
-                    DispatchQueue.global().async {
+                group.enter()
+                DispatchQueue.global().async {
+                    for urlString in images {
                         var image: UIImage?
                         if let url = URL(string: urlString) {
                             if let data = try? Data(contentsOf: url) {
@@ -56,8 +56,8 @@ class Sneaker360ViewModel: ObservableObject {
                         if let image = image {
                             urls.append(ImageURL(url: urlString, uiImage: image))
                         }
-                        group.leave()
                     }
+                    group.leave()
                 }
             }
         }
