@@ -50,9 +50,6 @@ struct SnapCarousel<Content: View, T: Identifiable>: View {
             .offset(x: (CGFloat(currentIndex) * -itemWidth))
             .gesture(
                 DragGesture()
-//                    .updating($offset, body: { value, out, _ in
-//                        out = value.translation.width
-//                    })
                     .onEnded({ value in
                         let offsetX = value.translation.width
                         let progress = -offsetX / width

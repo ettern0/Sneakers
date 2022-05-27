@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97A28327861008A9A49 /* .swiftlint.yml */; };
 		8897D97D28327867008A9A49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97C28327867008A9A49 /* README.md */; };
+		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
+		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
+		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
 		920D1E2C28393BAF00050935 /* download360.json in Resources */ = {isa = PBXBuildFile; fileRef = 920D1E2B28393BAF00050935 /* download360.json */; };
 		920D1E2E28393FAB00050935 /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920D1E2D28393FAB00050935 /* UpdateView.swift */; };
 		920D1E322839594E00050935 /* ColorExtensionRandomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920D1E312839594E00050935 /* ColorExtensionRandomColor.swift */; };
@@ -32,7 +35,6 @@
 		92714461283A8B93002A05C4 /* TabViewUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714460283A8B93002A05C4 /* TabViewUI.swift */; };
 		92714463283A9D4C002A05C4 /* ControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714462283A9D4C002A05C4 /* ControllerView.swift */; };
 		92714466283A9D9C002A05C4 /* ViewTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714465283A9D9C002A05C4 /* ViewTypeEnum.swift */; };
-		92714469283B808C002A05C4 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714468283B808C002A05C4 /* GalleryView.swift */; };
 		927D440F283577F7001B8ED7 /* Sneaker360View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D440E283577F7001B8ED7 /* Sneaker360View.swift */; };
 		927D4411283578F9001B8ED7 /* Sneaker360ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D4410283578F9001B8ED7 /* Sneaker360ViewModel.swift */; };
 		927D4416283595EA001B8ED7 /* lottieSwipe.json in Resources */ = {isa = PBXBuildFile; fileRef = 927D4415283595EA001B8ED7 /* lottieSwipe.json */; };
@@ -45,11 +47,15 @@
 		92C220B028326B6A00EC7D39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C220AE28326B6A00EC7D39 /* Constants.swift */; };
 		92C220B128326B6A00EC7D39 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C220AF28326B6A00EC7D39 /* HTTPClient.swift */; };
 		92E61626283CF01F00D9AC00 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E61625283CF01F00D9AC00 /* TabViewController.swift */; };
+		92F0AFA8283F788A004EE0E3 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0AFA7283F788A004EE0E3 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8897D97A28327861008A9A49 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
 		8897D97C28327867008A9A49 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
 		920D1E2B28393BAF00050935 /* download360.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = download360.json; sourceTree = "<group>"; };
 		920D1E2D28393FAB00050935 /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		920D1E312839594E00050935 /* ColorExtensionRandomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensionRandomColor.swift; sourceTree = "<group>"; };
@@ -70,7 +76,6 @@
 		92714460283A8B93002A05C4 /* TabViewUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewUI.swift; sourceTree = "<group>"; };
 		92714462283A9D4C002A05C4 /* ControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerView.swift; sourceTree = "<group>"; };
 		92714465283A9D9C002A05C4 /* ViewTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTypeEnum.swift; sourceTree = "<group>"; };
-		92714468283B808C002A05C4 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
 		927D440E283577F7001B8ED7 /* Sneaker360View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sneaker360View.swift; sourceTree = "<group>"; };
 		927D4410283578F9001B8ED7 /* Sneaker360ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sneaker360ViewModel.swift; sourceTree = "<group>"; };
 		927D4415283595EA001B8ED7 /* lottieSwipe.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieSwipe.json; sourceTree = "<group>"; };
@@ -84,6 +89,7 @@
 		92C220AE28326B6A00EC7D39 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		92C220AF28326B6A00EC7D39 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		92E61625283CF01F00D9AC00 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		92F0AFA7283F788A004EE0E3 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,8 @@
 			children = (
 				921B21142833A04200B934C4 /* ViewExtensionGetRect.swift */,
 				920D1E312839594E00050935 /* ColorExtensionRandomColor.swift */,
+				92F0AFA7283F788A004EE0E3 /* UIColorExtension.swift */,
+				9208B9852840F526000866E6 /* UserDefaults.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -131,11 +139,12 @@
 			isa = PBXGroup;
 			children = (
 				92C220A728326B5D00EC7D39 /* SneakerDetailView.swift */,
-				9271445C283A8676002A05C4 /* SneakerImageView.swift */,
 				9271445E283A8780002A05C4 /* SneakerTopBarView.swift */,
+				9271445C283A8676002A05C4 /* SneakerImageView.swift */,
+				9271445A283A864A002A05C4 /* SneakerDescriptionView.swift */,
 				92714455283A85D7002A05C4 /* RollUpView.swift */,
 				92714457283A85FF002A05C4 /* Button360View.swift */,
-				9271445A283A864A002A05C4 /* SneakerDescriptionView.swift */,
+				927D440E283577F7001B8ED7 /* Sneaker360View.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -149,14 +158,6 @@
 				92714465283A9D9C002A05C4 /* ViewTypeEnum.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		92714467283B8072002A05C4 /* GalleryViews */ = {
-			isa = PBXGroup;
-			children = (
-				92714468283B808C002A05C4 /* GalleryView.swift */,
-			);
-			path = GalleryViews;
 			sourceTree = "<group>";
 		};
 		92C2208128326AD500EC7D39 = {
@@ -199,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				92C220A228326B5600EC7D39 /* Sneaker.swift */,
+				9208B989284112B6000866E6 /* SneakerUD.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,9 +210,8 @@
 			children = (
 				9254CFDF283E2AA7005F751C /* ChooseView.swift */,
 				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
-				92714467283B8072002A05C4 /* GalleryViews */,
+				9208B9872840FBD3000866E6 /* FavoritesView.swift */,
 				92714459283A8615002A05C4 /* DetailViews */,
-				927D440E283577F7001B8ED7 /* Sneaker360View.swift */,
 				921B21122833951300B934C4 /* CustomCorners.swift */,
 				922E35412836383200D8A0F9 /* SnapWheelCarousel.swift */,
 				920D1E342839599D00050935 /* PaletteView.swift */,
@@ -347,12 +348,13 @@
 				921B21132833951300B934C4 /* CustomCorners.swift in Sources */,
 				92C220AC28326B6600EC7D39 /* SneakersViewModel.swift in Sources */,
 				92C220A928326B5D00EC7D39 /* SneakerDetailView.swift in Sources */,
+				9208B9862840F526000866E6 /* UserDefaults.swift in Sources */,
 				9271445F283A8780002A05C4 /* SneakerTopBarView.swift in Sources */,
 				92C220B028326B6A00EC7D39 /* Constants.swift in Sources */,
 				92714466283A9D9C002A05C4 /* ViewTypeEnum.swift in Sources */,
-				92714469283B808C002A05C4 /* GalleryView.swift in Sources */,
 				92C220B128326B6A00EC7D39 /* HTTPClient.swift in Sources */,
 				92C2208E28326AD500EC7D39 /* SneakersApp.swift in Sources */,
+				9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */,
 				920D1E322839594E00050935 /* ColorExtensionRandomColor.swift in Sources */,
 				920D1E2E28393FAB00050935 /* UpdateView.swift in Sources */,
 				92C220A828326B5D00EC7D39 /* SneakersListView.swift in Sources */,
@@ -365,8 +367,10 @@
 				92C220A428326B5600EC7D39 /* Sneaker.swift in Sources */,
 				92714461283A8B93002A05C4 /* TabViewUI.swift in Sources */,
 				9271445B283A864A002A05C4 /* SneakerDescriptionView.swift in Sources */,
+				9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */,
 				92714456283A85D7002A05C4 /* RollUpView.swift in Sources */,
 				920D1E352839599D00050935 /* PaletteView.swift in Sources */,
+				92F0AFA8283F788A004EE0E3 /* UIColorExtension.swift in Sources */,
 				92714458283A85FF002A05C4 /* Button360View.swift in Sources */,
 				920D1E37283959DF00050935 /* SwipeView.swift in Sources */,
 				92714463283A9D4C002A05C4 /* ControllerView.swift in Sources */,

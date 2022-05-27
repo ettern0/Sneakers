@@ -20,8 +20,8 @@ struct SneakersListView: View {
             if viewModel.sneakers.count != 0 {
                 VStack {
                     Spacer()
-                    PaletteView(addHeader: true, position: .horizontal)
-                        .frame(width: getRect().width * 0.7, height: getRect().height * 0.07)
+                    PaletteView(viewModel: PaletteViewModel.instance)
+                    .frame(width: getRect().width * 0.7, height: getRect().height * 0.07)
                     // MARK: The carausel of sneakers
                     PagerView(showDetail: $showDetails)
                 }
