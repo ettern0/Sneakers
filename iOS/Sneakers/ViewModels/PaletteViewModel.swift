@@ -8,18 +8,23 @@
 import SwiftUI
 
 class PaletteViewModel: ObservableObject {
-    static let instance = PaletteViewModel()
+    static let instance = PaletteViewModel(from: [])
     @Published var palette: [Color] = []
     var key: [UInt32] = []
 
-    init() {
-        if palette.isEmpty {
-            for _ in 0..<5 {
-                palette.append(Color.random)
+    init(from colors: [UInt32]) {
+        if colors.isEmpty {
+            for _ in 0..<4 {
+                self.key.append(UInt32.random(in: 0...UInt32.max))
             }
+        } else {
+            key = colors
         }
-        palette.forEach { color in
-            
+
+        key.forEach { color in
+
+            let uiColor = UIColor(rgb: color)
+            palette.append(Color(uiColor: uiColor))
         }
     }
 }
