@@ -14,7 +14,7 @@ final class TabBarController: UITabBarController {
         super.init(nibName: nil, bundle: nil)
 
         let searchViewController = UIHostingController<AnyView>(
-            rootView: AnyView(SearchView().ignoresSafeArea())
+            rootView: AnyView(ChooseView().ignoresSafeArea())
         )
         searchViewController.tabBarItem = UITabBarItem(
             title: "Search",
@@ -22,7 +22,9 @@ final class TabBarController: UITabBarController {
             selectedImage: UIImage(systemName: "magnifyingglass")
         )
 
-        let favoritesViewController = FavoritesViewController()
+        let favoritesViewController = UIHostingController<AnyView>(
+            rootView: AnyView(FavoritesView())
+        )
         favoritesViewController.tabBarItem = UITabBarItem(
             title: "Favorites",
             image: UIImage(systemName: "heart"),
@@ -38,18 +40,5 @@ final class TabBarController: UITabBarController {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-struct SearchView: View {
-    var body: some View {
-        ChooseView()
-    }
-}
-
-final class FavoritesViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemOrange
     }
 }
