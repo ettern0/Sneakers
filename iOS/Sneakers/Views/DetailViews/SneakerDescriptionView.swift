@@ -10,6 +10,12 @@ import SwiftUI
 struct SneakerDescriptionView: View {
     let sneaker: Sneaker
     @StateObject var viewModel: SneakersViewModel = SneakersViewModel.instance
+    @State var isFavorite: Bool = false
+
+    init(sneaker: Sneaker) {
+        self.sneaker = sneaker
+        self._isFavorite = State(initialValue: checkStatusUD())
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -21,13 +27,9 @@ struct SneakerDescriptionView: View {
                 }
                 Spacer()
                 Button {
-
+                    changeStatusUD()
                 } label: {
-                    Image(systemName: "heart")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundColor(.red)
-                        .padding(.bottom)
+                    LikeButtonView(isFavorite: isFavorite)
                 }
             }
             Text("Description".capitalized).font(.system(size: 15)).bold().padding(.bottom, 10)
@@ -37,4 +39,61 @@ struct SneakerDescriptionView: View {
         .padding()
         .background(Color.white)
     }
+
+    private struct LikeButtonView: View {
+        let isFavorite: Bool
+        var body: some View {
+            if isFavorite {
+                Image(systemName: "heart.fill")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+                    .foregroundColor(.red)
+                    .padding(.bottom)
+            } else {
+                Image(systemName: "heart")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+                    .foregroundColor(.red)
+                    .padding(.bottom)
+            }
+        }
+    }
+
+    private func changeStatusUD() {
+        let defaults = UserDefaults.standard
+        let palette = PaletteViewModel.instance
+
+        do {
+            var favorites = try defaults.decode([[UInt32]: [SneakerUD]].self, forKey: "favorites")
+            if var collection = favorites[palette.key] {
+                if isFavorite {
+                    collection.removeAll(where: { $0.id == sneaker.id })
+                } else {
+                    collection.append(SneakerUD(from: sneaker))
+                }
+                favorites[palette.key] = collection
+            } else if !isFavorite {
+                favorites[palette.key] = [SneakerUD(from: sneaker)]
+            }
+            try defaults.encode(favorites, forKey: "favorites")
+            isFavorite.toggle()
+        } catch { }
+    }
+
+    private func checkStatusUD() -> Bool {
+        do {
+            let defaults = UserDefaults.standard
+            let favorites = try defaults.decode([[UInt32]: [SneakerUD]].self, forKey: "favorites")
+            let palette = PaletteViewModel.instance
+            if let collection = favorites[palette.key] {
+                if collection.contains(where: { $0.id == sneaker.id }) {
+                    return true
+                }
+            }
+            return false
+        } catch {
+            return false
+        }
+    }
+
 }
