@@ -18,11 +18,9 @@ struct SneakerImageView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         } else if sneaker.has360 {
-//            GeometryReader {
-                ZStack(alignment: .center) {
-                    UpdateView()
-                }//.frame(width: $0.size.width, height: $0.size.height)
-//            }
+            ZStack(alignment: .center) {
+                UpdateView()
+            }
         } else {
             LazyImage(source: sneaker.thumbnail, resizingMode: .aspectFit)
                 .aspectRatio(contentMode: .fit)

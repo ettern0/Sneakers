@@ -26,7 +26,7 @@ struct SneakerDetailView: View {
             }
             .coordinateSpace(name: "DETAILSCROLL")
             .sheet(isPresented: $show360) {
-                Sneaker360View()
+                Sneaker360View(viewModel: view360Model)
             }
         }
     }
@@ -45,15 +45,16 @@ struct SneakerDetailView: View {
         var body: some View {
             GeometryReader { proxy in
                 VStack {
-                    PaletteView(addHeader: false, position: .horizontal)
-                        .frame(width: getRect().width * 0.6, height: 16)
+                    PaletteView(viewModel: PaletteViewModel.instance)
+                        .frame(width: getRect().width / 2, height: 32)
                         .opacity(getHeaderOpacity() == 1 ? 1 : 0)
                         .padding(.top)
                     ZStack(alignment: .top) {
                         SneakerImageView(sneaker: sneaker, view360Model: view360Model)
                             .frame(width: proxy.size.width,
-                                   height: proxy.size.width)
+                                   height: proxy.size.width * 0.8)
                         main360Button
+                            .offset(y: proxy.size.width * 0.2)
                     }
                 }
                 .opacity(getHeaderOpacity())

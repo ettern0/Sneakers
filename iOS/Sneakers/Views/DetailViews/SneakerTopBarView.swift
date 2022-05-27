@@ -20,8 +20,8 @@ struct SneakerTopBarView: View {
                 .frame(width: height, height: height)
             VStack(alignment: .leading, spacing: 0) {
                 Text(sneaker.name.capitalized)
-                PaletteView(addHeader: false, position: .horizontal)
-                    .frame(width: height, height: height * 0.1)
+                PaletteView(viewModel: PaletteViewModel.instance)
+                    .frame(width: height, height: height * 0.2)
             }
             Spacer()
             Button360(sneaker: sneaker, show360: $show360)
