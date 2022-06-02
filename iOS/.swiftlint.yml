@@ -107,6 +107,7 @@ identifier_name:
     - z
     - i
     - up
+    - on
   allowed_symbols: "_"
 
 modifier_order:

@@ -8,15 +8,26 @@
 import UIKit
 import SwiftUI
 
-
 final class TabBarController: UITabBarController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
 
-        let searchViewController = UIHostingController<AnyView>(
-            rootView: AnyView(ChooseView().ignoresSafeArea())
-        )
-        searchViewController.tabBarItem = UITabBarItem(
+        let searchViewController = UIHostingController<AnyView>(rootView: AnyView(Color.white))
+
+        // TODO: Refactor any move this logic to ForkModule.
+        let showSneakers = {
+            let palettePicker = UIHostingController(rootView: PalettePickerView())
+            palettePicker.hidesBottomBarWhenPushed = true
+            searchViewController.navigationController?.pushViewController(palettePicker, animated: true)
+        }
+
+        var chooseView = ChooseView()
+        chooseView.onTapSneakers = showSneakers
+
+        searchViewController.rootView = AnyView(chooseView)
+
+        let searchNavigationController = UINavigationController(rootViewController: searchViewController)
+        searchNavigationController.tabBarItem = UITabBarItem(
             title: "Search",
             image: UIImage(systemName: "magnifyingglass"),
             selectedImage: UIImage(systemName: "magnifyingglass")
@@ -32,7 +43,7 @@ final class TabBarController: UITabBarController {
         )
 
         viewControllers = [
-            searchViewController,
+            searchNavigationController,
             favoritesViewController,
         ]
     }

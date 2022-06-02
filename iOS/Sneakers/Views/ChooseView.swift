@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ChooseView: View {
+    var onTapSneakers: (() -> Void)?
+    var onTapOutfit: (() -> Void)?
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 36) {
@@ -22,38 +25,46 @@ struct ChooseView: View {
                 }
                 .padding(.bottom, 48)
                 .padding(.horizontal, 16)
-                NavigationLinkView(header: "Looking for", endPoint: "Sneakers", destination: AnyView(SneakersListView()))
-                NavigationLinkView(header: "Looking for", endPoint: "Outfit", destination: AnyView(EmptyView()))
+
+                Button {
+                    onTapSneakers?()
+                } label: {
+                    ChooseButtonContent(header: "Looking for", endPoint: "Sneakers")
+                }
+
+                Button {
+                    onTapOutfit?()
+                } label: {
+                    ChooseButtonContent(header: "Looking for", endPoint: "Outfit")
+                }
+
                 Spacer()
             }
         }
     }
 
-    private struct NavigationLinkView: View {
+    private struct ChooseButtonContent: View {
         let header: String
         let endPoint: String
-        let destination: AnyView
 
         var body: some View {
-            NavigationLink(destination: destination) {
-                ZStack(alignment: .top) {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .foregroundColor(.orange)
-                        .frame(maxHeight: getRect().width / 2)
-                        .padding(.horizontal, 16)
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(header)
-                                .font(.system(size: 25))
-                                .foregroundColor(.white)
-                            Text(endPoint)
-                                .font(.system(size: 25))
-                                .bold()
-                                .foregroundColor(.white)
-                        }
-                        .padding([.top, .horizontal], 32)
-                        Spacer()
+            ZStack(alignment: .top) {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .foregroundColor(.orange)
+                    .frame(maxHeight: getRect().width / 2)
+                    .padding(.horizontal, 16)
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(header)
+                            .font(.system(size: 25))
+                            .foregroundColor(.white)
+                        Text(endPoint)
+                            .font(.system(size: 25))
+                            .bold()
+                            .foregroundColor(.white)
                     }
+                    .padding([.top, .horizontal], 32)
+                    Spacer()
                 }
             }
         }

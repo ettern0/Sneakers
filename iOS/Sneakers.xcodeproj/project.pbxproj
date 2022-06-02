@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		881CA5332844E6220092265A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA5322844E6220092265A /* CameraView.swift */; };
+		881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA5352844ED080092265A /* CameraService+Enums.swift */; };
+		881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA5372844ED1D0092265A /* CameraService+Extensions.swift */; };
+		881CA53A2844ED380092265A /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA5392844ED380092265A /* CameraService.swift */; };
+		881CA53C2844ED490092265A /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA53B2844ED490092265A /* ImageResizer.swift */; };
+		881CA53E2844ED670092265A /* PhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA53D2844ED670092265A /* PhotoCaptureProcessor.swift */; };
+		881CA5402844F1940092265A /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA53F2844F1940092265A /* CameraPreview.swift */; };
+		886C26E72844CDA000E91B4E /* PalettePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C26E62844CDA000E91B4E /* PalettePickerView.swift */; };
+		886C26E92844D2A100E91B4E /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C26E82844D2A100E91B4E /* PhotoPicker.swift */; };
+		886C26EC2844D2D800E91B4E /* PickerMediaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C26EB2844D2D800E91B4E /* PickerMediaItems.swift */; };
 		8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97A28327861008A9A49 /* .swiftlint.yml */; };
 		8897D97D28327867008A9A49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97C28327867008A9A49 /* README.md */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
@@ -48,6 +58,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		881CA5322844E6220092265A /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		881CA5352844ED080092265A /* CameraService+Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraService+Enums.swift"; sourceTree = "<group>"; };
+		881CA5372844ED1D0092265A /* CameraService+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraService+Extensions.swift"; sourceTree = "<group>"; };
+		881CA5392844ED380092265A /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		881CA53B2844ED490092265A /* ImageResizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
+		881CA53D2844ED670092265A /* PhotoCaptureProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureProcessor.swift; sourceTree = "<group>"; };
+		881CA53F2844F1940092265A /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		886C26E62844CDA000E91B4E /* PalettePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PalettePickerView.swift; sourceTree = "<group>"; };
+		886C26E82844D2A100E91B4E /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		886C26EB2844D2D800E91B4E /* PickerMediaItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerMediaItems.swift; sourceTree = "<group>"; };
 		8897D97A28327861008A9A49 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
 		8897D97C28327867008A9A49 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
@@ -100,6 +120,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		881CA5342844ED000092265A /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				881CA5352844ED080092265A /* CameraService+Enums.swift */,
+				881CA5372844ED1D0092265A /* CameraService+Extensions.swift */,
+				881CA5392844ED380092265A /* CameraService.swift */,
+				881CA53B2844ED490092265A /* ImageResizer.swift */,
+				881CA53D2844ED670092265A /* PhotoCaptureProcessor.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		886C26EA2844D2C700E91B4E /* PhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				886C26E82844D2A100E91B4E /* PhotoPicker.swift */,
+				886C26EB2844D2D800E91B4E /* PickerMediaItems.swift */,
+			);
+			path = PhotoPicker;
+			sourceTree = "<group>";
+		};
 		920D1E332839595700050935 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,8 +216,8 @@
 				922E353E2835983800D8A0F9 /* LottieView */,
 				927D4415283595EA001B8ED7 /* lottieSwipe.json */,
 				920D1E2B28393BAF00050935 /* download360.json */,
-				8897D97A28327861008A9A49 /* .swiftlint.yml */,
 				8897D97C28327867008A9A49 /* README.md */,
+				8897D97A28327861008A9A49 /* .swiftlint.yml */,
 				92C220AD28326B6A00EC7D39 /* Utilities */,
 				92C220AA28326B6600EC7D39 /* ViewModels */,
 				92C220A528326B5D00EC7D39 /* Views */,
@@ -200,6 +241,11 @@
 			isa = PBXGroup;
 			children = (
 				9254CFDF283E2AA7005F751C /* ChooseView.swift */,
+				886C26E62844CDA000E91B4E /* PalettePickerView.swift */,
+				881CA5322844E6220092265A /* CameraView.swift */,
+				881CA53F2844F1940092265A /* CameraPreview.swift */,
+				881CA5342844ED000092265A /* Camera */,
+				886C26EA2844D2C700E91B4E /* PhotoPicker */,
 				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
 				9208B9872840FBD3000866E6 /* FavoritesView.swift */,
 				92714459283A8615002A05C4 /* DetailViews */,
@@ -335,32 +381,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				881CA53A2844ED380092265A /* CameraService.swift in Sources */,
 				9271445D283A8676002A05C4 /* SneakerImageView.swift in Sources */,
 				921B21132833951300B934C4 /* CustomCorners.swift in Sources */,
+				881CA53C2844ED490092265A /* ImageResizer.swift in Sources */,
 				92C220AC28326B6600EC7D39 /* SneakersViewModel.swift in Sources */,
 				92C220A928326B5D00EC7D39 /* SneakerDetailView.swift in Sources */,
 				9208B9862840F526000866E6 /* UserDefaults.swift in Sources */,
 				9271445F283A8780002A05C4 /* SneakerTopBarView.swift in Sources */,
 				92C220B028326B6A00EC7D39 /* Constants.swift in Sources */,
 				92C220B128326B6A00EC7D39 /* HTTPClient.swift in Sources */,
+				881CA5402844F1940092265A /* CameraPreview.swift in Sources */,
 				92C2208E28326AD500EC7D39 /* SneakersApp.swift in Sources */,
+				881CA5332844E6220092265A /* CameraView.swift in Sources */,
 				9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */,
 				920D1E322839594E00050935 /* ColorExtensionRandomColor.swift in Sources */,
 				920D1E2E28393FAB00050935 /* UpdateView.swift in Sources */,
 				92C220A828326B5D00EC7D39 /* SneakersListView.swift in Sources */,
 				9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */,
 				921B21152833A04200B934C4 /* ViewExtensionGetRect.swift in Sources */,
+				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
 				922E35422836383200D8A0F9 /* SnapWheelCarousel.swift in Sources */,
+				881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */,
 				92E61626283CF01F00D9AC00 /* TabViewController.swift in Sources */,
 				920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */,
 				927D4411283578F9001B8ED7 /* Sneaker360ViewModel.swift in Sources */,
 				92C220A428326B5600EC7D39 /* Sneaker.swift in Sources */,
 				886C26EC2844D2D800E91B4E /* PickerMediaItems.swift in Sources */,
+				886C26E72844CDA000E91B4E /* PalettePickerView.swift in Sources */,
 				9271445B283A864A002A05C4 /* SneakerDescriptionView.swift in Sources */,
 				9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */,
 				92714456283A85D7002A05C4 /* RollUpView.swift in Sources */,
+				881CA53E2844ED670092265A /* PhotoCaptureProcessor.swift in Sources */,
 				920D1E352839599D00050935 /* PaletteView.swift in Sources */,
 				92F0AFA8283F788A004EE0E3 /* UIColorExtension.swift in Sources */,
+				886C26E92844D2A100E91B4E /* PhotoPicker.swift in Sources */,
 				92714458283A85FF002A05C4 /* Button360View.swift in Sources */,
 				920D1E37283959DF00050935 /* SwipeView.swift in Sources */,
 				92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */,
@@ -422,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -476,7 +531,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -494,24 +549,26 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sneakers/Preview Content\"";
-				DEVELOPMENT_TEAM = XJB6H4WXH3;
+				DEVELOPMENT_TEAM = LRQK9CL242;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To take a photo of your outfit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cs193p.ES.Sneakers;
+				PRODUCT_BUNDLE_IDENTIFIER = com.magauran.Sneakers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -526,11 +583,13 @@
 				DEVELOPMENT_TEAM = XJB6H4WXH3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To take a photo of your outfit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -540,7 +599,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
