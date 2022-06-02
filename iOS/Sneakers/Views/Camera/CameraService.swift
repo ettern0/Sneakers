@@ -90,7 +90,7 @@ public class CameraService: NSObject, Identifiable {
     // Communicate with the session and other session objects on this queue.
     let sessionQueue = DispatchQueue(label: "session queue")
 
-    @objc dynamic var videoDeviceInput: AVCaptureDeviceInput!
+    @objc dynamic var videoDeviceInput: AVCaptureDeviceInput?
 
     // MARK: Device Configuration Properties
     let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(
@@ -303,12 +303,13 @@ public class CameraService: NSObject, Identifiable {
 
     /// - Tag: ChangeCamera
     public func changeCamera() {
+        guard let device = self.videoDeviceInput else { return }
         // MARK: Here disable all camera operation related buttons due to configuration is due upon and must not be interrupted
         DispatchQueue.main.async {
             self.isCameraButtonDisabled = true
         }
         sessionQueue.async {
-            let currentVideoDevice = self.videoDeviceInput.device
+            let currentVideoDevice = device.device
             let currentPosition = currentVideoDevice.position
 
             let preferredPosition: AVCaptureDevice.Position
@@ -346,7 +347,7 @@ public class CameraService: NSObject, Identifiable {
 
                     // Remove the existing device input first, because AVCaptureSession doesn't support
                     // simultaneous use of the rear and front cameras.
-                    self.session.removeInput(self.videoDeviceInput)
+                    self.session.removeInput(device)
 
                     if self.session.canAddInput(videoDeviceInput) {
                         NotificationCenter.default.removeObserver(
@@ -364,7 +365,7 @@ public class CameraService: NSObject, Identifiable {
                         self.session.addInput(videoDeviceInput)
                         self.videoDeviceInput = videoDeviceInput
                     } else {
-                        self.session.addInput(self.videoDeviceInput)
+                        self.session.addInput(device)
                     }
 
                     if let connection = self.photoOutput.connection(with: .video) {
@@ -423,7 +424,7 @@ public class CameraService: NSObject, Identifiable {
 
 
     public func focus(at focusPoint: CGPoint) {
-        let device = self.videoDeviceInput.device
+        guard let device = self.videoDeviceInput?.device else { return }
         do {
             try device.lockForConfiguration()
             if device.isFocusPointOfInterestSupported {
@@ -505,7 +506,7 @@ public class CameraService: NSObject, Identifiable {
 
     public func set(zoom: CGFloat) {
         let factor = zoom < 1 ? 1 : zoom
-        let device = self.videoDeviceInput.device
+        guard let device = self.videoDeviceInput?.device else { return }
 
         do {
             try device.lockForConfiguration()
@@ -541,7 +542,7 @@ public class CameraService: NSObject, Identifiable {
                     photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
                 }
 
-                if self.videoDeviceInput.device.isFlashAvailable {
+                if self.videoDeviceInput?.device.isFlashAvailable == true {
                     photoSettings.flashMode = self.flashMode
                 }
 
@@ -596,8 +597,9 @@ public class CameraService: NSObject, Identifiable {
 
     /// - Tag: ObserveInterruption
     private func addObservers() {
-        let systemPressureStateObservation = observe(\.videoDeviceInput.device.systemPressureState, options: .new) { _, change in
-            guard let systemPressureState = change.newValue else { return }
+        let systemPressureStateObservation = observe(\.videoDeviceInput?.device.systemPressureState, options: .new) { _, change in
+            guard let changeValue = change.newValue else { return }
+            guard let systemPressureState = changeValue else { return }
             self.setRecommendedFrameRateRangeForPressureState(systemPressureState: systemPressureState)
         }
         keyValueObservations.append(systemPressureStateObservation)
@@ -605,7 +607,7 @@ public class CameraService: NSObject, Identifiable {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(subjectAreaDidChange),
                                                name: .AVCaptureDeviceSubjectAreaDidChange,
-                                               object: videoDeviceInput.device)
+                                               object: videoDeviceInput?.device)
 
         NotificationCenter.default.addObserver(
             self,
@@ -679,6 +681,7 @@ public class CameraService: NSObject, Identifiable {
 
     /// - Tag: HandleSystemPressure
     private func setRecommendedFrameRateRangeForPressureState(systemPressureState: AVCaptureDevice.SystemPressureState) {
+        guard let device = self.videoDeviceInput else { return }
         /*
          The frame rates used here are only for demonstration purposes.
          Your frame rate throttling may be different depending on your app's camera configuration.
@@ -686,11 +689,11 @@ public class CameraService: NSObject, Identifiable {
         let pressureLevel = systemPressureState.level
         if pressureLevel == .serious || pressureLevel == .critical {
             do {
-                try self.videoDeviceInput.device.lockForConfiguration()
+                try device.device.lockForConfiguration()
                 print("WARNING: Reached elevated system pressure level: \(pressureLevel). Throttling frame rate.")
-                self.videoDeviceInput.device.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 20)
-                self.videoDeviceInput.device.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 15)
-                self.videoDeviceInput.device.unlockForConfiguration()
+                device.device.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 20)
+                device.device.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 15)
+                device.device.unlockForConfiguration()
             } catch {
                 print("Could not lock device for configuration: \(error)")
             }
