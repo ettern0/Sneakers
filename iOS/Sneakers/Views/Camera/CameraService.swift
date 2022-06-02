@@ -12,57 +12,6 @@ import Photos
 import UIKit
 
 // MARK: Class Camera Service, handles setup of AVFoundation needed for a basic camera app.
-public struct Photo: Identifiable, Equatable {
-    public var id: String
-    public var originalData: Data
-
-    public init(id: String = UUID().uuidString, originalData: Data) {
-        self.id = id
-        self.originalData = originalData
-    }
-}
-
-public struct AlertError {
-    public var title: String = ""
-    public var message: String = ""
-    public var primaryButtonTitle = "Accept"
-    public var secondaryButtonTitle: String?
-    public var primaryAction: (() -> Void)?
-    public var secondaryAction: (() -> Void)?
-
-    public init(
-        title: String = "",
-        message: String = "",
-        primaryButtonTitle: String = "Accept",
-        secondaryButtonTitle: String? = nil,
-        primaryAction: (() -> Void)? = nil,
-        secondaryAction: (() -> Void)? = nil
-    ) {
-        self.title = title
-        self.message = message
-        self.primaryAction = primaryAction
-        self.primaryButtonTitle = primaryButtonTitle
-        self.secondaryAction = secondaryAction
-    }
-}
-
-extension Photo {
-    public var compressedData: Data? {
-        ImageResizer(targetWidth: 800).resize(data: originalData)?.jpegData(compressionQuality: 0.5)
-    }
-    public var thumbnailData: Data? {
-        ImageResizer(targetWidth: 100).resize(data: originalData)?.jpegData(compressionQuality: 0.5)
-    }
-    public var thumbnailImage: UIImage? {
-        guard let data = thumbnailData else { return nil }
-        return UIImage(data: data)
-    }
-    public var image: UIImage? {
-        guard let data = compressedData else { return nil }
-        return UIImage(data: data)
-    }
-}
-
 public class CameraService: NSObject, Identifiable {
     typealias PhotoCaptureSessionID = String
 
@@ -70,7 +19,6 @@ public class CameraService: NSObject, Identifiable {
 
     @Published public var flashMode: AVCaptureDevice.FlashMode = .off
     @Published public var shouldShowAlertView = false
-    @Published public var shouldShowSpinner = false
 
     @Published public var willCapturePhoto = false
     @Published public var isCameraButtonDisabled = false
@@ -401,7 +349,7 @@ public class CameraService: NSObject, Identifiable {
                     DispatchQueue.main.async {
                         self.alertError = AlertError(
                             title: "Camera Error",
-                            message: "Camera configuration failed. Either your device camera is not available or other application is using it",
+                            message: "Camera configuration failed. Either your device camera is not available or other application is using it", // swiftlint:disable:this line_length
                             primaryButtonTitle: "Accept",
                             secondaryButtonTitle: nil,
                             primaryAction: nil,
@@ -475,26 +423,19 @@ public class CameraService: NSObject, Identifiable {
                         self.willCapturePhoto.toggle()
                     }
                 }, completionHandler: { (photoCaptureProcessor) in
-                    // When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
                     if let data = photoCaptureProcessor.photoData {
                         self.photo = Photo(originalData: data)
-                        print("passing photo")
                     } else {
                         print("No photo data")
                     }
 
                     self.isCameraButtonDisabled = false
 
+                    // When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
                     self.sessionQueue.async {
                         self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = nil
                     }
-                }, photoProcessingHandler: { animate in
-                    // Animates a spinner while photo is processing
-                    if animate {
-                        self.shouldShowSpinner = true
-                    } else {
-                        self.shouldShowSpinner = false
-                    }
+                }, photoProcessingHandler: { _ in
                 })
 
                 // The photo output holds a weak reference to the photo capture delegate and stores it in an array to maintain a strong reference.
