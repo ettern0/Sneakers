@@ -6,76 +6,16 @@
 //
 
 import SwiftUI
-import Combine
-import AVFoundation
-
-final class CameraModel: ObservableObject {
-    private let service = CameraService()
-
-    @Published var photo: Photo!
-
-    @Published var showAlertError = false
-
-    @Published var isFlashOn = false
-
-    @Published var willCapturePhoto = false
-
-    var alertError: AlertError!
-
-    var session: AVCaptureSession
-
-    private var subscriptions = Set<AnyCancellable>()
-
-    init() {
-        self.session = service.session
-
-        service.$photo.sink { [weak self] (photo) in
-            guard let pic = photo else { return }
-            self?.photo = pic
-        }
-        .store(in: &self.subscriptions)
-
-        service.$shouldShowAlertView.sink { [weak self] (val) in
-            self?.alertError = self?.service.alertError
-            self?.showAlertError = val
-        }
-        .store(in: &self.subscriptions)
-
-        service.$flashMode.sink { [weak self] (mode) in
-            self?.isFlashOn = mode == .on
-        }
-        .store(in: &self.subscriptions)
-
-        service.$willCapturePhoto.sink { [weak self] (val) in
-            self?.willCapturePhoto = val
-        }
-        .store(in: &self.subscriptions)
-    }
-
-    func configure() {
-        service.checkForPermissions()
-        service.configure()
-    }
-
-    func capturePhoto() {
-        service.capturePhoto()
-    }
-
-    func zoom(with factor: CGFloat) {
-        service.set(zoom: factor)
-    }
-
-    func switchFlash() {
-        service.flashMode = service.flashMode == .on ? .off : .on
-    }
-}
 
 struct CameraView: View {
     @StateObject var model = CameraModel()
 
     @State var currentZoomFactor: CGFloat = 1.0
 
-    var captureButton: some View {
+    @State private var showGallerySheet: Bool = false
+    @ObservedObject var mediaItems = PickedMediaItems()
+
+    private var captureButton: some View {
         Button {
             model.capturePhoto()
         } label: {
@@ -83,22 +23,26 @@ struct CameraView: View {
         }.buttonStyle(CaptureButtonStyle())
     }
 
-    var capturedPhotoThumbnail: some View {
-        Group {
-            if model.photo != nil {
-                Image(uiImage: model.photo.image!) // swiftlint:disable:this force_unwrapping
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-//                    .animation(.spring())
+    private var galleryButton: some View {
+        Button {
+            showGallerySheet = true
+        } label: {
+            Image("gallery")
+                .tint(.black)
+        }.frame(width: 32, height: 32)
+    }
 
-            } else {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 60, height: 60, alignment: .center)
-                    .foregroundColor(.black)
-            }
-        }
+    private var errorAlert: Alert {
+        Alert(
+            title: Text(model.alertError.title),
+            message: Text(model.alertError.message),
+            dismissButton: .default(
+                Text(model.alertError.primaryButtonTitle),
+                action: {
+                    model.alertError.primaryAction?()
+                }
+            )
+        )
     }
 
     var body: some View {
@@ -137,16 +81,7 @@ struct CameraView: View {
                             model.configure()
                         }
                         .alert(isPresented: $model.showAlertError, content: {
-                            Alert(
-                                title: Text(model.alertError.title),
-                                message: Text(model.alertError.message),
-                                dismissButton: .default(
-                                    Text(model.alertError.primaryButtonTitle),
-                                    action: {
-                                        model.alertError.primaryAction?()
-                                    }
-                                )
-                            )
+                            errorAlert
                         })
                         .overlay(
                             Group {
@@ -162,19 +97,25 @@ struct CameraView: View {
                 }
             }
         }
+        .fullScreenCover(isPresented: $showGallerySheet, content: {
+            PhotoPicker(mediaItems: mediaItems) { _ in
+                showGallerySheet = false
+            }
+            .edgesIgnoringSafeArea(.all)
+        })
     }
 
     @ViewBuilder
     private var bottomPanel: some View {
         HStack(spacing: 0) {
             Group {
-                capturedPhotoThumbnail
+                galleryButton
             }
             .frame(maxWidth: .infinity)
 
             Group {
                 captureButton
-                    .padding(12)
+                    .padding(11)
             }
             .frame(maxWidth: .infinity)
 

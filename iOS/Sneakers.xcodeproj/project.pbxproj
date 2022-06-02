@@ -20,6 +20,7 @@
 		8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97A28327861008A9A49 /* .swiftlint.yml */; };
 		8897D97D28327867008A9A49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97C28327867008A9A49 /* README.md */; };
 		88B4D34F2848CB2000A8366B /* CaptureButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D34E2848CB2000A8366B /* CaptureButtonStyle.swift */; };
+		88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D3502848D1B500A8366B /* CameraModel.swift */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -72,6 +73,7 @@
 		8897D97A28327861008A9A49 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
 		8897D97C28327867008A9A49 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		88B4D34E2848CB2000A8366B /* CaptureButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButtonStyle.swift; sourceTree = "<group>"; };
+		88B4D3502848D1B500A8366B /* CameraModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModel.swift; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				881CA5322844E6220092265A /* CameraView.swift */,
+				88B4D3502848D1B500A8366B /* CameraModel.swift */,
 				88B4D34E2848CB2000A8366B /* CaptureButtonStyle.swift */,
 				881CA53F2844F1940092265A /* CameraPreview.swift */,
 				881CA5352844ED080092265A /* CameraService+Enums.swift */,
@@ -404,6 +407,7 @@
 				9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */,
 				921B21152833A04200B934C4 /* ViewExtensionGetRect.swift in Sources */,
 				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
+				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
 				922E35422836383200D8A0F9 /* SnapWheelCarousel.swift in Sources */,
 				881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */,
 				92E61626283CF01F00D9AC00 /* TabViewController.swift in Sources */,
