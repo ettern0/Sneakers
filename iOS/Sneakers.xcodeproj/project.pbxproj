@@ -19,6 +19,7 @@
 		886C26EC2844D2D800E91B4E /* PickerMediaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C26EB2844D2D800E91B4E /* PickerMediaItems.swift */; };
 		8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97A28327861008A9A49 /* .swiftlint.yml */; };
 		8897D97D28327867008A9A49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97C28327867008A9A49 /* README.md */; };
+		88B4D34F2848CB2000A8366B /* CaptureButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D34E2848CB2000A8366B /* CaptureButtonStyle.swift */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -70,6 +71,7 @@
 		886C26EB2844D2D800E91B4E /* PickerMediaItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerMediaItems.swift; sourceTree = "<group>"; };
 		8897D97A28327861008A9A49 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
 		8897D97C28327867008A9A49 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		88B4D34E2848CB2000A8366B /* CaptureButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButtonStyle.swift; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -123,6 +125,9 @@
 		881CA5342844ED000092265A /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				881CA5322844E6220092265A /* CameraView.swift */,
+				88B4D34E2848CB2000A8366B /* CaptureButtonStyle.swift */,
+				881CA53F2844F1940092265A /* CameraPreview.swift */,
 				881CA5352844ED080092265A /* CameraService+Enums.swift */,
 				881CA5372844ED1D0092265A /* CameraService+Extensions.swift */,
 				881CA5392844ED380092265A /* CameraService.swift */,
@@ -242,8 +247,6 @@
 			children = (
 				9254CFDF283E2AA7005F751C /* ChooseView.swift */,
 				886C26E62844CDA000E91B4E /* PalettePickerView.swift */,
-				881CA5322844E6220092265A /* CameraView.swift */,
-				881CA53F2844F1940092265A /* CameraPreview.swift */,
 				881CA5342844ED000092265A /* Camera */,
 				886C26EA2844D2C700E91B4E /* PhotoPicker */,
 				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
@@ -407,6 +410,7 @@
 				920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */,
 				927D4411283578F9001B8ED7 /* Sneaker360ViewModel.swift in Sources */,
 				92C220A428326B5600EC7D39 /* Sneaker.swift in Sources */,
+				88B4D34F2848CB2000A8366B /* CaptureButtonStyle.swift in Sources */,
 				886C26EC2844D2D800E91B4E /* PickerMediaItems.swift in Sources */,
 				886C26E72844CDA000E91B4E /* PalettePickerView.swift in Sources */,
 				9271445B283A864A002A05C4 /* SneakerDescriptionView.swift in Sources */,

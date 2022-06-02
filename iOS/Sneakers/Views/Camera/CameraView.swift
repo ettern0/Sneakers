@@ -61,10 +61,6 @@ final class CameraModel: ObservableObject {
         service.capturePhoto()
     }
 
-    func flipCamera() {
-        service.changeCamera()
-    }
-
     func zoom(with factor: CGFloat) {
         service.set(zoom: factor)
     }
@@ -80,18 +76,11 @@ struct CameraView: View {
     @State var currentZoomFactor: CGFloat = 1.0
 
     var captureButton: some View {
-        Button(action: {
+        Button {
             model.capturePhoto()
-        }, label: {
-            Circle()
-                .foregroundColor(.white)
-                .frame(width: 80, height: 80, alignment: .center)
-                .overlay(
-                    Circle()
-                        .stroke(Color.black.opacity(0.8), lineWidth: 2)
-                        .frame(width: 65, height: 65, alignment: .center)
-                )
-        })
+        } label: {
+            EmptyView()
+        }.buttonStyle(CaptureButtonStyle())
     }
 
     var capturedPhotoThumbnail: some View {
@@ -112,31 +101,18 @@ struct CameraView: View {
         }
     }
 
-    var flipCameraButton: some View {
-        Button(action: {
-            model.flipCamera()
-        }, label: {
-            Circle()
-                .foregroundColor(Color.gray.opacity(0.2))
-                .frame(width: 45, height: 45, alignment: .center)
-                .overlay(
-                    Image(systemName: "camera.rotate.fill")
-                        .foregroundColor(.white))
-        })
-    }
-
     var body: some View {
         GeometryReader { reader in
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
 
                 VStack {
-                    Button(action: {
+                    Button {
                         model.switchFlash()
-                    }, label: {
+                    } label: {
                         Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
                             .font(.system(size: 20, weight: .medium, design: .default))
-                    })
+                    }
                     .accentColor(model.isFlashOn ? .yellow : .white)
 
                     CameraPreview(session: model.session)
@@ -179,23 +155,37 @@ struct CameraView: View {
                                 }
                             }
                         )
-//                        .animation(.easeInOut)
 
-                    HStack {
-                        capturedPhotoThumbnail
-
-                        Spacer()
-
-                        captureButton
-
-                        Spacer()
-
-                        flipCameraButton
-
-                    }
-                    .padding(.horizontal, 20)
+                    bottomPanel
+                        .padding(.horizontal, 44)
+                        .padding(.bottom, 80)
                 }
             }
         }
+    }
+
+    @ViewBuilder
+    private var bottomPanel: some View {
+        HStack(spacing: 0) {
+            Group {
+                capturedPhotoThumbnail
+            }
+            .frame(maxWidth: .infinity)
+
+            Group {
+                captureButton
+                    .padding(12)
+            }
+            .frame(maxWidth: .infinity)
+
+            Group {
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+        .shadow(radius: 15)
+        .frame(height: 80)
     }
 }
