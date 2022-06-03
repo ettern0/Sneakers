@@ -9,16 +9,23 @@ import SwiftUI
 
 @main
 struct SneakersApp: App {
+    private let router = Router()
+
     var body: some Scene {
         WindowGroup {
             TabBarViewRepresentation()
                 .ignoresSafeArea()
                 .preferredColorScheme(.light)
+                .environmentObject(router)
         }
     }
 }
 
-struct TabBarViewRepresentation: UIViewControllerRepresentable {
+struct TabBarViewRepresentation {
+    @EnvironmentObject private var router: Router
+}
+
+extension TabBarViewRepresentation: UIViewControllerRepresentable {
     typealias UIViewControllerType = TabBarController
 
     func makeUIViewController(context: Context) -> TabBarController {
@@ -32,7 +39,7 @@ struct TabBarViewRepresentation: UIViewControllerRepresentable {
             }
         }
 
-        return TabBarController()
+        return TabBarController(router: router)
     }
 
     func updateUIViewController(_ uiViewController: TabBarController, context: Context) {

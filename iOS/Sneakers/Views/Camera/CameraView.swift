@@ -19,7 +19,7 @@ struct CameraView: View {
     private var captureButton: some View {
         Button {
             model.capturePhoto()
-            router.currentScreen = .sneakers
+            router.push(screen: .sneakers)
         } label: {
             EmptyView()
         }.buttonStyle(CaptureButtonStyle())

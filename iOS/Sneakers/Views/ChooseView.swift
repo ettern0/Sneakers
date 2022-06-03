@@ -26,7 +26,7 @@ struct ChooseView: View {
                 .padding(.horizontal, 16)
 
                 Button {
-                    router.currentScreen = .camera
+                    router.push(screen: .camera)
                 } label: {
                     ChooseButtonContent(header: "Looking for", endPoint: "Sneakers")
                 }
