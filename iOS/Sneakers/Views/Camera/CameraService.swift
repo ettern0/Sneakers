@@ -153,7 +153,7 @@ public class CameraService: NSObject, Identifiable {
          Do not create an AVCaptureMovieFileOutput when setting up the session because
          Live Photo is not supported when AVCaptureMovieFileOutput is added to the session.
          */
-        session.sessionPreset = .photo
+        session.sessionPreset = .hd1920x1080
 
         // Add video input.
         do {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CameraView: View {
+    @EnvironmentObject private var router: Router
     @StateObject var model = CameraModel()
 
     @State var currentZoomFactor: CGFloat = 1.0
@@ -18,6 +19,7 @@ struct CameraView: View {
     private var captureButton: some View {
         Button {
             model.capturePhoto()
+            router.currentScreen = .sneakers
         } label: {
             EmptyView()
         }.buttonStyle(CaptureButtonStyle())
@@ -50,6 +52,39 @@ struct CameraView: View {
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
 
+                CameraPreview(session: model.session)
+                    .edgesIgnoringSafeArea(.all)
+                    .gesture(
+                        DragGesture().onChanged({ (val) in
+                            //  Only accept vertical drag
+                            if abs(val.translation.height) > abs(val.translation.width) {
+                                //  Get the percentage of vertical screen space covered by drag
+                                let percentage: CGFloat = -(val.translation.height / reader.size.height)
+                                //  Calculate new zoom factor
+                                let calc = currentZoomFactor + percentage
+                                //  Limit zoom factor to a maximum of 5x and a minimum of 1x
+                                let zoomFactor: CGFloat = min(max(calc, 1), 5)
+                                //  Store the newly calculated zoom factor
+                                currentZoomFactor = zoomFactor
+                                //  Sets the zoom factor to the capture device session
+                                model.zoom(with: zoomFactor)
+                            }
+                        })
+                    )
+                    .onAppear {
+                        model.configure()
+                    }
+                    .alert(isPresented: $model.showAlertError, content: {
+                        errorAlert
+                    })
+                    .overlay(
+                        Group {
+                            if model.willCapturePhoto {
+                                Color.black
+                            }
+                        }
+                    )
+
                 VStack {
                     Button {
                         model.switchFlash()
@@ -58,42 +93,10 @@ struct CameraView: View {
                             .font(.system(size: 20, weight: .medium, design: .default))
                     }
                     .accentColor(model.isFlashOn ? .yellow : .white)
-
-                    CameraPreview(session: model.session)
-                        .gesture(
-                            DragGesture().onChanged({ (val) in
-                                //  Only accept vertical drag
-                                if abs(val.translation.height) > abs(val.translation.width) {
-                                    //  Get the percentage of vertical screen space covered by drag
-                                    let percentage: CGFloat = -(val.translation.height / reader.size.height)
-                                    //  Calculate new zoom factor
-                                    let calc = currentZoomFactor + percentage
-                                    //  Limit zoom factor to a maximum of 5x and a minimum of 1x
-                                    let zoomFactor: CGFloat = min(max(calc, 1), 5)
-                                    //  Store the newly calculated zoom factor
-                                    currentZoomFactor = zoomFactor
-                                    //  Sets the zoom factor to the capture device session
-                                    model.zoom(with: zoomFactor)
-                                }
-                            })
-                        )
-                        .onAppear {
-                            model.configure()
-                        }
-                        .alert(isPresented: $model.showAlertError, content: {
-                            errorAlert
-                        })
-                        .overlay(
-                            Group {
-                                if model.willCapturePhoto {
-                                    Color.black
-                                }
-                            }
-                        )
-
+                    Spacer()
                     bottomPanel
                         .padding(.horizontal, 44)
-                        .padding(.bottom, 80)
+                        .padding(.bottom, 64)
                 }
             }
         }
@@ -114,8 +117,12 @@ struct CameraView: View {
             .frame(maxWidth: .infinity)
 
             Group {
-                captureButton
-                    .padding(11)
+                NavigationLink { // FIXME: For test
+                    SneakersListView()
+                } label: {
+                    captureButton
+                        .padding(11)
+                }
             }
             .frame(maxWidth: .infinity)
 

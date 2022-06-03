@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ChooseView: View {
-    var onTapSneakers: (() -> Void)?
-    var onTapOutfit: (() -> Void)?
+    @EnvironmentObject private var router: Router
 
     var body: some View {
         NavigationView {
@@ -27,13 +26,13 @@ struct ChooseView: View {
                 .padding(.horizontal, 16)
 
                 Button {
-                    onTapSneakers?()
+                    router.currentScreen = .camera
                 } label: {
                     ChooseButtonContent(header: "Looking for", endPoint: "Sneakers")
                 }
 
                 Button {
-                    onTapOutfit?()
+                    print("Outfit")
                 } label: {
                     ChooseButtonContent(header: "Looking for", endPoint: "Outfit")
                 }
