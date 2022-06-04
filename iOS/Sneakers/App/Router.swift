@@ -33,6 +33,12 @@ enum Tab: CaseIterable {
     case favorites
 }
 
+struct PresentationOptions {
+    static let `default` = PresentationOptions(hidesBottomBarWhenPushed: false)
+
+    let hidesBottomBarWhenPushed: Bool
+}
+
 final class Router: ObservableObject {
     @Published private var currentScreen: Screen = .choose
     @Published private var currentTab: Tab = .search
@@ -45,9 +51,12 @@ final class Router: ObservableObject {
 
     func push(screen: Screen) {
         let nextView = makeView(for: screen)
-        let hostingController = UIHostingController(rootView: nextView)
-        hostingController.hidesBottomBarWhenPushed = true
+        let options = options(for: screen)
+
         let currentRootController = self.viewController(for: currentTab)
+        let hostingController = SneakersHostingController(rootView: nextView)
+        hostingController.hideTabBar = options.hidesBottomBarWhenPushed
+
         currentRootController.pushViewController(hostingController, animated: true)
     }
 
@@ -56,6 +65,17 @@ final class Router: ObservableObject {
             .makeView()
             .environmentObject(self)
         return AnyView(view)
+    }
+
+    private func options(for screen: Screen) -> PresentationOptions {
+        switch screen {
+        case .choose:
+            return .default
+        case .camera:
+            return .init(hidesBottomBarWhenPushed: true)
+        case .sneakers:
+            return .default
+        }
     }
 
     private func viewController(for tab: Tab) -> UINavigationController {
@@ -67,7 +87,7 @@ final class Router: ObservableObject {
         switch tab {
         case .search:
             let view = makeView(for: .choose)
-            let searchViewController = UIHostingController<AnyView>(rootView: view)
+            let searchViewController = SneakersHostingController(rootView: view)
             let searchNavigationController = UINavigationController(rootViewController: searchViewController)
             searchNavigationController.tabBarItem = UITabBarItem(
                 title: "Search",
@@ -77,7 +97,7 @@ final class Router: ObservableObject {
             tabNavigationControllers[tab] = searchNavigationController
             return searchNavigationController
         case .favorites:
-            let favoritesViewController = UIHostingController<AnyView>(
+            let favoritesViewController = SneakersHostingController(
                 rootView: AnyView(FavoritesView())
             )
             let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
@@ -91,3 +111,17 @@ final class Router: ObservableObject {
         }
     }
  }
+
+final class SneakersHostingController: UIHostingController<AnyView> {
+    var hideTabBar: Bool = false
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let tabBar = self.tabBarController?.tabBar else { return }
+        guard let tabBarSuperview = tabBar.superview else { return }
+
+        self.transitionCoordinator?.animateAlongsideTransition(in: tabBar, animation: { _ in
+            tabBar.frame.origin.y = tabBarSuperview.bounds.height - (self.hideTabBar ? 0 : tabBar.bounds.height)
+        })
+    }
+}
