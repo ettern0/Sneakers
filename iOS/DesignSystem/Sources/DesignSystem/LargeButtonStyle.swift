@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct LargeButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
+public struct LargeButtonStyle: ButtonStyle {
+    public init() {}
+
+    public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.system(size: 18).weight(.medium))
             .foregroundColor(.white.opacity(configuration.isPressed ? 0.7 : 1))
