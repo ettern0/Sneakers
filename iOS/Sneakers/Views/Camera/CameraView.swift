@@ -2,7 +2,7 @@
 //  CameraView.swift
 //  Sneakers
 //
-//  Created by Aleksei Salangin on 30.05.2022.
+//  Created by Alexey Salangin on 30.05.2022.
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ struct CameraView: View {
     private var captureButton: some View {
         Button {
             model.capturePhoto()
-            router.push(screen: .sneakers)
+            router.push(screen: .colorPicker)
         } label: {
             EmptyView()
         }.buttonStyle(CaptureButtonStyle())

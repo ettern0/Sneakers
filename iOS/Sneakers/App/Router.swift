@@ -10,9 +10,14 @@ import SwiftUI
 import UIKit
 
 enum Screen {
+    // Search tab
     case choose
     case camera
+    case colorPicker
     case sneakers
+
+    // Favorites tab
+    case favorites
 }
 
 extension Screen {
@@ -22,8 +27,13 @@ extension Screen {
             return AnyView(ChooseView())
         case .camera:
             return AnyView(CameraView())
+        case .colorPicker:
+            return AnyView(ColorPickerView())
         case .sneakers:
             return AnyView(SneakersListView())
+
+        case .favorites:
+            return AnyView(FavoritesView())
         }
     }
 }
@@ -73,7 +83,12 @@ final class Router: NSObject, ObservableObject {
             return .default
         case .camera:
             return .init(hidesBottomBarWhenPushed: true)
+        case .colorPicker:
+            return .default
         case .sneakers:
+            return .default
+
+        case .favorites:
             return .default
         }
     }
@@ -99,7 +114,7 @@ final class Router: NSObject, ObservableObject {
             return searchNavigationController
         case .favorites:
             let favoritesViewController = SneakersHostingController(
-                rootView: AnyView(FavoritesView())
+                rootView: makeView(for: .favorites)
             )
             let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
             favoritesNavigationController.tabBarItem = UITabBarItem(
