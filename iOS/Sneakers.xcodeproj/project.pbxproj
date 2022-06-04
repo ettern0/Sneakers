@@ -36,12 +36,10 @@
 		920D1E352839599D00050935 /* PaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920D1E342839599D00050935 /* PaletteView.swift */; };
 		920D1E37283959DF00050935 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920D1E36283959DF00050935 /* SwipeView.swift */; };
 		920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920D1E39283966C200050935 /* PaletteViewModel.swift */; };
-		921B21132833951300B934C4 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B21122833951300B934C4 /* CustomCorners.swift */; };
 		921B21152833A04200B934C4 /* ViewExtensionGetRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921B21142833A04200B934C4 /* ViewExtensionGetRect.swift */; };
 		921B211B2833BFD500B934C4 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 921B211A2833BFD500B934C4 /* NukeUI */; };
 		922E353D283597B100D8A0F9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 922E353C283597B100D8A0F9 /* Lottie */; };
 		922E35402835984C00D8A0F9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E353F2835984C00D8A0F9 /* LottieView.swift */; };
-		922E35422836383200D8A0F9 /* SnapWheelCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E35412836383200D8A0F9 /* SnapWheelCarousel.swift */; };
 		922E354528365E5800D8A0F9 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 922E354428365E5800D8A0F9 /* SwiftUIPager */; };
 		9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9254CFDF283E2AA7005F751C /* ChooseView.swift */; };
 		92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714453283A5404002A05C4 /* OffsetModifier.swift */; };
@@ -95,10 +93,8 @@
 		920D1E342839599D00050935 /* PaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteView.swift; sourceTree = "<group>"; };
 		920D1E36283959DF00050935 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		920D1E39283966C200050935 /* PaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViewModel.swift; sourceTree = "<group>"; };
-		921B21122833951300B934C4 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
 		921B21142833A04200B934C4 /* ViewExtensionGetRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensionGetRect.swift; sourceTree = "<group>"; };
 		922E353F2835984C00D8A0F9 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		922E35412836383200D8A0F9 /* SnapWheelCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapWheelCarousel.swift; sourceTree = "<group>"; };
 		9254CFDF283E2AA7005F751C /* ChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseView.swift; sourceTree = "<group>"; };
 		92714453283A5404002A05C4 /* OffsetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModifier.swift; sourceTree = "<group>"; };
 		92714455283A85D7002A05C4 /* RollUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollUpView.swift; sourceTree = "<group>"; };
@@ -298,8 +294,6 @@
 				9208B9872840FBD3000866E6 /* FavoritesView.swift */,
 				88B4D35D284BD65D00A8366B /* ColorPicker */,
 				92714459283A8615002A05C4 /* DetailViews */,
-				921B21122833951300B934C4 /* CustomCorners.swift */,
-				922E35412836383200D8A0F9 /* SnapWheelCarousel.swift */,
 				920D1E342839599D00050935 /* PaletteView.swift */,
 				92714464283A9D7A002A05C4 /* TabBarController */,
 			);
@@ -434,7 +428,6 @@
 				88B4D3532848D31500A8366B /* AlertError.swift in Sources */,
 				881CA53A2844ED380092265A /* CameraService.swift in Sources */,
 				9271445D283A8676002A05C4 /* SneakerImageView.swift in Sources */,
-				921B21132833951300B934C4 /* CustomCorners.swift in Sources */,
 				881CA53C2844ED490092265A /* ImageResizer.swift in Sources */,
 				92C220AC28326B6600EC7D39 /* SneakersViewModel.swift in Sources */,
 				88B4D35F284BD66500A8366B /* ColorPickerView.swift in Sources */,
@@ -455,7 +448,6 @@
 				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
 				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
 				88B4D358284A052600A8366B /* Router.swift in Sources */,
-				922E35422836383200D8A0F9 /* SnapWheelCarousel.swift in Sources */,
 				881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */,
 				92E61626283CF01F00D9AC00 /* TabBarController.swift in Sources */,
 				920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */,
