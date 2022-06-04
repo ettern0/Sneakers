@@ -25,6 +25,7 @@
 		88B4D358284A052600A8366B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D357284A052600A8366B /* Router.swift */; };
 		88B4D35A284BB16600A8366B /* SneakerHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */; };
 		88B4D35C284BB33400A8366B /* TabBarViewRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D35B284BB33400A8366B /* TabBarViewRepresentation.swift */; };
+		88B4D361284BD9D500A8366B /* LargeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D360284BD9D500A8366B /* LargeButtonStyle.swift */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -82,6 +83,7 @@
 		88B4D357284A052600A8366B /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerHostingViewController.swift; sourceTree = "<group>"; };
 		88B4D35B284BB33400A8366B /* TabBarViewRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewRepresentation.swift; sourceTree = "<group>"; };
+		88B4D360284BD9D500A8366B /* LargeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButtonStyle.swift; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
 				88B4D358284A052600A8366B /* Router.swift in Sources */,
 				922E35422836383200D8A0F9 /* SnapWheelCarousel.swift in Sources */,
+				88B4D361284BD9D500A8366B /* LargeButtonStyle.swift in Sources */,
 				881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */,
 				92E61626283CF01F00D9AC00 /* TabBarController.swift in Sources */,
 				920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */,
