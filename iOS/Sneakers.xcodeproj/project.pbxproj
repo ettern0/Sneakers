@@ -24,6 +24,7 @@
 		88B4D3552848D3C100A8366B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D3542848D3C100A8366B /* Photo.swift */; };
 		88B4D358284A052600A8366B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D357284A052600A8366B /* Router.swift */; };
 		88B4D35A284BB16600A8366B /* SneakerHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */; };
+		88B4D35C284BB33400A8366B /* TabBarViewRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D35B284BB33400A8366B /* TabBarViewRepresentation.swift */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -58,7 +59,7 @@
 		92C220AC28326B6600EC7D39 /* SneakersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C220AB28326B6600EC7D39 /* SneakersViewModel.swift */; };
 		92C220B028326B6A00EC7D39 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C220AE28326B6A00EC7D39 /* Constants.swift */; };
 		92C220B128326B6A00EC7D39 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C220AF28326B6A00EC7D39 /* HTTPClient.swift */; };
-		92E61626283CF01F00D9AC00 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E61625283CF01F00D9AC00 /* TabViewController.swift */; };
+		92E61626283CF01F00D9AC00 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E61625283CF01F00D9AC00 /* TabBarController.swift */; };
 		92F0AFA8283F788A004EE0E3 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F0AFA7283F788A004EE0E3 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		88B4D3542848D3C100A8366B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		88B4D357284A052600A8366B /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerHostingViewController.swift; sourceTree = "<group>"; };
+		88B4D35B284BB33400A8366B /* TabBarViewRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewRepresentation.swift; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -112,7 +114,7 @@
 		92C220AB28326B6600EC7D39 /* SneakersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SneakersViewModel.swift; sourceTree = "<group>"; };
 		92C220AE28326B6A00EC7D39 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		92C220AF28326B6A00EC7D39 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
-		92E61625283CF01F00D9AC00 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		92E61625283CF01F00D9AC00 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		92F0AFA7283F788A004EE0E3 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,12 +211,13 @@
 			path = DetailViews;
 			sourceTree = "<group>";
 		};
-		92714464283A9D7A002A05C4 /* Controller */ = {
+		92714464283A9D7A002A05C4 /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				92E61625283CF01F00D9AC00 /* TabViewController.swift */,
+				92E61625283CF01F00D9AC00 /* TabBarController.swift */,
+				88B4D35B284BB33400A8366B /* TabBarViewRepresentation.swift */,
 			);
-			path = Controller;
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		92C2208128326AD500EC7D39 = {
@@ -275,7 +278,7 @@
 				921B21122833951300B934C4 /* CustomCorners.swift */,
 				922E35412836383200D8A0F9 /* SnapWheelCarousel.swift */,
 				920D1E342839599D00050935 /* PaletteView.swift */,
-				92714464283A9D7A002A05C4 /* Controller */,
+				92714464283A9D7A002A05C4 /* TabBarController */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -429,7 +432,7 @@
 				88B4D358284A052600A8366B /* Router.swift in Sources */,
 				922E35422836383200D8A0F9 /* SnapWheelCarousel.swift in Sources */,
 				881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */,
-				92E61626283CF01F00D9AC00 /* TabViewController.swift in Sources */,
+				92E61626283CF01F00D9AC00 /* TabBarController.swift in Sources */,
 				920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */,
 				927D4411283578F9001B8ED7 /* Sneaker360ViewModel.swift in Sources */,
 				92C220A428326B5600EC7D39 /* Sneaker.swift in Sources */,
@@ -439,6 +442,7 @@
 				9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */,
 				92714456283A85D7002A05C4 /* RollUpView.swift in Sources */,
 				881CA53E2844ED670092265A /* PhotoCaptureProcessor.swift in Sources */,
+				88B4D35C284BB33400A8366B /* TabBarViewRepresentation.swift in Sources */,
 				920D1E352839599D00050935 /* PaletteView.swift in Sources */,
 				92F0AFA8283F788A004EE0E3 /* UIColorExtension.swift in Sources */,
 				886C26E92844D2A100E91B4E /* PhotoPicker.swift in Sources */,

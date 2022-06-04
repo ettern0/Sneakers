@@ -1,5 +1,5 @@
 //
-//  TabViewCOntroller.swift
+//  TabBarController.swift
 //  Sneakers
 //
 //  Created by Evgeny Serdyukov on 24.05.2022.
@@ -18,6 +18,7 @@ final class TabBarController: UITabBarController {
 
         self.setupViewControllers()
         self.delegate = router
+        self.setupAppearance()
     }
 
     @available(*, unavailable)
@@ -27,5 +28,20 @@ final class TabBarController: UITabBarController {
 
     private func setupViewControllers() {
         viewControllers = router.tabBarViewControllers()
+    }
+
+    private func setupAppearance() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .black
+
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
+        tabBar.tintColor = .white
+
+        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        tabBar.layer.cornerRadius = 4
+        tabBar.layer.cornerCurve = .continuous
+        tabBar.layer.masksToBounds = true
     }
 }

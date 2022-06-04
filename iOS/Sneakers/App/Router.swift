@@ -90,10 +90,11 @@ final class Router: NSObject, ObservableObject {
             let searchViewController = SneakersHostingController(rootView: view)
             let searchNavigationController = UINavigationController(rootViewController: searchViewController)
             searchNavigationController.tabBarItem = UITabBarItem(
-                title: "Search",
-                image: UIImage(systemName: "magnifyingglass"),
-                selectedImage: UIImage(systemName: "magnifyingglass")
+                title: nil,
+                image: UIImage(named: "TabBar/search"),
+                selectedImage: UIImage(named: "TabBar/search")
             )
+            searchNavigationController.tabBarItem.imageInsets = .init(top: 2, left: 0, bottom: 0, right: 0)
             tabNavigationControllers[tab] = searchNavigationController
             return searchNavigationController
         case .favorites:
@@ -102,10 +103,11 @@ final class Router: NSObject, ObservableObject {
             )
             let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
             favoritesNavigationController.tabBarItem = UITabBarItem(
-                title: "Favorites",
-                image: UIImage(systemName: "heart"),
-                selectedImage: UIImage(systemName: "heart")
+                title: nil,
+                image: UIImage(named: "TabBar/favorites"),
+                selectedImage: UIImage(named: "TabBar/favorites")
             )
+            favoritesNavigationController.tabBarItem.imageInsets = .init(top: 2, left: 0, bottom: 0, right: 0)
             tabNavigationControllers[tab] = favoritesNavigationController
             return favoritesNavigationController
         }
