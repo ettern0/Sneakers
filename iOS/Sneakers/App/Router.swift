@@ -28,7 +28,7 @@ extension Screen {
     }
 }
 
-enum Tab: CaseIterable {
+enum Tab: Int, CaseIterable {
     case search
     case favorites
 }
@@ -39,7 +39,7 @@ struct PresentationOptions {
     let hidesBottomBarWhenPushed: Bool
 }
 
-final class Router: ObservableObject {
+final class Router: NSObject, ObservableObject {
     @Published private var currentScreen: Screen = .choose
     @Published private var currentTab: Tab = .search
 
@@ -110,18 +110,12 @@ final class Router: ObservableObject {
             return favoritesNavigationController
         }
     }
- }
+}
 
-final class SneakersHostingController: UIHostingController<AnyView> {
-    var hideTabBar: Bool = false
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let tabBar = self.tabBarController?.tabBar else { return }
-        guard let tabBarSuperview = tabBar.superview else { return }
-
-        self.transitionCoordinator?.animateAlongsideTransition(in: tabBar, animation: { _ in
-            tabBar.frame.origin.y = tabBarSuperview.bounds.height - (self.hideTabBar ? 0 : tabBar.bounds.height)
-        })
+extension Router: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        guard let index = tabBarController.viewControllers?.firstIndex(of: viewController) else { return }
+        guard let tab = Tab(rawValue: index) else { return }
+        self.currentTab = tab
     }
 }

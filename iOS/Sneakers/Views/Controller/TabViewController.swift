@@ -17,6 +17,7 @@ final class TabBarController: UITabBarController {
         super.init(nibName: nil, bundle: nil)
 
         self.setupViewControllers()
+        self.delegate = router
     }
 
     @available(*, unavailable)

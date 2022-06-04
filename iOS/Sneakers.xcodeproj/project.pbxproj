@@ -23,6 +23,7 @@
 		88B4D3532848D31500A8366B /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D3522848D31500A8366B /* AlertError.swift */; };
 		88B4D3552848D3C100A8366B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D3542848D3C100A8366B /* Photo.swift */; };
 		88B4D358284A052600A8366B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D357284A052600A8366B /* Router.swift */; };
+		88B4D35A284BB16600A8366B /* SneakerHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -78,6 +79,7 @@
 		88B4D3522848D31500A8366B /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
 		88B4D3542848D3C100A8366B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		88B4D357284A052600A8366B /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerHostingViewController.swift; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				88B4D357284A052600A8366B /* Router.swift */,
+				88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				920D1E352839599D00050935 /* PaletteView.swift in Sources */,
 				92F0AFA8283F788A004EE0E3 /* UIColorExtension.swift in Sources */,
 				886C26E92844D2A100E91B4E /* PhotoPicker.swift in Sources */,
+				88B4D35A284BB16600A8366B /* SneakerHostingViewController.swift in Sources */,
 				92714458283A85FF002A05C4 /* Button360View.swift in Sources */,
 				920D1E37283959DF00050935 /* SwipeView.swift in Sources */,
 				88B4D3552848D3C100A8366B /* Photo.swift in Sources */,
