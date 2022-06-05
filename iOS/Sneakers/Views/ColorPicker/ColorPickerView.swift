@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
-import DesignSystem
 import UIKit
+
+import DesignSystem
+import CoreUtils
 
 struct ColorPickerView: View {
     let image: UIImage
@@ -41,17 +43,6 @@ struct ColorPickerView: View {
                 .buttonStyle(LargeButtonStyle())
                 .padding(16)
             }
-        }
-    }
-}
-
-extension View {
-    @ViewBuilder
-    func `if`<Content: View>(_ condition: @autoclosure () -> Bool, transform: (Self) -> Content) -> some View {
-        if condition() {
-            transform(self)
-        } else {
-            self
         }
     }
 }
