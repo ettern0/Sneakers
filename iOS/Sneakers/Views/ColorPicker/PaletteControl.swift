@@ -62,6 +62,7 @@ private struct PaletteButtonStyle: ButtonStyle {
                     )
             }
             .opacity(configuration.isPressed ? 0.7 : 1)
+            .opacity(isSelected ? 1 : 0.2)
             .animation(.none, value: configuration.isPressed)
     }
 }
