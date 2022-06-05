@@ -8,6 +8,8 @@
 import SwiftUI
 
 public struct LargeButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled
+
     public init() {}
 
     public func makeBody(configuration: Configuration) -> some View {
@@ -18,7 +20,7 @@ public struct LargeButtonStyle: ButtonStyle {
             .frame(height: 57)
             .background {
                 RoundedRectangle(cornerRadius: 5, style: .continuous)
-                    .foregroundColor(.black)
+                    .foregroundColor(isEnabled ? .black : .init(white: 0.5))
                     .opacity(configuration.isPressed ? 0.7 : 1.0)
             }
     }

@@ -27,6 +27,7 @@
 		88B4D35C284BB33400A8366B /* TabBarViewRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D35B284BB33400A8366B /* TabBarViewRepresentation.swift */; };
 		88B4D35F284BD66500A8366B /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D35E284BD66500A8366B /* ColorPickerView.swift */; };
 		88B4D367284BDADF00A8366B /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D366284BDADF00A8366B /* DesignSystem */; };
+		88B4D369284D58CA00A8366B /* PaletteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D368284D58CA00A8366B /* PaletteControl.swift */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -84,6 +85,7 @@
 		88B4D35B284BB33400A8366B /* TabBarViewRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewRepresentation.swift; sourceTree = "<group>"; };
 		88B4D35E284BD66500A8366B /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		88B4D362284BDA7900A8366B /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
+		88B4D368284D58CA00A8366B /* PaletteControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteControl.swift; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				88B4D35E284BD66500A8366B /* ColorPickerView.swift */,
+				88B4D368284D58CA00A8366B /* PaletteControl.swift */,
 			);
 			path = ColorPicker;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				92C220AC28326B6600EC7D39 /* SneakersViewModel.swift in Sources */,
 				88B4D35F284BD66500A8366B /* ColorPickerView.swift in Sources */,
 				92C220A928326B5D00EC7D39 /* SneakerDetailView.swift in Sources */,
+				88B4D369284D58CA00A8366B /* PaletteControl.swift in Sources */,
 				9208B9862840F526000866E6 /* UserDefaults.swift in Sources */,
 				9271445F283A8780002A05C4 /* SneakerTopBarView.swift in Sources */,
 				92C220B028326B6A00EC7D39 /* Constants.swift in Sources */,

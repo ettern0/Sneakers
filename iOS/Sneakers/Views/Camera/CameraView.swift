@@ -19,7 +19,9 @@ struct CameraView: View {
     private var captureButton: some View {
         Button {
             model.capturePhoto()
-            router.push(screen: .colorPicker)
+            if let image = UIImage(named: "man") {
+                router.push(screen: .colorPicker(image: image))
+            }
         } label: {
             EmptyView()
         }.buttonStyle(CaptureButtonStyle())
