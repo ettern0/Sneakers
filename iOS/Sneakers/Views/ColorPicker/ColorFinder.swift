@@ -24,7 +24,7 @@ final class ColorFinder {
             processedImage = image
         }
 
-        let colors = Array(processedImage.dominantColors().map(\.intValue).prefix(6))
+        let colors = Array(processedImage.dominantColors().map(\.intValue).prefix(4))
         return colors
     }
 }
@@ -62,7 +62,7 @@ extension UIImage {
         filter.setDefaults()
         filter.setValue(img, forKey: "inputImage")
 
-        let context = CIContext(options:nil)
+        let context = CIContext(options: nil)
 
         guard let output = filter.outputImage else { return nil }
         guard let resultCGImage = context.createCGImage(output, from: output.extent) else { return nil }

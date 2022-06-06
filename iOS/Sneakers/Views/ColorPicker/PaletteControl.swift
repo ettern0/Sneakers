@@ -53,16 +53,16 @@ private struct PaletteButtonStyle: ButtonStyle {
             .frame(maxWidth: 43, maxHeight: 43)
             .aspectRatio(1, contentMode: .fit)
             .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-            .if(isSelected) { view in
-                view
-                    .shadow(color: .black.opacity(0.5), radius: 4, x: 0, y: 0)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4, style: .continuous)
-                            .stroke(.white, lineWidth: 2)
-                    )
-            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    .stroke(isSelected ? .white : .clear, lineWidth: 2)
+            )
+            .padding(2)
+            .overlay(
+                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    .stroke(isSelected ? .black : .clear, lineWidth: 1)
+            )
             .opacity(configuration.isPressed ? 0.7 : 1)
-            .opacity(isSelected ? 1 : 0.2)
             .animation(.none, value: configuration.isPressed)
     }
 }

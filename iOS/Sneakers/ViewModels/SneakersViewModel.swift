@@ -1,6 +1,6 @@
 //
 //  SneakersListViewModel.swift
-//  SneakersUIEffects
+//  Sneakers
 //
 //  Created by Evgeny Serdyukov on 16.05.2022.
 //

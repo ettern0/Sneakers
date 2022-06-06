@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-class PaletteViewModel: ObservableObject {
-    static let instance = PaletteViewModel(from: [])
+final class PaletteViewModel: ObservableObject {
+    static let instance = PaletteViewModel(colors: [])
     @Published var palette: [Color] = []
     var key: [UInt32] = []
 
-    init(from colors: [UInt32]) {
+    init(colors: [UInt32]) {
         if colors.isEmpty {
             for _ in 0..<4 {
                 self.key.append(UInt32.random(in: 0...UInt32.max))

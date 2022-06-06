@@ -13,8 +13,8 @@ enum Screen {
     // Search tab
     case choose
     case camera
-    case colorPicker(image: UIImage)
-    case sneakers
+    case colorPicker(ColorPickerInput)
+    case sneakers(SneakersInput)
 
     // Favorites tab
     case favorites
@@ -27,10 +27,10 @@ extension Screen {
             return AnyView(ChooseView())
         case .camera:
             return AnyView(CameraView())
-        case .colorPicker(let image):
-            return AnyView(ColorPickerView(image: image))
-        case .sneakers:
-            return AnyView(SneakersListView())
+        case .colorPicker(let input):
+            return AnyView(ColorPickerView(input: input))
+        case .sneakers(let input):
+            return AnyView(SneakersListView(input: input))
 
         case .favorites:
             return AnyView(FavoritesView())
@@ -101,7 +101,20 @@ final class Router: NSObject, ObservableObject {
     private func makeNavigationController(for tab: Tab) -> UINavigationController {
         switch tab {
         case .search:
-            let view = makeView(for: .colorPicker(image: .init(named: "man") ?? UIImage()))
+            // FOR TEST
+//            let image = UIImage(named: "man") ?? UIImage()
+//            let colors = ColorFinder().colors(from: image)
+//            let colorPickerInput = ColorPickerInput(
+//                image: image,
+//                colors: colors
+//            )
+//            let view = makeView(for: .colorPicker(colorPickerInput))
+
+            // FOR TEST
+
+
+            let view = makeView(for: .choose)
+
             let searchViewController = SneakersHostingController(rootView: view)
             let searchNavigationController = UINavigationController(rootViewController: searchViewController)
             searchNavigationController.tabBarItem = UITabBarItem(

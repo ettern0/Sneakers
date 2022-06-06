@@ -20,7 +20,9 @@ struct CameraView: View {
         Button {
             model.capturePhoto()
             if let image = UIImage(named: "man") {
-                router.push(screen: .colorPicker(image: image))
+                let colors = ColorFinder().colors(from: image)
+                let input = ColorPickerInput(image: image, colors: colors)
+                router.push(screen: .colorPicker(input))
             }
         } label: {
             EmptyView()
@@ -98,7 +100,7 @@ struct CameraView: View {
                     Spacer()
                     bottomPanel
                         .padding(.horizontal, 44)
-                        .padding(.bottom, 64)
+                        .padding(.bottom, 40)
                 }
             }
         }
@@ -118,14 +120,8 @@ struct CameraView: View {
             }
             .frame(maxWidth: .infinity)
 
-            Group {
-                NavigationLink { // FIXME: For test
-                    SneakersListView()
-                } label: {
-                    captureButton
-                        .padding(11)
-                }
-            }
+            captureButton
+                .padding(11)
             .frame(maxWidth: .infinity)
 
             Group {

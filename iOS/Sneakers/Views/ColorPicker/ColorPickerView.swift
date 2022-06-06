@@ -7,51 +7,61 @@
 
 import SwiftUI
 import UIKit
+import Combine
 
 import DesignSystem
 import CoreUtils
 
+struct ColorPickerInput {
+    let image: UIImage
+    let colors: [UInt32]
+}
+
 struct ColorPickerView: View {
     @State private var image: UIImage
     @State private var selectedIndices: [Int] = [0, 1]
+    @EnvironmentObject private var router: Router
+    @State private var colors: [UInt32]
 
-    init(image: UIImage) {
-        self.image = image
+    init(input: ColorPickerInput) {
+        self.image = input.image
+        self.colors = input.colors
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Detect")
-                    .font(.headline)
                 Text("Select two main colors")
             }
             .padding(.horizontal, 40)
 
-            GeometryReader { proxy in
+            VStack(alignment: .center) {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: proxy.size.width)
+                    .scaledToFit()
             }
+            .frame(maxWidth: .infinity)
             .padding(.horizontal, 40)
             .padding(.vertical, 12)
 
-            VStack(alignment: .center, spacing: 0) {
+            VStack(spacing: 0) {
                 PaletteControl(
-                    colors: ColorFinder().colors(from: image),
+                    colors: colors,
                     selectedIndices: $selectedIndices
                 )
                 .padding(.horizontal, 40)
                 .padding(.vertical, 16)
 
                 Button("Explore results") {
-                    print("Explore")
+                    let selectedColors = selectedIndices.map { colors[$0] }
+                    let input = SneakersInput(outfitColors: selectedColors)
+                    router.push(screen: .sneakers(input))
                 }
                 .disabled(selectedIndices.count != 2)
                 .buttonStyle(LargeButtonStyle())
                 .padding(16)
-            }
+            }.frame(maxWidth: .infinity)
         }
     }
 }

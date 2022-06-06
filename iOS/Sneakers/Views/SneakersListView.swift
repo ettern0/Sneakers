@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  SneakersUIEffects
+//  Sneakers
 //
 //  Created by Evgeny Serdyukov on 16.05.2022.
 //
@@ -9,7 +9,13 @@ import SwiftUI
 import NukeUI
 import SwiftUIPager
 
+struct SneakersInput {
+    let outfitColors: [UInt32]
+}
+
 struct SneakersListView: View {
+    let input: SneakersInput
+
     @StateObject var viewModel = SneakersViewModel.instance
     @State var showDetails: Bool = false
 
@@ -20,9 +26,8 @@ struct SneakersListView: View {
             if viewModel.sneakers.count != 0 {
                 VStack {
                     Spacer()
-                    PaletteView(viewModel: PaletteViewModel.instance)
-                    .frame(width: getRect().width * 0.7, height: getRect().height * 0.07)
-                    // MARK: The carausel of sneakers
+                    PaletteView(viewModel: .init(colors: input.outfitColors))
+                        .frame(width: getRect().width * 0.7, height: getRect().height * 0.07)
                     PagerView(showDetail: $showDetails)
                 }
                 .frame(maxHeight: getRect().height / 2)

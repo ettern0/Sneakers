@@ -15,7 +15,7 @@ struct FavoritesView: View {
     init() {
         self.data = fetchDataFromUD()
         self.data.keys.forEach { key in
-            self.palletes.append(PaletteViewModel(from: key))
+            self.palletes.append(PaletteViewModel(colors: key))
         }
     }
 
