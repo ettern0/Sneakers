@@ -90,13 +90,6 @@ struct CameraView: View {
                     )
 
                 VStack {
-                    Button {
-                        model.switchFlash()
-                    } label: {
-                        Image(systemName: model.isFlashOn ? "bolt.fill" : "bolt.slash.fill")
-                            .font(.system(size: 20, weight: .medium, design: .default))
-                    }
-                    .accentColor(model.isFlashOn ? .yellow : .white)
                     Spacer()
                     bottomPanel
                         .padding(.horizontal, 44)
