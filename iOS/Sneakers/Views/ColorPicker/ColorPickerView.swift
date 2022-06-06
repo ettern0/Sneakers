@@ -12,8 +12,12 @@ import DesignSystem
 import CoreUtils
 
 struct ColorPickerView: View {
-    let image: UIImage
-    @State var selectedIndices: [Int] = [0, 1]
+    @State private var image: UIImage
+    @State private var selectedIndices: [Int] = [0, 1]
+
+    init(image: UIImage) {
+        self.image = image
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -24,17 +28,22 @@ struct ColorPickerView: View {
             }
             .padding(.horizontal, 40)
 
-            Image(uiImage: image)
-                .resizable()
-                .padding(.horizontal, 40)
-                .padding(.vertical, 12)
+            GeometryReader { proxy in
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: proxy.size.width)
+            }
+            .padding(.horizontal, 40)
+            .padding(.vertical, 12)
 
             VStack(alignment: .center, spacing: 0) {
                 PaletteControl(
-                    colors: [0xFF0000, 0x00FF00, 0xF8A112, 0x6545D0],
+                    colors: ColorFinder().colors(from: image),
                     selectedIndices: $selectedIndices
                 )
                 .padding(.horizontal, 40)
+                .padding(.vertical, 16)
 
                 Button("Explore results") {
                     print("Explore")

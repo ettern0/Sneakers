@@ -18,4 +18,26 @@ extension UIColor {
     var color: Color {
         .init(self)
     }
+
+    var intValue: UInt32 {
+        let (red, green, blue, _) = self.components
+        let rgb = (Int)(red * 255) << 16 | (Int)(green * 255) << 8 | (Int)(blue * 255) << 0
+        return UInt32(rgb)
+    }
+
+    // swiftlint:disable:next large_tuple
+    private var components: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        guard let components = self.cgColor.components else {
+            assertionFailure()
+            return (0, 0, 0, 0)
+        }
+        if components.count == 2 {
+            return (components[0], components[0], components[0], components[1])
+        } else if components.count == 4 {
+            return (components[0], components[1], components[2], components[3])
+        } else {
+            assertionFailure()
+            return (0, 0, 0, 0)
+        }
+    }
 }

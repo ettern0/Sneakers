@@ -29,6 +29,9 @@
 		88B4D367284BDADF00A8366B /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D366284BDADF00A8366B /* DesignSystem */; };
 		88B4D369284D58CA00A8366B /* PaletteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D368284D58CA00A8366B /* PaletteControl.swift */; };
 		88B4D36C284D5AD900A8366B /* CoreUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D36B284D5AD900A8366B /* CoreUtils */; };
+		88B4D372284D6B0000A8366B /* BackgroundRemoval in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D371284D6B0000A8366B /* BackgroundRemoval */; };
+		88B4D375284D7B1300A8366B /* DominantColor in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D374284D7B1300A8366B /* DominantColor */; };
+		88B4D377284DDF1500A8366B /* ColorFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D376284DDF1500A8366B /* ColorFinder.swift */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -88,6 +91,7 @@
 		88B4D362284BDA7900A8366B /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
 		88B4D368284D58CA00A8366B /* PaletteControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteControl.swift; sourceTree = "<group>"; };
 		88B4D36A284D5AC800A8366B /* CoreUtils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreUtils; sourceTree = "<group>"; };
+		88B4D376284DDF1500A8366B /* ColorFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFinder.swift; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 				88B4D36C284D5AD900A8366B /* CoreUtils in Frameworks */,
 				922E354528365E5800D8A0F9 /* SwiftUIPager in Frameworks */,
 				88B4D367284BDADF00A8366B /* DesignSystem in Frameworks */,
+				88B4D375284D7B1300A8366B /* DominantColor in Frameworks */,
+				88B4D372284D6B0000A8366B /* BackgroundRemoval in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				88B4D35E284BD66500A8366B /* ColorPickerView.swift */,
+				88B4D376284DDF1500A8366B /* ColorFinder.swift */,
 				88B4D368284D58CA00A8366B /* PaletteControl.swift */,
 			);
 			path = ColorPicker;
@@ -349,6 +356,8 @@
 				922E354428365E5800D8A0F9 /* SwiftUIPager */,
 				88B4D366284BDADF00A8366B /* DesignSystem */,
 				88B4D36B284D5AD900A8366B /* CoreUtils */,
+				88B4D371284D6B0000A8366B /* BackgroundRemoval */,
+				88B4D374284D7B1300A8366B /* DominantColor */,
 			);
 			productName = Sneakers;
 			productReference = 92C2208A28326AD500EC7D39 /* Sneakers.app */;
@@ -382,6 +391,8 @@
 				921B21192833BFD500B934C4 /* XCRemoteSwiftPackageReference "NukeUI" */,
 				922E353B283597B100D8A0F9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				922E354328365E5800D8A0F9 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
+				88B4D370284D6B0000A8366B /* XCRemoteSwiftPackageReference "BackgroundRemoval" */,
+				88B4D373284D7B1300A8366B /* XCRemoteSwiftPackageReference "DominantColor" */,
 			);
 			productRefGroup = 92C2208B28326AD500EC7D39 /* Products */;
 			projectDirPath = "";
@@ -453,6 +464,7 @@
 				920D1E2E28393FAB00050935 /* UpdateView.swift in Sources */,
 				92C220A828326B5D00EC7D39 /* SneakersListView.swift in Sources */,
 				9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */,
+				88B4D377284DDF1500A8366B /* ColorFinder.swift in Sources */,
 				921B21152833A04200B934C4 /* ViewExtensionGetRect.swift in Sources */,
 				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
 				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
@@ -685,6 +697,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		88B4D370284D6B0000A8366B /* XCRemoteSwiftPackageReference "BackgroundRemoval" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Ezaldeen99/BackgroundRemoval";
+			requirement = {
+				kind = exactVersion;
+				version = 0.1.0;
+			};
+		};
+		88B4D373284D7B1300A8366B /* XCRemoteSwiftPackageReference "DominantColor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/indragiek/DominantColor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
 		921B21192833BFD500B934C4 /* XCRemoteSwiftPackageReference "NukeUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/NukeUI";
@@ -719,6 +747,16 @@
 		88B4D36B284D5AD900A8366B /* CoreUtils */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CoreUtils;
+		};
+		88B4D371284D6B0000A8366B /* BackgroundRemoval */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88B4D370284D6B0000A8366B /* XCRemoteSwiftPackageReference "BackgroundRemoval" */;
+			productName = BackgroundRemoval;
+		};
+		88B4D374284D7B1300A8366B /* DominantColor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88B4D373284D7B1300A8366B /* XCRemoteSwiftPackageReference "DominantColor" */;
+			productName = DominantColor;
 		};
 		921B211A2833BFD500B934C4 /* NukeUI */ = {
 			isa = XCSwiftPackageProductDependency;
