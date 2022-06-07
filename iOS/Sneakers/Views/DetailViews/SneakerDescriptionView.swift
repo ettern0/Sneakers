@@ -9,11 +9,13 @@ import SwiftUI
 
 struct SneakerDescriptionView: View {
     let sneaker: Sneaker
+    let input: SneakersInput
     @StateObject var viewModel: SneakersViewModel = SneakersViewModel.instance
     @State var isFavorite: Bool = false
 
-    init(sneaker: Sneaker) {
+    init(sneaker: Sneaker, input: SneakersInput) {
         self.sneaker = sneaker
+        self.input = input
         self._isFavorite = State(initialValue: checkStatusUD())
     }
 
@@ -77,7 +79,9 @@ struct SneakerDescriptionView: View {
             }
             try defaults.encode(favorites, forKey: "favorites")
             isFavorite.toggle()
-        } catch { }
+        } catch {
+            assertionFailure(String(describing: error))
+        }
     }
 
     private func checkStatusUD() -> Bool {
