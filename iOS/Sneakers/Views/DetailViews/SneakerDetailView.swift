@@ -10,6 +10,7 @@ import NukeUI
 
 struct SneakerDetailView: View {
     var sneaker: Sneaker
+    let input: SneakersInput
     @StateObject var viewModel: SneakersViewModel = SneakersViewModel.instance
     @StateObject var view360Model: Sneaker360ViewModel = Sneaker360ViewModel()
     @State var show360: Bool = false
@@ -21,7 +22,7 @@ struct SneakerDetailView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 SneakerHeaderView(sneaker: sneaker, view360Model: view360Model, show360: $show360)
                     .zIndex(1)
-                SneakerDescriptionView(sneaker: sneaker)
+                SneakerDescriptionView(sneaker: sneaker, input: input)
                     .zIndex(0)
             }
             .coordinateSpace(name: "DETAILSCROLL")
