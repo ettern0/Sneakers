@@ -11,6 +11,8 @@ struct FavoritesView: View {
 
     var palletes: [PaletteViewModel] = []
     var data: [[UInt32]: [SneakerUD]] = [:]
+    @State var selectedType: Int = 0
+    @State var searchText: String = ""
 
     init() {
         self.data = fetchDataFromUD()
@@ -20,19 +22,25 @@ struct FavoritesView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                VStack(alignment: .leading) {
-                    Text("Preferences").font(.system(size: 40)).bold()
-                    Text("Here’s your favourite match!").font(.system(size: 20)).foregroundColor(.black).opacity(0.2)
+
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading) {
+                Text("")
+                    .searchable(text: $searchText, prompt: "Search")
+                Picker("Choose type", selection: $selectedType) {
+                    Text("Sneakers").tag(0)
+                    Text("Outfit").tag(1)
                 }
-                .padding(.bottom, 36)
-                .padding(.top)
+                .pickerStyle(.segmented)
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
+            ScrollView {
                 ForEach(palletes.indices) { index in
                     if let sneakers = data[palletes[index].key], !sneakers.isEmpty {
-                        Section(header: PaletteView(viewModel: palletes[index]).frame(height: 32)) {
-                            SneakerView(sneakers: sneakers)
-                        }
+                        let searchUpper = searchText.uppercased()
+                        SneakerView(sneakers: sneakers.filter({ $0.brand.uppercased().contains(searchUpper) || $0.name.uppercased().contains(searchUpper) || searchText.isEmpty }),
+                                        pallete: palletes[index])
                         .padding(.bottom, 24)
                     }
                 }
@@ -43,23 +51,30 @@ struct FavoritesView: View {
 
     private struct SneakerView: View {
         let sneakers: [SneakerUD]
+        let pallete: PaletteViewModel
 
         var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(sneakers) { sneaker in
-                        let url = URL(string: sneaker.thumbnail)
-                        AsyncImage(
-                            url: url,
-                            content: { image in
-                                image.resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxWidth: 100, maxHeight: 100)
-                            },
-                            placeholder: {
-                                ProgressView()
+                        VStack {
+                            PaletteView(viewModel: pallete)
+                                .frame(maxWidth: 100, maxHeight: 100)
+                            let url = URL(string: sneaker.thumbnail)
+                            AsyncImage(
+                                url: url,
+                                content: { image in
+                                    image.resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 100, height: 100)
+                                }, placeholder: { ProgressView() }
+                            )
+                            VStack(alignment: .leading) {
+                                Text(sneaker.brand.capitalized).font(.system(size: 10)).italic()
+                                Text(sneaker.name.capitalized).font(.system(size: 12)).bold()
                             }
-                        )
+                            .frame(maxWidth: 100, maxHeight: 100)
+                        }
                     }
                 }
             }
