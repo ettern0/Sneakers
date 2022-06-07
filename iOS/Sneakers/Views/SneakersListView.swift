@@ -35,14 +35,11 @@ struct SneakersListView: View {
                 .frame(maxHeight: getRect().height / 2)
                 .sheet(isPresented: $showDetails) {
                     if let sneaker = viewModel.detail {
-                        SneakerDetailView(sneaker: sneaker)
+                        SneakerDetailView(sneaker: sneaker, input: input)
                     }
                 }
                 .sheet(isPresented: $showFilters) {
-                    if let sneaker = viewModel.detail {
-                        FiltersView(viewModel: filterViewModel)
-
-                    }
+                    FiltersView(viewModel: filterViewModel)
                 }
             } else { UpdateView() }
         }
