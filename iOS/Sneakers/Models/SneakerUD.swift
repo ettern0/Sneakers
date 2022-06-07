@@ -11,11 +11,13 @@ struct SneakerUD: Codable, Identifiable {
 
     let id: String
     let thumbnail: String
+    let brand: String
     let name: String
 
     init(from sneaker: Sneaker) {
         self.id = sneaker.id
         self.thumbnail = sneaker.thumbnail
+        self.brand = sneaker.brand
         self.name = sneaker.name
     }
 }
