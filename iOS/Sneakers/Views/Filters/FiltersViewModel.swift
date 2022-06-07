@@ -17,6 +17,13 @@ final class FiltersViewModel: ObservableObject {
         var selectedBrands: [Brand]
         var selectedSizes: [Size]
         var selectedPrizeRange: (min: Double, max: Double)
+
+        init() {
+            self.selectedGenders = []
+            self.selectedBrands = []
+            self.selectedSizes = []
+            self.selectedPrizeRange = (0.0, 0.0)
+        }
     }
 
     @Published var selectedFilters: SelectedFilters

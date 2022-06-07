@@ -6,64 +6,82 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct ChooseView: View {
     @EnvironmentObject private var router: Router
 
     var body: some View {
-        NavigationView {
-            VStack(alignment: .leading, spacing: 36) {
-                VStack {
-                    Text("What do you need?")
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    Text("Scan")
                         .font(.system(size: 27))
                         .bold()
                         .foregroundColor(.black)
-                    Text("Choose how to build your outfit")
+                    Text("Your color and match it")
                         .font(.system(size: 15))
                         .foregroundColor(Color(.black).opacity(0.2))
                 }
-                .padding(.bottom, 48)
-                .padding(.horizontal, 16)
+                .padding(.bottom, 36)
 
                 Button {
                     router.push(screen: .camera)
                 } label: {
-                    ChooseButtonContent(header: "Looking for", endPoint: "Sneakers")
+                    ChooseButtonContent(header: "Looking for",
+                                        endPoint: "Sneakers",
+                                        description: "outfit",
+                                        imageName: "sneakerChoose")
                 }
+                .padding(.bottom, 44)
 
                 Button {
-                    print("Outfit")
+                    router.push(screen: .camera)
                 } label: {
-                    ChooseButtonContent(header: "Looking for", endPoint: "Outfit")
+                    ChooseButtonContent(header: "Looking for",
+                                        endPoint: "Outfit",
+                                        description: "sneakers",
+                                        imageName: "outfitChoose")
                 }
-
+                .padding(.bottom, 80)
                 Spacer()
             }
-        }
+            .padding(.horizontal, 16)
     }
 
     private struct ChooseButtonContent: View {
         let header: String
         let endPoint: String
+        let description: String
+        let imageName: String
 
         var body: some View {
             ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .foregroundColor(.orange)
-                    .frame(maxHeight: getRect().width / 2)
-                    .padding(.horizontal, 16)
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .foregroundColor(.white)
+                    .frame(maxHeight: .infinity)
+                    .shadow(radius: 15)
                 HStack {
-                    VStack(alignment: .leading) {
+                    Image(imageName)
+                        .resizable()
+                        .scaledToFit()
+                    VStack(alignment: .trailing) {
+                        Spacer()
                         Text(header)
                             .font(.system(size: 25))
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                         Text(endPoint)
                             .font(.system(size: 25))
                             .bold()
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
+                        Text("Shot your \(description) and")
+                            .font(.system(size: 13))
+                            .foregroundColor(Color(.black).opacity(0.2))
+                        Text("explore the results to match")
+                            .font(.system(size: 13))
+                            .foregroundColor(Color(.black).opacity(0.2))
                     }
-                    .padding([.top, .horizontal], 32)
-                    Spacer()
+                    .padding(.bottom, 20)
+                    .padding(.trailing, 12)
                 }
             }
         }

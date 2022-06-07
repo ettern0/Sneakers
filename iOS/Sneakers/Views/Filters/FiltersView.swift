@@ -16,7 +16,7 @@ struct FiltersView: View {
         case price
     }
 
-    @EnvironmentObject var viewModel: FiltersViewModel
+    @State var viewModel: FiltersViewModel
 
     var body: some View {
         NavigationView {
@@ -69,7 +69,7 @@ struct FiltersView: View {
 #if DEBUG
 struct FiltersView_Previews: PreviewProvider {
     static var previews: some View {
-        FiltersView()
+        FiltersView(viewModel: FiltersViewModel.init(selectedFilters: .init()))
     }
 }
 #endif

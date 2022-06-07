@@ -17,8 +17,9 @@ struct SneakersListView: View {
     let input: SneakersInput
 
     @StateObject var viewModel = SneakersViewModel.instance
-    // TODO: Move to ViewModel
+    @StateObject var filterViewModel = FiltersViewModel(selectedFilters: .init())
     @State var showDetails: Bool = false
+    @State var showFilters: Bool = false
 
     var body: some View {
         ZStack {
@@ -37,7 +38,22 @@ struct SneakersListView: View {
                         SneakerDetailView(sneaker: sneaker)
                     }
                 }
+                .sheet(isPresented: $showFilters) {
+                    if let sneaker = viewModel.detail {
+                        FiltersView(viewModel: filterViewModel)
+
+                    }
+                }
             } else { UpdateView() }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showFilters = true
+                } label: {
+                    Text("filter")
+                }
+            }
         }
         .onAppear {
             Task {

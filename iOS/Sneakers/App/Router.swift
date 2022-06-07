@@ -45,7 +45,6 @@ enum Tab: Int, CaseIterable {
 
 struct PresentationOptions {
     static let `default` = PresentationOptions(hidesBottomBarWhenPushed: false)
-
     let hidesBottomBarWhenPushed: Bool
 }
 
@@ -87,7 +86,6 @@ final class Router: NSObject, ObservableObject {
             return .default
         case .sneakers:
             return .default
-
         case .favorites:
             return .default
         }
