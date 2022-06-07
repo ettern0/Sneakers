@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30F82AE0284EACBE00D0E380 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82ADF284EACBE00D0E380 /* FiltersView.swift */; };
+		30F82AE2284EACC500D0E380 /* FiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82AE1284EACC500D0E380 /* FiltersViewModel.swift */; };
+		30F82AE4284EBE4200D0E380 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82AE3284EBE4200D0E380 /* Gender.swift */; };
+		30F82AE6284EBE5600D0E380 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82AE5284EBE5600D0E380 /* Brand.swift */; };
+		30F82AE8284EBE9E00D0E380 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82AE7284EBE9E00D0E380 /* Size.swift */; };
+		30F82AED284ECE4000D0E380 /* GenericFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82AEC284ECE4000D0E380 /* GenericFilterView.swift */; };
 		881CA5332844E6220092265A /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA5322844E6220092265A /* CameraView.swift */; };
 		881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA5352844ED080092265A /* CameraService+Enums.swift */; };
 		881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA5372844ED1D0092265A /* CameraService+Extensions.swift */; };
@@ -69,6 +75,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30F82ADF284EACBE00D0E380 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
+		30F82AE1284EACC500D0E380 /* FiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewModel.swift; sourceTree = "<group>"; };
+		30F82AE3284EBE4200D0E380 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		30F82AE5284EBE5600D0E380 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		30F82AE7284EBE9E00D0E380 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		30F82AEC284ECE4000D0E380 /* GenericFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericFilterView.swift; sourceTree = "<group>"; };
 		881CA5322844E6220092265A /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		881CA5352844ED080092265A /* CameraService+Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraService+Enums.swift"; sourceTree = "<group>"; };
 		881CA5372844ED1D0092265A /* CameraService+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraService+Extensions.swift"; sourceTree = "<group>"; };
@@ -144,6 +156,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30F82AEB284EC70900D0E380 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				30F82ADF284EACBE00D0E380 /* FiltersView.swift */,
+				30F82AEC284ECE4000D0E380 /* GenericFilterView.swift */,
+				30F82AE1284EACC500D0E380 /* FiltersViewModel.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
 		881CA5342844ED000092265A /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +316,9 @@
 			children = (
 				92C220A228326B5600EC7D39 /* Sneaker.swift */,
 				9208B989284112B6000866E6 /* SneakerUD.swift */,
+				30F82AE3284EBE4200D0E380 /* Gender.swift */,
+				30F82AE5284EBE5600D0E380 /* Brand.swift */,
+				30F82AE7284EBE9E00D0E380 /* Size.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -310,6 +335,7 @@
 				92714459283A8615002A05C4 /* DetailViews */,
 				920D1E342839599D00050935 /* PaletteView.swift */,
 				92714464283A9D7A002A05C4 /* TabBarController */,
+				30F82AEB284EC70900D0E380 /* Filters */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -456,16 +482,19 @@
 				9271445F283A8780002A05C4 /* SneakerTopBarView.swift in Sources */,
 				92C220B028326B6A00EC7D39 /* Constants.swift in Sources */,
 				92C220B128326B6A00EC7D39 /* HTTPClient.swift in Sources */,
+				30F82AE8284EBE9E00D0E380 /* Size.swift in Sources */,
 				881CA5402844F1940092265A /* CameraPreview.swift in Sources */,
 				92C2208E28326AD500EC7D39 /* SneakersApp.swift in Sources */,
 				881CA5332844E6220092265A /* CameraView.swift in Sources */,
 				9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */,
+				30F82AE0284EACBE00D0E380 /* FiltersView.swift in Sources */,
 				920D1E322839594E00050935 /* ColorExtensionRandomColor.swift in Sources */,
 				920D1E2E28393FAB00050935 /* UpdateView.swift in Sources */,
 				92C220A828326B5D00EC7D39 /* SneakersListView.swift in Sources */,
 				9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */,
 				88B4D377284DDF1500A8366B /* ColorFinder.swift in Sources */,
 				921B21152833A04200B934C4 /* ViewExtensionGetRect.swift in Sources */,
+				30F82AED284ECE4000D0E380 /* GenericFilterView.swift in Sources */,
 				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
 				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
 				88B4D358284A052600A8366B /* Router.swift in Sources */,
@@ -473,11 +502,14 @@
 				92E61626283CF01F00D9AC00 /* TabBarController.swift in Sources */,
 				920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */,
 				927D4411283578F9001B8ED7 /* Sneaker360ViewModel.swift in Sources */,
+				30F82AE2284EACC500D0E380 /* FiltersViewModel.swift in Sources */,
 				92C220A428326B5600EC7D39 /* Sneaker.swift in Sources */,
 				88B4D34F2848CB2000A8366B /* CaptureButtonStyle.swift in Sources */,
 				886C26EC2844D2D800E91B4E /* PickerMediaItems.swift in Sources */,
+				30F82AE6284EBE5600D0E380 /* Brand.swift in Sources */,
 				9271445B283A864A002A05C4 /* SneakerDescriptionView.swift in Sources */,
 				9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */,
+				30F82AE4284EBE4200D0E380 /* Gender.swift in Sources */,
 				92714456283A85D7002A05C4 /* RollUpView.swift in Sources */,
 				881CA53E2844ED670092265A /* PhotoCaptureProcessor.swift in Sources */,
 				88B4D35C284BB33400A8366B /* TabBarViewRepresentation.swift in Sources */,

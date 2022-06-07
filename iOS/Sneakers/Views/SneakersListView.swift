@@ -17,6 +17,7 @@ struct SneakersListView: View {
     let input: SneakersInput
 
     @StateObject var viewModel = SneakersViewModel.instance
+    // TODO: Move to ViewModel
     @State var showDetails: Bool = false
 
     var body: some View {
