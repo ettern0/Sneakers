@@ -17,7 +17,10 @@ struct FiltersView: View {
     }
 
     @Environment(\.presentationMode) var presentationMode
-    @State var viewModel: FiltersViewModel
+    @ObservedObject var viewModel: FiltersViewModel
+    @ObservedObject var slider = CustomSlider(
+        start: 0, end: 100
+    )
 
     var body: some View {
         NavigationView {
@@ -69,7 +72,6 @@ struct FiltersView: View {
             case .gender:
                 GenericFilterView(
                     filters: $viewModel.currentFilters.genders,
-                    onFilterTap: viewModel.onGenericFilterTap,
                     spacing: 32
                 ) { filter in
                     Image(filter.value.imageName)
@@ -77,7 +79,6 @@ struct FiltersView: View {
             case .brands:
                 GenericFilterView(
                     filters: $viewModel.currentFilters.brands,
-                    onFilterTap: viewModel.onGenericFilterTap,
                     spacing: 12
                 ) { filter in
                     Text(filter.value.title)
@@ -85,16 +86,17 @@ struct FiltersView: View {
             case .size:
                 GenericFilterView(
                     filters: $viewModel.currentFilters.sizes,
-                    onFilterTap: viewModel.onGenericFilterTap,
                     spacing: 12
                 ) { filter in
                     Text(filter.value.displayText)
                 }
             case .price:
-                HStack {
+                VStack {
                     // TODO: Add formatter
                     Text("\(viewModel.currentFilters.priseRange.min) - \(viewModel.currentFilters.priseRange.max)")
                         .font(.subheadline)
+
+                    RangedSliderView(slider: slider)
                 }
             }
         }

@@ -30,23 +30,4 @@ final class FiltersViewModel: ObservableObject {
     func onResetTap() {
         currentFilters = initialFilters
     }
-
-    func onGenericFilterTap<Value>(_ filter: GenericFilterModel<Value>) {
-        if let genderValue = filter.value as? Gender {
-            guard let genderIndex = currentFilters.genders.firstIndex(where: { $0.value == genderValue }) else {
-                return
-            }
-            currentFilters.genders[genderIndex].isSelected.toggle()
-        } else if let brandValue = filter.value as? Brand {
-            guard let brandIndex = currentFilters.brands.firstIndex(where: { $0.value == brandValue }) else {
-                return
-            }
-            currentFilters.brands[brandIndex].isSelected.toggle()
-        } else if let sizeValue = filter.value as? Size {
-            guard let sizeIndex = currentFilters.sizes.firstIndex(where: { $0.value == sizeValue }) else {
-                return
-            }
-            currentFilters.sizes[sizeIndex].isSelected.toggle()
-        }
-    }
 }

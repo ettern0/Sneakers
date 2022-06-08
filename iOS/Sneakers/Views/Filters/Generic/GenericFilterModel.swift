@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct GenericFilterModel<Value: Hashable>: Hashable {
+struct GenericFilterModel<Value: Hashable>: Hashable, Identifiable {
+    let id = UUID()
     let value: Value
     var isSelected = false
 }
