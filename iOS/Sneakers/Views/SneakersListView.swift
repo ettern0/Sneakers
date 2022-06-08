@@ -20,7 +20,7 @@ struct SneakersListView: View {
 
     // TODO: Remove it, just to test
     @StateObject var filterViewModel = FiltersViewModel(
-        initialFilters: .init(
+        initialGenericFilters: .init(
             genders: Gender.allCases.map { .init(value: $0) },
             brands: [
                 .init(value: .init(title: "asd01293")),
@@ -35,9 +35,9 @@ struct SneakersListView: View {
                 .init(value: .european(43)),
                 .init(value: .european(12)),
                 .init(value: .european(23)),
-            ],
-            priseRange: (0, 200)
-        )
+            ]
+        ),
+        priceRange: (0, 200)
     )
 
     @State var showDetails: Bool = false
@@ -61,7 +61,10 @@ struct SneakersListView: View {
                     }
                 }
                 .sheet(isPresented: $showFilters) {
-                    FiltersView(viewModel: filterViewModel)
+                    FiltersView(
+                        viewModel: filterViewModel,
+                        slider: .init(start: filterViewModel.priceRange.min, end: filterViewModel.priceRange.max)
+                    )
                 }
             } else { UpdateView() }
         }

@@ -82,7 +82,6 @@ class SliderHandle: ObservableObject {
     @Published var currentPercentage: SliderValue
 
     @Published var onDrag: Bool
-    @Published var onTouch: Bool
     @Published var currentLocation: CGPoint
 
     init(sliderWidth: CGFloat, sliderHeight: CGFloat, sliderValueStart: Double, sliderValueEnd: Double, startPercentage: SliderValue) {
@@ -99,7 +98,6 @@ class SliderHandle: ObservableObject {
         self.currentPercentage = startPercentage
 
         self.onDrag = false
-        self.onTouch = false
     }
 
     lazy var sliderDragGesture: _EndedGesture<_ChangedGesture<DragGesture>>  = DragGesture()

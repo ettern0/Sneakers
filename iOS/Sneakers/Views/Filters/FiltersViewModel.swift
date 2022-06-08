@@ -9,25 +9,40 @@ import Foundation
 import SwiftUI
 
 final class FiltersViewModel: ObservableObject {
-    struct Filters {
+    struct GenericFilters {
         var genders: [GenericFilterModel<Gender>]
         var brands: [GenericFilterModel<Brand>]
         var sizes: [GenericFilterModel<Size>]
-        var priseRange: (min: Double, max: Double)
     }
 
-    private let initialFilters: Filters
-    @Published var currentFilters: Filters
+    enum SliderValueType {
+        case min
+        case max
+    }
 
-    init(initialFilters: Filters) {
-        self.initialFilters = initialFilters
-        self.currentFilters = initialFilters
+    private let initialGenericFilters: GenericFilters
+    @Published var genericFilters: GenericFilters
+    var priceRange: (min: Double, max: Double)
+
+    init(initialGenericFilters: GenericFilters, priceRange: (Double, Double)) {
+        self.initialGenericFilters = initialGenericFilters
+        self.genericFilters = initialGenericFilters
+        self.priceRange = priceRange
     }
 
     func onExploreTap() {
     }
 
     func onResetTap() {
-        currentFilters = initialFilters
+        genericFilters = initialGenericFilters
+    }
+
+    func onReceiveSliderValue(_ value: Double, type: SliderValueType) {
+        switch type {
+        case .min:
+            priceRange.min = value
+        case .max:
+            priceRange.max = value
+        }
     }
 }

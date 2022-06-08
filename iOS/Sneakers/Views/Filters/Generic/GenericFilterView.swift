@@ -11,7 +11,7 @@ struct GenericFilterView<Element, Content>: View where Content: View, Element: H
     @Binding private var filters: [GenericFilterModel<Element>]
     private let content: (GenericFilterModel<Element>) -> Content
     private let spacing: CGFloat
-    
+
     init(
         filters: Binding<[GenericFilterModel<Element>]>,
         spacing: CGFloat,
@@ -30,12 +30,12 @@ struct GenericFilterView<Element, Content>: View where Content: View, Element: H
                     filters[filterIndex].isSelected.toggle()
                 } label: {
                     content(filter)
+                        .foregroundColor(.black)
                         .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(filter.isSelected ? Color.accentColor : .clear, lineWidth: 4)
+                        .background(
+                            RoundedRectangle(cornerRadius: 6)
                                 .foregroundColor(.white)
-                                .shadow(radius: 20)
+                                .shadow(color: .black.opacity(0.1), radius: filter.isSelected ? 0 : 12)
                         )
                 }
             }

@@ -18,9 +18,7 @@ struct FiltersView: View {
 
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: FiltersViewModel
-    @ObservedObject var slider = CustomSlider(
-        start: 0, end: 100
-    )
+    @StateObject var slider: CustomSlider
 
     var body: some View {
         NavigationView {
@@ -57,6 +55,7 @@ struct FiltersView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Reset") {
                         viewModel.onResetTap()
+                        // TODO: Reset Slider
                     }
                 }
             }
@@ -71,34 +70,41 @@ struct FiltersView: View {
             switch filter {
             case .gender:
                 GenericFilterView(
-                    filters: $viewModel.currentFilters.genders,
+                    filters: $viewModel.genericFilters.genders,
                     spacing: 32
                 ) { filter in
                     Image(filter.value.imageName)
                 }
             case .brands:
                 GenericFilterView(
-                    filters: $viewModel.currentFilters.brands,
+                    filters: $viewModel.genericFilters.brands,
                     spacing: 12
                 ) { filter in
                     Text(filter.value.title)
                 }
             case .size:
                 GenericFilterView(
-                    filters: $viewModel.currentFilters.sizes,
+                    filters: $viewModel.genericFilters.sizes,
                     spacing: 12
                 ) { filter in
                     Text(filter.value.displayText)
                 }
             case .price:
-                VStack {
+                VStack(alignment: .leading) {
                     // TODO: Add formatter
-                    Text("\(viewModel.currentFilters.priseRange.min) - \(viewModel.currentFilters.priseRange.max)")
+                    Text("\(slider.lowHandle.currentValue) - \(slider.highHandle.currentValue)")
                         .font(.subheadline)
+                        .foregroundColor(.gray)
 
                     RangedSliderView(slider: slider)
                 }
             }
+        }
+        .onChange(of: slider.lowHandle.currentValue) { newValue in
+            viewModel.onReceiveSliderValue(newValue, type: .min)
+        }
+        .onChange(of: slider.highHandle.currentValue) { newValue in
+            viewModel.onReceiveSliderValue(newValue, type: .max)
         }
     }
 }
@@ -107,8 +113,9 @@ struct FiltersView: View {
 struct FiltersView_Previews: PreviewProvider {
     static var previews: some View {
         FiltersView(viewModel: FiltersViewModel.init(
-            initialFilters: .init(genders: [], brands: [], sizes: [], priseRange: (0, 100))
-        ))
+            initialGenericFilters: .init(genders: [], brands: [], sizes: []), priceRange: (0, 100)
+        ),
+        slider: .init(start: 0, end: 100))
     }
 }
 #endif
