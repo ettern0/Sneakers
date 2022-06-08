@@ -10,13 +10,16 @@ import Foundation
 enum Gender: CaseIterable {
     case male
     case female
+    case other
 
     var imageName: String {
         switch self {
         case .male:
-            return ""
+            return "maleGender"
         case .female:
-            return ""
+            return "femaleGender"
+        case .other:
+            return "otherGender"
         }
     }
 }

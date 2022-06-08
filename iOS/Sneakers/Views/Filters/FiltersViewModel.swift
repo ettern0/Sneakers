@@ -6,33 +6,47 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class FiltersViewModel: ObservableObject {
-    let displayedGenders: [Gender] = []
-    let displayedBrands: [Brand] = []
-    let displayedSizes: [Size] = []
-
-    struct SelectedFilters {
-        var selectedGenders: [Gender]
-        var selectedBrands: [Brand]
-        var selectedSizes: [Size]
-        var selectedPrizeRange: (min: Double, max: Double)
-
-        init() {
-            self.selectedGenders = []
-            self.selectedBrands = []
-            self.selectedSizes = []
-            self.selectedPrizeRange = (0.0, 0.0)
-        }
+    struct Filters {
+        var genders: [GenericFilterModel<Gender>]
+        var brands: [GenericFilterModel<Brand>]
+        var sizes: [GenericFilterModel<Size>]
+        var priseRange: (min: Double, max: Double)
     }
 
-    @Published var selectedFilters: SelectedFilters
+    private let initialFilters: Filters
+    @Published var currentFilters: Filters
 
-    init(selectedFilters: SelectedFilters) {
-        self.selectedFilters = selectedFilters
+    init(initialFilters: Filters) {
+        self.initialFilters = initialFilters
+        self.currentFilters = initialFilters
     }
 
     func onExploreTap() {
-        
+    }
+
+    func onResetTap() {
+        currentFilters = initialFilters
+    }
+
+    func onGenericFilterTap<Value>(_ filter: GenericFilterModel<Value>) {
+        if let genderValue = filter.value as? Gender {
+            guard let genderIndex = currentFilters.genders.firstIndex(where: { $0.value == genderValue }) else {
+                return
+            }
+            currentFilters.genders[genderIndex].isSelected.toggle()
+        } else if let brandValue = filter.value as? Brand {
+            guard let brandIndex = currentFilters.brands.firstIndex(where: { $0.value == brandValue }) else {
+                return
+            }
+            currentFilters.brands[brandIndex].isSelected.toggle()
+        } else if let sizeValue = filter.value as? Size {
+            guard let sizeIndex = currentFilters.sizes.firstIndex(where: { $0.value == sizeValue }) else {
+                return
+            }
+            currentFilters.sizes[sizeIndex].isSelected.toggle()
+        }
     }
 }
