@@ -27,6 +27,7 @@ struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let sneakers = routes.grouped("sneakers")
         sneakers.get("all", use: all)
+        sneakers.get("filters", ":palette", use: filters)
         sneakers.get("portion", ":count", use: portion)
         sneakers.get("portion", use: portion) // With query parameter "id"
         sneakers.get("360", ":id", use: get360)
@@ -124,6 +125,66 @@ struct SneakersController: RouteCollection {
         try await Sneaker360Presentation.query(on: req.db)
             .filter(\.$sneakerID == req.parameters.get("id"))
             .all()
+    }
+
+    private func filters(req: Request) async throws -> String {
+        guard let colors =  req.query[[String].self, at: "palette"] else { return "" }
+
+        //MARK: TODO get the colors in some way from UI
+        var ids: [UUID] = []
+        var brands: Set<String> = []
+        var prices: Set<Double> = []
+        var sizes: Set<String> = []
+        var genders: Set<String> = ["0", "1"] //MARK: TODO Genders
+
+        let sneakers = try await SneakerColorway.query(on: req.db)
+            .filter(\.$color ~~ colors)
+            .all()
+        sneakers.forEach { value in
+            if let id = value.sneakerID {
+                ids.append(UUID(uuidString: id.uuidString) ?? UUID())
+            }
+        }
+
+        let details = try await Sneaker.query(on: req.db)
+            .filter(\.$id ~~ ids)
+            .all()
+
+        details.forEach { value in
+            brands.insert(value.brand)
+        }
+
+        let sizeAndPrices = try await SneakerSizeAndPrice.query(on: req.db)
+            .filter(\.$sneakerID ~~ ids)
+            .all()
+
+        try sizeAndPrices.forEach { value in
+            var data: [SneakerDTO.ResellPrice] = []
+            let jsonData = try Data(value.prices.utf8)
+            let jsonDecoder = JSONDecoder()
+            do {
+                data = try jsonDecoder.decode([SneakerDTO.ResellPrice].self, from: jsonData)
+                data.forEach { value in
+                    prices.insert(value.price)
+                    sizes.insert(value.size)
+                }
+            } catch { assertionFailure(error.localizedDescription) }
+        }
+
+        let filter = Filter(minPrice: prices.min() ?? 0,
+                            maxPrice: prices.max() ?? 0,
+                            sizes: Array(sizes),
+                            brands: Array(brands),
+                            gender: Array(genders))
+
+        let jsonEncoder = JSONEncoder()
+        do {
+            let jsonResultData = try jsonEncoder.encode(filter)
+            return String(decoding: jsonResultData, as: UTF8.self)
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
+        return ""
     }
 
     private func create(req: Request) async throws -> HTTPStatus {
