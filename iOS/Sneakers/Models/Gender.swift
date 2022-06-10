@@ -10,7 +10,6 @@ import Foundation
 enum Gender: CaseIterable {
     case male
     case female
-    case other
 
     var imageName: String {
         switch self {
@@ -18,8 +17,6 @@ enum Gender: CaseIterable {
             return "maleGender"
         case .female:
             return "femaleGender"
-        case .other:
-            return "otherGender"
         }
     }
 }
