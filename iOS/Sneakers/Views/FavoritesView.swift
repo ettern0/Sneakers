@@ -36,17 +36,22 @@ struct FavoritesView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
             ScrollView {
-                ForEach(palletes.indices) { index in
+                ForEach(palletes.indices, id: \.self) { index in
                     if let sneakers = data[palletes[index].key], !sneakers.isEmpty {
-                        let searchUpper = searchText.uppercased()
-                        SneakerView(sneakers: sneakers.filter({ $0.brand.uppercased().contains(searchUpper) || $0.name.uppercased().contains(searchUpper) || searchText.isEmpty }),
-                                        pallete: palletes[index])
+                        SneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), pallete: palletes[index])
                         .padding(.bottom, 24)
                     }
                 }
             }
             .padding(.horizontal, 16)
         }
+    }
+
+    func checkSearchForSneaker(_ sneaker: SneakerUD, _ searchStr: String) -> Bool {
+        let searchUpper = searchStr.uppercased()
+        return sneaker.brand.uppercased().contains(searchUpper) ||
+                sneaker.name.uppercased().contains(searchUpper) ||
+                searchText.isEmpty
     }
 
     private struct SneakerView: View {
