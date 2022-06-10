@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+import UIKit
 import Combine
+import MultiSlider
 
 struct RangedSliderView: View {
     @ObservedObject var slider: CustomSlider
