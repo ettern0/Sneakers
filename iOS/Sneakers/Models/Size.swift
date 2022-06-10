@@ -8,7 +8,7 @@
 import Foundation
 
 enum Size: Hashable {
-    case european(Int)
+    case european(Double)
 
     var displayText: String {
         switch self {
