@@ -12,7 +12,7 @@ struct CreateSneakerColorway: AsyncMigration {
         try await database.schema("sneakerColorway")
             .id()
             .field("sneakerID", .uuid, .required)
-            .field("color", .string, .required)
+            .field("color", .int32, .required)
             .create()
     }
 

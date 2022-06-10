@@ -141,7 +141,7 @@ struct SneakersController: RouteCollection {
     }
 
     private func filters(req: Request) async throws -> String {
-        guard let colors =  req.query[[String].self, at: "palette"] else { return "" }
+        guard let colors =  req.query[[UInt32].self, at: "palette"] else { return "" }
 
         //MARK: TODO get the colors in some way from UI
         var ids: [UUID] = []

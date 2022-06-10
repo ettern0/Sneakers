@@ -17,7 +17,7 @@ final class SneakerColorway: Model, Content {
     var sneakerID: UUID?
 
     @Field(key: "color")
-    var color: String
+    var color: UInt32
 
     init() { }
 
@@ -26,14 +26,14 @@ final class SneakerColorway: Model, Content {
     }
 }
 
-extension SneakerColorway {
-    convenience init(id: UUID? = nil, sneakerID: UUID? = nil, color: String) {
-        self.init(id: id)
-        self.sneakerID = sneakerID
-        self.color = color
-    }
-
-    func update(color: String) {
-        self.color = color
-    }
-}
+//extension SneakerColorway {
+//    convenience init(id: UUID? = nil, sneakerID: UUID? = nil, color: String) {
+//        self.init(id: id)
+//        self.sneakerID = sneakerID
+//        self.color = color
+//    }
+//
+//    func update(color: String) {
+//        self.color = color
+//    }
+//}
