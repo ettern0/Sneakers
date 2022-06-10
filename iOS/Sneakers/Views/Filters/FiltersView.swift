@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DesignSystem
+import MultiSlider
 
 struct FiltersView: View {
     enum Filter: String, CaseIterable {
@@ -22,41 +23,49 @@ struct FiltersView: View {
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 32) {
-                        ForEach(Filter.allCases, id: \.self) { filter in
-                            createFilterView(for: filter)
+            if viewModel.refreshCompleted {
+                VStack(alignment: .leading) {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 32) {
+                            ForEach(Filter.allCases, id: \.self) { filter in
+                                createFilterView(for: filter)
+                            }
                         }
+                        .padding()
                     }
+                    Spacer()
+                    Button("Explore") {
+                        viewModel.onExploreTap()
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    .buttonStyle(LargeButtonStyle())
                     .padding()
                 }
-
-                Spacer()
-
-                Button("Explore") {
-                    viewModel.onExploreTap()
-                    presentationMode.wrappedValue.dismiss()
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Filter")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Reset") {
+                            viewModel.onResetTap()
+                            // TODO: Reset Slider
+                        }
+                    }
                 }
-                .buttonStyle(LargeButtonStyle())
-                .padding()
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Filter")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                    }
-                }
-
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Reset") {
-                        viewModel.onResetTap()
-                        // TODO: Reset Slider
-                    }
+        }
+        .onAppear {
+            Task {
+                do {
+                    try await viewModel.fetchFilter()
+                } catch {
+                    assertionFailure("can't init filters")
                 }
             }
         }
@@ -66,6 +75,7 @@ struct FiltersView: View {
         return VStack(alignment: .leading) {
             Text(filter.rawValue.capitalized)
                 .font(.headline)
+                .padding(.bottom, 4)
 
             switch filter {
             case .gender:
@@ -91,12 +101,18 @@ struct FiltersView: View {
                 }
             case .price:
                 VStack(alignment: .leading) {
-                    // TODO: Add formatter
-                    Text("\(slider.lowHandle.currentValue) - \(slider.highHandle.currentValue)")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-
-                    RangedSliderView(slider: slider)
+                    Text(viewModel.genericFilters.slider.labelText)
+                        .foregroundColor(.black.opacity(0.5))
+                    MultiValueSlider(
+                        value: $viewModel.genericFilters.slider.selectedRange,
+                        minimumValue: viewModel.genericFilters.slider.range.lowerBound,
+                        maximumValue: viewModel.genericFilters.slider.range.upperBound,
+                        isHapticSnap: true,
+                        orientation: .horizontal,
+                        outerTrackColor: .lightGray,
+                        valueLabelColor: .lightGray,
+                        valueLabelFont: .boldSystemFont(ofSize: 12)
+                     )
                 }
             }
         }
@@ -108,14 +124,3 @@ struct FiltersView: View {
         }
     }
 }
-
-#if DEBUG
-struct FiltersView_Previews: PreviewProvider {
-    static var previews: some View {
-        FiltersView(viewModel: FiltersViewModel.init(
-            initialGenericFilters: .init(genders: [], brands: [], sizes: []), priceRange: (0, 100)
-        ),
-        slider: .init(start: 0, end: 100))
-    }
-}
-#endif
