@@ -17,31 +17,14 @@ struct SneakersListView: View {
     let input: SneakersInput
 
     @StateObject var viewModel = SneakersViewModel.instance
-
-    // TODO: Remove it, just to test
-    @StateObject var filterViewModel = FiltersViewModel(
-        initialGenericFilters: .init(
-            genders: Gender.allCases.map { .init(value: $0) },
-            brands: [
-                .init(value: .init(title: "asd01293")),
-                .init(value: .init(title: "asdasdasd")),
-                .init(value: .init(title: "asdasd")),
-                .init(value: .init(title: "asd1sad")),
-                .init(value: .init(title: "sdad"))
-            ],
-            sizes: [
-                .init(value: .european(41)),
-                .init(value: .european(42)),
-                .init(value: .european(43)),
-                .init(value: .european(12)),
-                .init(value: .european(23)),
-            ]
-        ),
-        priceRange: (0, 200)
-    )
-
+    @StateObject var filterViewModel: FiltersViewModel
     @State var showDetails: Bool = false
     @State var showFilters: Bool = false
+
+    init(input: SneakersInput) {
+        self.input = input
+        self._filterViewModel =  .init(wrappedValue: FiltersViewModel(palette: input.outfitColors)) // MARK: Replace with correct outfit
+    }
 
     var body: some View {
         ZStack {
