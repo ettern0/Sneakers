@@ -54,6 +54,7 @@
 		922E353D283597B100D8A0F9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 922E353C283597B100D8A0F9 /* Lottie */; };
 		922E35402835984C00D8A0F9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E353F2835984C00D8A0F9 /* LottieView.swift */; };
 		922E354528365E5800D8A0F9 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 922E354428365E5800D8A0F9 /* SwiftUIPager */; };
+		924B8FB228535AAF0017920C /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 924B8FB128535AAF0017920C /* MultiSlider */; };
 		9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9254CFDF283E2AA7005F751C /* ChooseView.swift */; };
 		92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714453283A5404002A05C4 /* OffsetModifier.swift */; };
 		92714456283A85D7002A05C4 /* RollUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714455283A85D7002A05C4 /* RollUpView.swift */; };
@@ -148,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				921B211B2833BFD500B934C4 /* NukeUI in Frameworks */,
+				924B8FB228535AAF0017920C /* MultiSlider in Frameworks */,
 				922E353D283597B100D8A0F9 /* Lottie in Frameworks */,
 				88B4D36C284D5AD900A8366B /* CoreUtils in Frameworks */,
 				922E354528365E5800D8A0F9 /* SwiftUIPager in Frameworks */,
@@ -341,13 +343,13 @@
 			isa = PBXGroup;
 			children = (
 				9254CFDF283E2AA7005F751C /* ChooseView.swift */,
-				881CA5342844ED000092265A /* Camera */,
-				886C26EA2844D2C700E91B4E /* PhotoPicker */,
 				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
 				9208B9872840FBD3000866E6 /* FavoritesView.swift */,
+				920D1E342839599D00050935 /* PaletteView.swift */,
+				881CA5342844ED000092265A /* Camera */,
+				886C26EA2844D2C700E91B4E /* PhotoPicker */,
 				88B4D35D284BD65D00A8366B /* ColorPicker */,
 				92714459283A8615002A05C4 /* DetailViews */,
-				920D1E342839599D00050935 /* PaletteView.swift */,
 				92714464283A9D7A002A05C4 /* TabBarController */,
 				30F82AEB284EC70900D0E380 /* Filters */,
 			);
@@ -398,6 +400,7 @@
 				88B4D36B284D5AD900A8366B /* CoreUtils */,
 				88B4D371284D6B0000A8366B /* BackgroundRemoval */,
 				88B4D374284D7B1300A8366B /* DominantColor */,
+				924B8FB128535AAF0017920C /* MultiSlider */,
 			);
 			productName = Sneakers;
 			productReference = 92C2208A28326AD500EC7D39 /* Sneakers.app */;
@@ -433,6 +436,7 @@
 				922E354328365E5800D8A0F9 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 				88B4D370284D6B0000A8366B /* XCRemoteSwiftPackageReference "BackgroundRemoval" */,
 				88B4D373284D7B1300A8366B /* XCRemoteSwiftPackageReference "DominantColor" */,
+				924B8FB028535AAF0017920C /* XCRemoteSwiftPackageReference "MultiSlider" */,
 			);
 			productRefGroup = 92C2208B28326AD500EC7D39 /* Products */;
 			projectDirPath = "";
@@ -785,6 +789,14 @@
 				version = 2.4.0;
 			};
 		};
+		924B8FB028535AAF0017920C /* XCRemoteSwiftPackageReference "MultiSlider" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yonat/MultiSlider";
+			requirement = {
+				branch = swiftui;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -820,6 +832,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 922E354328365E5800D8A0F9 /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
 			productName = SwiftUIPager;
+		};
+		924B8FB128535AAF0017920C /* MultiSlider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 924B8FB028535AAF0017920C /* XCRemoteSwiftPackageReference "MultiSlider" */;
+			productName = MultiSlider;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
