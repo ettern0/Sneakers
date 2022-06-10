@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Filter: Codable {
+struct FilterDTO: Codable {
     var minPrice: Double = 0.0
     var maxPrice: Double = 0.0
     var sizes: [String] = []
     var brands: [String] = []
-    var gender: [String] = []
+    var gender: [Int] = []
 }

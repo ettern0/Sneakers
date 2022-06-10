@@ -135,7 +135,7 @@ struct SneakersController: RouteCollection {
         var brands: Set<String> = []
         var prices: Set<Double> = []
         var sizes: Set<String> = []
-        var genders: Set<String> = ["0", "1"] //MARK: TODO Genders
+        var genders: Set<Int> = [0, 1] //MARK: TODO Genders
 
         let sneakers = try await SneakerColorway.query(on: req.db)
             .filter(\.$color ~~ colors)
@@ -166,12 +166,12 @@ struct SneakersController: RouteCollection {
                 data = try jsonDecoder.decode([SneakerDTO.ResellPrice].self, from: jsonData)
                 data.forEach { value in
                     prices.insert(value.price)
-                    sizes.insert(value.size)
+                    sizes.insert(value.size.replacingOccurrences(of: "W", with: ""))
                 }
             } catch { assertionFailure(error.localizedDescription) }
         }
 
-        let filter = Filter(minPrice: prices.min() ?? 0,
+        let filter = FilterDTO(minPrice: prices.min() ?? 0,
                             maxPrice: prices.max() ?? 0,
                             sizes: Array(sizes),
                             brands: Array(brands),
