@@ -10,10 +10,11 @@ import SwiftUI
 struct SneakerDescriptionView: View {
     let sneaker: Sneaker
     let input: SneakersInput
-    @StateObject var viewModel: SneakersViewModel = SneakersViewModel.instance
+    let viewModel: SneakersViewModel
     @State var isFavorite: Bool = false
 
-    init(sneaker: Sneaker, input: SneakersInput) {
+    init(viewModel: SneakersViewModel, sneaker: Sneaker, input: SneakersInput) {
+        self.viewModel = viewModel
         self.sneaker = sneaker
         self.input = input
         self._isFavorite = State(initialValue: checkStatusUD())
