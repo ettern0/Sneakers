@@ -16,14 +16,15 @@ struct SneakersInput {
 struct SneakersListView: View {
     let input: SneakersInput
 
-    @StateObject var viewModel = SneakersViewModel.instance
+    @StateObject var viewModel: SneakersViewModel
     @StateObject var filterViewModel: FiltersViewModel
     @State var showDetails: Bool = false
     @State var showFilters: Bool = false
 
     init(input: SneakersInput) {
         self.input = input
-        self._filterViewModel =  .init(wrappedValue: FiltersViewModel(palette: input.outfitColors)) // MARK: Replace with correct outfit
+        self._viewModel = .init(wrappedValue: SneakersViewModel(input: input))
+        self._filterViewModel =  .init(wrappedValue: FiltersViewModel(filters: FilterDTO()))
     }
 
     var body: some View {
@@ -35,19 +36,16 @@ struct SneakersListView: View {
                     Spacer()
                     PaletteView(viewModel: .init(colors: input.outfitColors))
                         .frame(width: getRect().width * 0.7, height: getRect().height * 0.07)
-                    PagerView(showDetail: $showDetails)
+                    PagerView(viewModel: viewModel, showDetail: $showDetails)
                 }
                 .frame(maxHeight: getRect().height / 2)
                 .sheet(isPresented: $showDetails) {
                     if let sneaker = viewModel.detail {
-                        SneakerDetailView(sneaker: sneaker, input: input)
+                        SneakerDetailView(sneaker: sneaker, input: input, viewModel: viewModel)
                     }
                 }
                 .sheet(isPresented: $showFilters) {
-                    FiltersView(
-                        viewModel: filterViewModel,
-                        slider: .init(start: filterViewModel.priceRange.min, end: filterViewModel.priceRange.max)
-                    )
+                    FiltersView(viewModel: filterViewModel)
                 }
             } else { UpdateView() }
         }
@@ -72,7 +70,7 @@ struct SneakersListView: View {
     }
 
     struct PagerView: View {
-        @StateObject var viewModel = SneakersViewModel.instance
+        let viewModel: SneakersViewModel
         @StateObject var page: Page = .first()
         @Binding var showDetail: Bool
 
