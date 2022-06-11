@@ -50,33 +50,30 @@ final class FiltersViewModel: ObservableObject {
         case max
     }
 
-    private struct FilterDTO: Codable {
-        var minPrice: Double = 0.0
-        var maxPrice: Double = 0.0
-        var sizes: [String] = []
-        var brands: [String] = []
-        var gender: [Int] = []
-    }
-
     private var initialGenericFilters: GenericFilters
     @Published var genericFilters: GenericFilters
     @Published var refreshCompleted: Bool = false
     var priceRange: (min: Double, max: Double)
-    var palette: [UInt32]
 
-    init(initialGenericFilters: GenericFilters, priceRange: (Double, Double), palette: [UInt32]) {
+    init(initialGenericFilters: GenericFilters, priceRange: (Double, Double)) {
         self.initialGenericFilters = initialGenericFilters
         self.genericFilters = initialGenericFilters
         self.priceRange = priceRange
-        self.palette = palette
     }
 
-    convenience init(palette: [UInt32]) {
-        self.init(initialGenericFilters: .init(genders: Gender.allCases.map { .init(value: $0) }, brands: [], sizes: [], slider: .init(range: 0...0, selectedRange: [])),
-                  priceRange: (0, 0), palette: palette)
+    convenience init(filters: FilterDTO) {
+        let initSlider: SliderModel = .init(range: filters.minPrice...filters.maxPrice, selectedRange: [])
+        var genders: Set<Gender> = []
+        filters.gender.forEach { gender in
+            genders.insert(gender == 0 ? .male : .female)
+        }
+        let _genders = genders.map({ GenericFilterModel(value: $0) })
+        let initialFilter: GenericFilters = .init(genders: _genders, brands: [], sizes: [], slider: initSlider)
+        self.init(initialGenericFilters: initialFilter, priceRange: (filters.minPrice, filters.maxPrice))
     }
 
-    func onExploreTap() {
+    func onExploreTap() async throws {
+        //try await self.delegate?.fetchSneakers(filter: self)
     }
 
     func onResetTap() {
@@ -95,8 +92,8 @@ final class FiltersViewModel: ObservableObject {
     func fetchFilter() async throws {
         if self.refreshCompleted { return }
 
-        let strPalette = self.palette.map({ String($0) }).joined(separator: ",")
-        let urlString = Constants.baseURL + Endpoints.filter + strPalette + ",white"// MARK: delete white, for test
+       // let strPalette = self.palette.map({ String($0) }).joined(separator: ",")
+        let urlString = Constants.baseURL + Endpoints.filter //+ strPalette
 
         guard let url = URL(string: urlString) else {
             return assertionFailure("Invalid URL.")
