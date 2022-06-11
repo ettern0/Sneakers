@@ -15,8 +15,7 @@ struct PaletteView: View {
     var body: some View {
         HStack(spacing: 10) {
             ForEach(viewModel.palette, id: \.self) { color in
-                color
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                color.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             }
         }
     }
