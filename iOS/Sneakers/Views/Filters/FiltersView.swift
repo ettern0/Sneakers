@@ -19,7 +19,6 @@ struct FiltersView: View {
 
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: FiltersViewModel
-    @StateObject var slider: CustomSlider
 
     var body: some View {
         NavigationView {
@@ -35,7 +34,11 @@ struct FiltersView: View {
                     }
                     Spacer()
                     Button("Explore") {
-                        viewModel.onExploreTap()
+                        Task {
+                            do {
+                                try await viewModel.onExploreTap()
+                            }
+                        }
                         presentationMode.wrappedValue.dismiss()
                     }
                     .buttonStyle(LargeButtonStyle())
@@ -65,7 +68,7 @@ struct FiltersView: View {
                 do {
                     try await viewModel.fetchFilter()
                 } catch {
-                    assertionFailure("can't init filters")
+                    assertionFailure(error.localizedDescription)
                 }
             }
         }
@@ -79,30 +82,20 @@ struct FiltersView: View {
 
             switch filter {
             case .gender:
-                GenericFilterView(
-                    filters: $viewModel.genericFilters.genders,
-                    spacing: 32
-                ) { filter in
+                GenericFilterView(filters: $viewModel.genericFilters.genders, spacing: 32) { filter in
                     Image(filter.value.imageName)
                 }
             case .brands:
-                GenericFilterView(
-                    filters: $viewModel.genericFilters.brands,
-                    spacing: 12
-                ) { filter in
+                GenericFilterView(filters: $viewModel.genericFilters.brands, spacing: 12) { filter in
                     Text(filter.value.title)
                 }
             case .size:
-                GenericFilterView(
-                    filters: $viewModel.genericFilters.sizes,
-                    spacing: 12
-                ) { filter in
+                GenericFilterView(filters: $viewModel.genericFilters.sizes, spacing: 12) { filter in
                     Text(filter.value.displayText)
                 }
             case .price:
                 VStack(alignment: .leading) {
-                    Text(viewModel.genericFilters.slider.labelText)
-                        .foregroundColor(.black.opacity(0.5))
+                    Text(viewModel.genericFilters.slider.labelText).foregroundColor(.black.opacity(0.5))
                     MultiValueSlider(
                         value: $viewModel.genericFilters.slider.selectedRange,
                         minimumValue: viewModel.genericFilters.slider.range.lowerBound,
@@ -115,12 +108,6 @@ struct FiltersView: View {
                      )
                 }
             }
-        }
-        .onChange(of: slider.lowHandle.currentValue) { newValue in
-            viewModel.onReceiveSliderValue(newValue, type: .min)
-        }
-        .onChange(of: slider.highHandle.currentValue) { newValue in
-            viewModel.onReceiveSliderValue(newValue, type: .max)
         }
     }
 }
