@@ -11,18 +11,25 @@ import NukeUI
 struct SneakerDetailView: View {
     var sneaker: Sneaker
     let input: SneakersInput
-    @StateObject var viewModel: SneakersViewModel = SneakersViewModel.instance
-    @StateObject var view360Model: Sneaker360ViewModel = Sneaker360ViewModel()
+    let viewModel: SneakersViewModel
+    @StateObject var view360Model: Sneaker360ViewModel
     @State var show360: Bool = false
+
+    init(sneaker: Sneaker, input: SneakersInput, viewModel: SneakersViewModel) {
+        self.sneaker = sneaker
+        self.input = input
+        self.viewModel = viewModel
+        self._view360Model = .init(wrappedValue: Sneaker360ViewModel(sneakerViewModel: viewModel))
+    }
 
     var body: some View {
         ZStack {
             Color(.init(white: 2, alpha: 1))
                 .ignoresSafeArea()
             ScrollView(.vertical, showsIndicators: false) {
-                SneakerHeaderView(sneaker: sneaker, view360Model: view360Model, show360: $show360)
+                SneakerHeaderView(viewModel: viewModel, sneaker: sneaker, view360Model: view360Model, show360: $show360)
                     .zIndex(1)
-                SneakerDescriptionView(sneaker: sneaker, input: input)
+                SneakerDescriptionView(viewModel: viewModel, sneaker: sneaker, input: input)
                     .zIndex(0)
             }
             .coordinateSpace(name: "DETAILSCROLL")
@@ -33,8 +40,8 @@ struct SneakerDetailView: View {
     }
 
     private struct SneakerHeaderView: View {
+        let viewModel: SneakersViewModel
         let sneaker: Sneaker
-        @StateObject var viewModel: SneakersViewModel = SneakersViewModel.instance
         @StateObject var view360Model: Sneaker360ViewModel
         @Binding var show360: Bool
         @State var yOld: CGFloat = 0// First y position of geometry reader
