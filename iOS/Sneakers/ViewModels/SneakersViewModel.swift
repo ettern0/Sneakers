@@ -9,14 +9,17 @@ import Foundation
 
 final class SneakersViewModel: ObservableObject {
 
-    static let instance = SneakersViewModel()
-
     @Published var sneakers: [Sneaker] = []
     @Published var active: Int = 0
     @Published var drag: Float = 0.0
     @Published var detail: Sneaker?
+    let input: SneakersInput
 
-    func fetchSneakers() async throws {
+    init(input: SneakersInput) {
+        self.input = input
+    }
+
+    func fetchSneakers(filter: FiltersViewModel? = nil) async throws {
         let urlString = Constants.baseURL + Endpoints.portion
 
         guard let url = URL(string: urlString) else {
@@ -27,5 +30,16 @@ final class SneakersViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.sneakers = sneakerResponse
         }
+    }
+
+    func fetchFilter() async throws {
+        let strPalette = self.input.outfitColors.map({ String($0) }).joined(separator: ",")
+        let urlString = Constants.baseURL + Endpoints.filter + strPalette
+
+        guard let url = URL(string: urlString) else {
+            return assertionFailure("Invalid URL.")
+        }
+
+        let response: FilterDTO = try await HTTPClient.shared.fetch(url: url)
     }
 }

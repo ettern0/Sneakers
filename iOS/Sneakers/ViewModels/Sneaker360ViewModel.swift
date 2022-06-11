@@ -9,12 +9,12 @@ import SwiftUI
 import NukeUI
 
 class Sneaker360ViewModel: ObservableObject {
-
+    let sneakerViewModel: SneakersViewModel?
     @Published var images: [UIImage] = []
     @Published var active: UIImage?
 
-    init() {
-
+    init(sneakerViewModel: SneakersViewModel) {
+        self.sneakerViewModel = sneakerViewModel
         self.images.removeAll()
         self.active = nil
 
@@ -41,7 +41,7 @@ class Sneaker360ViewModel: ObservableObject {
         let group = DispatchGroup()
         var urls: [ImageURL] = []
 
-        if SneakersViewModel.instance.detail?.images360.count != 0, let images360_str = SneakersViewModel.instance.detail?.images360[0] {
+        if sneakerViewModel?.detail?.images360.count != 0, let images360_str = sneakerViewModel?.detail?.images360[0] {
             let data = Data(images360_str.utf8)
             if let images = try? JSONDecoder().decode([String].self, from: data) {
                 group.enter()
