@@ -39,7 +39,7 @@ func getDataFromStadiumgoods(styleID: String) async throws -> ResponseFromSecond
     request.httpBody = jsonData;
 
     // Perform HTTP Request
-    let (data, _) = try await URLSession.shared.data(for: request)
+    //let (data, _) = try await URLSession.shared.data(for: request)
 
     do {
         //let jsonString = String(data: data, encoding: String.Encoding.utf8) ?? ""

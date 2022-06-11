@@ -141,14 +141,14 @@ struct SneakersController: RouteCollection {
     }
 
     private func filters(req: Request) async throws -> String {
-        guard let colors =  req.query[[UInt32].self, at: "palette"] else { return "" }
+        guard let colors =  req.query[[String].self, at: "palette"] else { return "" }
 
         //MARK: TODO get the colors in some way from UI
         var ids: [UUID] = []
         var brands: Set<String> = []
         var prices: Set<Double> = []
         var sizes: Set<String> = []
-        var genders: Set<Int> = [0, 1] //MARK: TODO Genders
+        let genders: Set<Int> = [0, 1] //MARK: TODO Genders
 
         let sneakers = try await SneakerColorway.query(on: req.db)
             .filter(\.$color ~~ colors)
