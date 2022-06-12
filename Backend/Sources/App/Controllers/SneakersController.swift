@@ -8,6 +8,7 @@
 import Fluent
 import Vapor
 import Foundation
+import SneakerModels
 
 struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
@@ -127,8 +128,9 @@ struct SneakersController: RouteCollection {
     }
 
     private func filters(req: Request) async throws -> String {
-        guard let colors =  req.query[[String].self, at: "palette"] else { return "" }
+        guard let colors =  req.query[[UInt32].self, at: "palette"] else { throw Abort(.badRequest) }
 
+        let palettes = ColorPaletteGenerator.palettes(from: colors)
         //MARK: TODO get the colors in some way from UI
         var ids: [UUID] = []
         var brands: Set<String> = []
@@ -136,8 +138,9 @@ struct SneakersController: RouteCollection {
         var sizes: Set<String> = []
         let genders: Set<Int> = [0, 1] //MARK: TODO Genders
 
+        let stringColors = ["white", "black"] // TODO:
         let sneakers = try await SneakerColorway.query(on: req.db)
-            .filter(\.$color ~~ colors)
+            .filter(\.$color ~~ stringColors)
             .all()
         sneakers.forEach { value in
             if let id = value.sneakerID {
@@ -170,20 +173,23 @@ struct SneakersController: RouteCollection {
             } catch { assertionFailure(error.localizedDescription) }
         }
 
-        let filter = FilterDTO(minPrice: prices.min() ?? 0,
-                            maxPrice: prices.max() ?? 0,
-                            sizes: Array(sizes),
-                            brands: Array(brands),
-                            gender: Array(genders))
+        let filters = Filters(
+            minPrice: prices.min() ?? 0,
+            maxPrice: prices.max() ?? 0,
+            sizes: Array(sizes),
+            brands: Array(brands),
+            gender: Array(genders)
+        )
+
+        let filtersResponse = FiltersResponse(filters: filters, palettes: palettes)
 
         let jsonEncoder = JSONEncoder()
         do {
-            let jsonResultData = try jsonEncoder.encode(filter)
+            let jsonResultData = try jsonEncoder.encode(filtersResponse)
             return String(decoding: jsonResultData, as: UTF8.self)
         } catch {
-            assertionFailure(error.localizedDescription)
+            throw Abort(.internalServerError)
         }
-        return ""
     }
 
     private func create(req: Request) async throws -> HTTPStatus {
