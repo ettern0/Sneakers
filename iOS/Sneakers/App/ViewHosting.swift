@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystem
 
 struct ViewHosting: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -26,14 +27,8 @@ struct ViewHosting: View {
                             Button {
                                 presentationMode.wrappedValue.dismiss()
                             } label: {
-                                Image("back")
-                                    .frame(width: 43, height: 43)
-                                    .background(content: {
-                                        RoundedRectangle(cornerRadius: 4)
-                                            .foregroundColor(.white)
-                                            .shadow(color: .black.opacity(0.08), radius: 6)
-                                    })
-                            }
+                                Image("NavBar/back")
+                            }.buttonStyle(NavigationButtonStyle())
                         }
                     }
             })

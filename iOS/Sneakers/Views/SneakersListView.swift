@@ -8,6 +8,7 @@
 import SwiftUI
 import NukeUI
 import SwiftUIPager
+import DesignSystem
 
 struct SneakersInput {
     let outfitColors: [UInt32]
@@ -54,8 +55,8 @@ struct SneakersListView: View {
                 Button {
                     showFilters = true
                 } label: {
-                    Text("filter")
-                }
+                    Image("NavBar/filters")
+                }.buttonStyle(NavigationButtonStyle())
             }
         }
         .onAppear {

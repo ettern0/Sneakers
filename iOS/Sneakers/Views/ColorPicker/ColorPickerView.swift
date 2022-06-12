@@ -32,7 +32,7 @@ struct ColorPickerView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Detect")
-                Text("Select two main colors")
+                    .font(.system(size: 32, weight: .bold))
             }
             .padding(.horizontal, 40)
 
@@ -40,6 +40,8 @@ struct ColorPickerView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                Text("Base your choice on two main color")
+                    .font(.system(size: 16, weight: .bold))
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 40)

@@ -12,6 +12,8 @@ final class NavigationController: UINavigationController, UIGestureRecognizerDel
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
         delegate = self
+
+        UINavigationBar.appearance().tintColor = .black
     }
 
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
