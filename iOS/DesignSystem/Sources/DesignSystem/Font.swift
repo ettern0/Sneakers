@@ -19,7 +19,7 @@ extension Font {
     public static var title1Highlights: Font {
       Font.custom("Raleway-Bold", size: 25)
     }
-    
+
     public static var subtitle1: Font {
       Font.custom("Raleway-Bold", size: 25)
     }

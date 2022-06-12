@@ -1,10 +1,11 @@
 //
-//  ColorExtension.swift
-//  Sneakers
+//  UIColor++.swift
+//  
 //
-//  Created by Evgeny Serdyukov on 26.05.2022.
+//  Created by Alexey Salangin on 12.06.2022.
 //
 
+import UIKit
 import SwiftUI
 
 extension UIColor {
@@ -15,14 +16,32 @@ extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 
-    var color: Color {
+    public var color: Color {
         .init(self)
     }
 
-    var intValue: UInt32 {
+    public var intValue: UInt32 {
         let (red, green, blue, _) = self.components
         let rgb = (Int)(red * 255) << 16 | (Int)(green * 255) << 8 | (Int)(blue * 255) << 0
         return UInt32(rgb)
+    }
+
+    public func modified(withAdditionalHue hue: CGFloat, additionalSaturation: CGFloat, additionalBrightness: CGFloat) -> UIColor {
+        var currentHue: CGFloat = 0.0
+        var currentSaturation: CGFloat = 0.0
+        var currentBrigthness: CGFloat = 0.0
+        var currentAlpha: CGFloat = 0.0
+
+        if self.getHue(&currentHue, saturation: &currentSaturation, brightness: &currentBrigthness, alpha: &currentAlpha) {
+            return UIColor(
+                hue: currentHue + hue,
+                saturation: currentSaturation + additionalSaturation,
+                brightness: currentBrigthness + additionalBrightness,
+                alpha: currentAlpha
+            )
+        } else {
+            return self
+        }
     }
 
     // swiftlint:disable:next large_tuple

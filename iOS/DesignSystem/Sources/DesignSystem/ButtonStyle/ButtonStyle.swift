@@ -40,4 +40,3 @@ public struct NavigationButtonStyle: ButtonStyle {
             .opacity(configuration.isPressed ? 0.7 : 1)
     }
 }
-

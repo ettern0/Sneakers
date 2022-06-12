@@ -1,14 +1,14 @@
 //
-//  ColorExtensionRandomColor.swift
-//  Sneakers
+//  Color++.swift
+//  
 //
-//  Created by Evgeny Serdyukov on 21.05.2022.
+//  Created by Alexey Salangin on 12.06.2022.
 //
 
 import SwiftUI
 
 extension Color {
-    static var random: Color {
+    public static var random: Color {
         return Color(
             red: .random(in: 0...1),
             green: .random(in: 0...1),
@@ -19,14 +19,14 @@ extension Color {
 
 
 extension Color {
-    init(rgb: UInt32) {
+    public init(rgb: UInt32) {
         self.init(UIColor(rgb: rgb))
     }
 }
 
 
 extension Color {
-    var uiColor: UIColor {
+    public var uiColor: UIColor {
         .init(self)
     }
 }

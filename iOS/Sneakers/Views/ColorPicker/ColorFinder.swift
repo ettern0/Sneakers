@@ -7,9 +7,9 @@
 
 import Foundation
 import UIKit
+import ColorSet
 
 import BackgroundRemoval
-import DominantColor
 
 final class ColorFinder {
     private let backgroundRemoval = BackgroundRemoval()
@@ -24,8 +24,9 @@ final class ColorFinder {
             processedImage = image
         }
 
-        let colors = Array(processedImage.dominantColors().map(\.intValue).prefix(4))
-        return colors
+        let dominantColors = processedImage.findDominantColors()
+        let uniqueColors = ColorSet(colors: dominantColors).uniqueColors.prefix(4).map(\.intValue)
+        return Array(uniqueColors)
     }
 }
 
