@@ -12,11 +12,11 @@ struct CaptureButtonStyle: ButtonStyle {
         Circle()
             .strokeBorder(.black, lineWidth: 3)
             .foregroundColor(.white)
-            .frame(width: 62, height: 62, alignment: .center)
+            .frame(width: 75, height: 75, alignment: .center)
             .overlay(
                 Circle()
                     .foregroundColor(.white)
-                    .frame(width: 48, height: 48, alignment: .center)
+                    .frame(width: 63, height: 63, alignment: .center)
                     .shadow(color: .black.opacity(0.4), radius: configuration.isPressed ? 2 : 4, x: 0, y: 0)
                     .scaleEffect(configuration.isPressed ? 0.97 : 1, anchor: .center)
                     .animation(.easeOut(duration: 0.1), value: configuration.isPressed)

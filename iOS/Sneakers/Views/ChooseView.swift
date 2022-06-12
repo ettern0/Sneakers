@@ -37,12 +37,22 @@ struct ChooseView: View {
                 Button {
                     router.push(screen: .camera)
                 } label: {
-                    ChooseButtonContent(header: "Looking for",
-                                        endPoint: "Outfit",
-                                        description: "sneakers",
-                                        imageName: "outfitChoose")
+                    ZStack(alignment: .top) {
+                        ChooseButtonContent(header: "Looking for",
+                                            endPoint: "Outfit",
+                                            description: "sneakers",
+                                            imageName: "outfitChoose")
+                        .opacity(0.5)
+
+                        Text("Coming soon")
+                            .foregroundColor(.black.opacity(0.4))
+                            .font(Font.system(size: 32, weight: .black))
+                            .padding(.top, 10)
+                    }
                 }
                 .padding(.bottom, 80)
+                .disabled(true)
+
                 Spacer()
             }
             .padding(.horizontal, 16)

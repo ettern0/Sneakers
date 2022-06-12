@@ -92,8 +92,6 @@ struct CameraView: View {
                 VStack {
                     Spacer()
                     bottomPanel
-                        .padding(.horizontal, 44)
-                        .padding(.bottom, 40)
                 }
             }
         }
@@ -114,8 +112,8 @@ struct CameraView: View {
             .frame(maxWidth: .infinity)
 
             captureButton
-                .padding(11)
-            .frame(maxWidth: .infinity)
+                .padding(17)
+                .frame(maxWidth: .infinity)
 
             Group {
                 Spacer()
@@ -123,8 +121,5 @@ struct CameraView: View {
             .frame(maxWidth: .infinity)
         }
         .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-        .shadow(radius: 15)
-        .frame(height: 80)
     }
 }
