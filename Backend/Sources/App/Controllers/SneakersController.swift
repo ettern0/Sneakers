@@ -9,20 +9,6 @@ import Fluent
 import Vapor
 import Foundation
 
-extension Sequence {
-    func asyncMap<T>(
-        _ transform: (Element) async throws -> T
-    ) async rethrows -> [T] {
-        var values = [T]()
-
-        for element in self {
-            try await values.append(transform(element))
-        }
-
-        return values
-    }
-}
-
 struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let sneakers = routes.grouped("sneakers")
@@ -171,9 +157,9 @@ struct SneakersController: RouteCollection {
             .filter(\.$sneakerID ~~ ids)
             .all()
 
-        try sizeAndPrices.forEach { value in
+        sizeAndPrices.forEach { value in
             var data: [SneakerDTO.ResellPrice] = []
-            let jsonData = try Data(value.prices.utf8)
+            let jsonData = Data(value.prices.utf8)
             let jsonDecoder = JSONDecoder()
             do {
                 data = try jsonDecoder.decode([SneakerDTO.ResellPrice].self, from: jsonData)

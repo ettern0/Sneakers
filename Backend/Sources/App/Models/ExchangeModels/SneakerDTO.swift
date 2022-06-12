@@ -9,41 +9,9 @@ import Foundation
 import Vapor
 
 struct SneakerDTO: Codable {
-    internal init(shoeName: String = "", brand: String = "", silhoutte: String = "", styleID: String = "", retailPrice: Double = 0.0, releaseDate: String = "", description: String = "", imageLinks: [String] = [], thumbnail: String = "", urlKey: String = "", make: String = "", goatProductId: Int = 0, colorway: String = "", size: Double = 0.0, condition: String = "", countryOfManufacture: String = "", primaryCategory: String = "", secondaryCategory: String = "", year: String = "", resellLinkStockX: String = "", resellLinkStadiumGoods: String = "", resellLinkGoat: String = "", resellLinkFlightClub: String = "", lowestResellPriceStockX: String = "", lowestResellPriceStadiumGoods: String = "", lowestResellPriceGoat: String = "", lowestResellPriceFlightClub: String = "", resellPricesStockX: [SneakerDTO.ResellPrice] = [], resellPricesStadiumGoods: [SneakerDTO.ResellPrice] = [], resellPricesGoat: [SneakerDTO.ResellPrice] = [], resellPricesFlightClub: [SneakerDTO.ResellPrice] = [], images360: [String] = [], has360: Bool = false, detailsDownloaded: Bool = false) {
-        self.shoeName = shoeName
-        self.brand = brand
-        self.silhoutte = silhoutte
-        self.styleID = styleID
-        self.retailPrice = retailPrice
-        self.releaseDate = releaseDate
-        self.description = description
-        self.imageLinks = imageLinks
-        self.thumbnail = thumbnail
-        self.urlKey = urlKey
-        self.make = make
-        self.goatProductId = goatProductId
-        self.colorway = colorway
-        self.size = size
-        self.condition = condition
-        self.countryOfManufacture = countryOfManufacture
-        self.primaryCategory = primaryCategory
-        self.secondaryCategory = secondaryCategory
-        self.year = year
-        self.resellLinkStockX = resellLinkStockX
-        self.resellLinkStadiumGoods = resellLinkStadiumGoods
-        self.resellLinkGoat = resellLinkGoat
-        self.resellLinkFlightClub = resellLinkFlightClub
-        self.lowestResellPriceStockX = lowestResellPriceStockX
-        self.lowestResellPriceStadiumGoods = lowestResellPriceStadiumGoods
-        self.lowestResellPriceGoat = lowestResellPriceGoat
-        self.lowestResellPriceFlightClub = lowestResellPriceFlightClub
-        self.resellPricesStockX = resellPricesStockX
-        self.resellPricesStadiumGoods = resellPricesStadiumGoods
-        self.resellPricesGoat = resellPricesGoat
-        self.resellPricesFlightClub = resellPricesFlightClub
-        self.images360 = images360
-        self.has360 = has360
-        self.detailsDownloaded = detailsDownloaded
+    struct ResellPrice: Codable {
+        var size: String
+        var price: Double
     }
     
     var shoeName: String = ""
@@ -82,11 +50,6 @@ struct SneakerDTO: Codable {
     var resellPricesGoat: [ResellPrice] = []
     var resellPricesFlightClub: [ResellPrice] = []
 
-    struct ResellPrice: Codable {
-        var size: String
-        var price: Double
-    }
-
     var images360: [String] = []
     var has360: Bool
     var detailsDownloaded: Bool = false
@@ -112,6 +75,78 @@ struct SneakerDTO: Codable {
         self.has360 = sneaker.has360
         self.detailsDownloaded = sneaker.detailsDownloaded
     }
+
+    init(
+        shoeName: String = "",
+        brand: String = "",
+        silhoutte: String = "",
+        styleID: String = "",
+        retailPrice: Double = 0.0,
+        releaseDate: String = "",
+        description: String = "",
+        imageLinks: [String] = [],
+        thumbnail: String = "",
+        urlKey: String = "",
+        make: String = "",
+        goatProductId: Int = 0,
+        colorway: String = "",
+        size: Double = 0.0,
+        condition: String = "",
+        countryOfManufacture: String = "",
+        primaryCategory: String = "",
+        secondaryCategory: String = "",
+        year: String = "",
+        resellLinkStockX: String = "",
+        resellLinkStadiumGoods: String = "",
+        resellLinkGoat: String = "",
+        resellLinkFlightClub: String = "",
+        lowestResellPriceStockX: String = "",
+        lowestResellPriceStadiumGoods: String = "",
+        lowestResellPriceGoat: String = "",
+        lowestResellPriceFlightClub: String = "",
+        resellPricesStockX: [SneakerDTO.ResellPrice] = [],
+        resellPricesStadiumGoods: [SneakerDTO.ResellPrice] = [],
+        resellPricesGoat: [SneakerDTO.ResellPrice] = [],
+        resellPricesFlightClub: [SneakerDTO.ResellPrice] = [],
+        images360: [String] = [],
+        has360: Bool = false,
+        detailsDownloaded: Bool = false
+    ) {
+        self.shoeName = shoeName
+        self.brand = brand
+        self.silhoutte = silhoutte
+        self.styleID = styleID
+        self.retailPrice = retailPrice
+        self.releaseDate = releaseDate
+        self.description = description
+        self.imageLinks = imageLinks
+        self.thumbnail = thumbnail
+        self.urlKey = urlKey
+        self.make = make
+        self.goatProductId = goatProductId
+        self.colorway = colorway
+        self.size = size
+        self.condition = condition
+        self.countryOfManufacture = countryOfManufacture
+        self.primaryCategory = primaryCategory
+        self.secondaryCategory = secondaryCategory
+        self.year = year
+        self.resellLinkStockX = resellLinkStockX
+        self.resellLinkStadiumGoods = resellLinkStadiumGoods
+        self.resellLinkGoat = resellLinkGoat
+        self.resellLinkFlightClub = resellLinkFlightClub
+        self.lowestResellPriceStockX = lowestResellPriceStockX
+        self.lowestResellPriceStadiumGoods = lowestResellPriceStadiumGoods
+        self.lowestResellPriceGoat = lowestResellPriceGoat
+        self.lowestResellPriceFlightClub = lowestResellPriceFlightClub
+        self.resellPricesStockX = resellPricesStockX
+        self.resellPricesStadiumGoods = resellPricesStadiumGoods
+        self.resellPricesGoat = resellPricesGoat
+        self.resellPricesFlightClub = resellPricesFlightClub
+        self.images360 = images360
+        self.has360 = has360
+        self.detailsDownloaded = detailsDownloaded
+    }
 }
 
 struct ResponseFromSecondaryAPI {
@@ -122,5 +157,4 @@ struct ResponseFromSecondaryAPI {
 }
 
 extension SneakerDTO: Content {
-    
 }
