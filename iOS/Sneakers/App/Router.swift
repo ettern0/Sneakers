@@ -9,35 +9,6 @@ import Foundation
 import SwiftUI
 import UIKit
 
-enum Screen {
-    // Search tab
-    case choose
-    case camera
-    case colorPicker(ColorPickerInput)
-    case sneakers(SneakersInput)
-
-    // Favorites tab
-    case favorites
-}
-
-extension Screen {
-    fileprivate func makeView() -> some View {
-        switch self {
-        case .choose:
-            return AnyView(ChooseView())
-        case .camera:
-            return AnyView(CameraView())
-        case .colorPicker(let input):
-            return AnyView(ColorPickerView(input: input))
-        case .sneakers(let input):
-            return AnyView(SneakersListView(input: input))
-
-        case .favorites:
-            return AnyView(FavoritesView())
-        }
-    }
-}
-
 enum Tab: Int, CaseIterable {
     case search
     case favorites
@@ -53,6 +24,12 @@ final class Router: NSObject, ObservableObject {
     @Published private var currentTab: Tab = .search
 
     private var tabNavigationControllers: [Tab: UINavigationController] = [:]
+
+    var needsShowBackButton: Bool {
+        let currentRootController = self.viewController(for: currentTab)
+        let navigationController = currentRootController
+        return navigationController.viewControllers.count > 1
+    }
 
     func tabBarViewControllers() -> [UIViewController] {
         Tab.allCases.map(viewController(for:))

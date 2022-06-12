@@ -11,6 +11,12 @@ import UIKit
 final class SneakersHostingController: UIHostingController<AnyView> {
     var hideTabBar: Bool = false
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.navigationItem.hidesBackButton = true
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let tabBar = self.tabBarController?.tabBar else { return }

@@ -2,7 +2,7 @@
 //  NavigationController.swift
 //  Sneakers
 //
-//  Created by Aleksei Salangin on 12.06.2022.
+//  Created by Alexey Salangin on 12.06.2022.
 //
 
 import UIKit

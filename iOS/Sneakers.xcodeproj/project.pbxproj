@@ -22,8 +22,12 @@
 		881CA53C2844ED490092265A /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA53B2844ED490092265A /* ImageResizer.swift */; };
 		881CA53E2844ED670092265A /* PhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA53D2844ED670092265A /* PhotoCaptureProcessor.swift */; };
 		881CA5402844F1940092265A /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881CA53F2844F1940092265A /* CameraPreview.swift */; };
+		8852BE56285573A400BCBEAA /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8852BE55285573A400BCBEAA /* NavigationController.swift */; };
+		8852BE58285575AD00BCBEAA /* ViewHosting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8852BE57285575AD00BCBEAA /* ViewHosting.swift */; };
+		8852BE5A285575CF00BCBEAA /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8852BE59285575CF00BCBEAA /* Screen.swift */; };
 		886C26E92844D2A100E91B4E /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C26E82844D2A100E91B4E /* PhotoPicker.swift */; };
 		886C26EC2844D2D800E91B4E /* PickerMediaItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C26EB2844D2D800E91B4E /* PickerMediaItems.swift */; };
+		888BB10B28533FAE006F894C /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 888BB10A28533FAE006F894C /* SwiftUIPager */; };
 		8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97A28327861008A9A49 /* .swiftlint.yml */; };
 		8897D97D28327867008A9A49 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8897D97C28327867008A9A49 /* README.md */; };
 		88B4D34F2848CB2000A8366B /* CaptureButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D34E2848CB2000A8366B /* CaptureButtonStyle.swift */; };
@@ -40,6 +44,7 @@
 		88B4D372284D6B0000A8366B /* BackgroundRemoval in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D371284D6B0000A8366B /* BackgroundRemoval */; };
 		88B4D375284D7B1300A8366B /* DominantColor in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D374284D7B1300A8366B /* DominantColor */; };
 		88B4D377284DDF1500A8366B /* ColorFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D376284DDF1500A8366B /* ColorFinder.swift */; };
+		88B93C4E285560AE0055737C /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 88B93C4D285560AE0055737C /* SwiftUIPager */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
 		9208B98A284112B6000866E6 /* SneakerUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B989284112B6000866E6 /* SneakerUD.swift */; };
@@ -53,7 +58,6 @@
 		921B211B2833BFD500B934C4 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 921B211A2833BFD500B934C4 /* NukeUI */; };
 		922E353D283597B100D8A0F9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 922E353C283597B100D8A0F9 /* Lottie */; };
 		922E35402835984C00D8A0F9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E353F2835984C00D8A0F9 /* LottieView.swift */; };
-		922E354528365E5800D8A0F9 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 922E354428365E5800D8A0F9 /* SwiftUIPager */; };
 		924B8FB228535AAF0017920C /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 924B8FB128535AAF0017920C /* MultiSlider */; };
 		924B8FB428539E7A0017920C /* FilterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B8FB328539E7A0017920C /* FilterDTO.swift */; };
 		9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9254CFDF283E2AA7005F751C /* ChooseView.swift */; };
@@ -94,6 +98,9 @@
 		881CA53B2844ED490092265A /* ImageResizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
 		881CA53D2844ED670092265A /* PhotoCaptureProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureProcessor.swift; sourceTree = "<group>"; };
 		881CA53F2844F1940092265A /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		8852BE55285573A400BCBEAA /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		8852BE57285575AD00BCBEAA /* ViewHosting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHosting.swift; sourceTree = "<group>"; };
+		8852BE59285575CF00BCBEAA /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		886C26E82844D2A100E91B4E /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		886C26EB2844D2D800E91B4E /* PickerMediaItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerMediaItems.swift; sourceTree = "<group>"; };
 		8897D97A28327861008A9A49 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.yaml; };
@@ -154,7 +161,8 @@
 				924B8FB228535AAF0017920C /* MultiSlider in Frameworks */,
 				922E353D283597B100D8A0F9 /* Lottie in Frameworks */,
 				88B4D36C284D5AD900A8366B /* CoreUtils in Frameworks */,
-				922E354528365E5800D8A0F9 /* SwiftUIPager in Frameworks */,
+				888BB10B28533FAE006F894C /* SwiftUIPager in Frameworks */,
+				88B93C4E285560AE0055737C /* SwiftUIPager in Frameworks */,
 				88B4D367284BDADF00A8366B /* DesignSystem in Frameworks */,
 				88B4D375284D7B1300A8366B /* DominantColor in Frameworks */,
 				88B4D372284D6B0000A8366B /* BackgroundRemoval in Frameworks */,
@@ -216,7 +224,10 @@
 			isa = PBXGroup;
 			children = (
 				88B4D357284A052600A8366B /* Router.swift */,
+				8852BE59285575CF00BCBEAA /* Screen.swift */,
+				8852BE57285575AD00BCBEAA /* ViewHosting.swift */,
 				88B4D359284BB16600A8366B /* SneakerHostingViewController.swift */,
+				8852BE55285573A400BCBEAA /* NavigationController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -398,12 +409,12 @@
 			packageProductDependencies = (
 				921B211A2833BFD500B934C4 /* NukeUI */,
 				922E353C283597B100D8A0F9 /* Lottie */,
-				922E354428365E5800D8A0F9 /* SwiftUIPager */,
 				88B4D366284BDADF00A8366B /* DesignSystem */,
 				88B4D36B284D5AD900A8366B /* CoreUtils */,
 				88B4D371284D6B0000A8366B /* BackgroundRemoval */,
 				88B4D374284D7B1300A8366B /* DominantColor */,
 				924B8FB128535AAF0017920C /* MultiSlider */,
+				88B93C4D285560AE0055737C /* SwiftUIPager */,
 			);
 			productName = Sneakers;
 			productReference = 92C2208A28326AD500EC7D39 /* Sneakers.app */;
@@ -436,10 +447,10 @@
 			packageReferences = (
 				921B21192833BFD500B934C4 /* XCRemoteSwiftPackageReference "NukeUI" */,
 				922E353B283597B100D8A0F9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				922E354328365E5800D8A0F9 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 				88B4D370284D6B0000A8366B /* XCRemoteSwiftPackageReference "BackgroundRemoval" */,
 				88B4D373284D7B1300A8366B /* XCRemoteSwiftPackageReference "DominantColor" */,
 				924B8FB028535AAF0017920C /* XCRemoteSwiftPackageReference "MultiSlider" */,
+				88B93C4C285560AE0055737C /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 			);
 			productRefGroup = 92C2208B28326AD500EC7D39 /* Products */;
 			projectDirPath = "";
@@ -518,16 +529,19 @@
 				88B4D377284DDF1500A8366B /* ColorFinder.swift in Sources */,
 				921B21152833A04200B934C4 /* ViewExtensionGetRect.swift in Sources */,
 				30F82AED284ECE4000D0E380 /* GenericFilterView.swift in Sources */,
+				8852BE58285575AD00BCBEAA /* ViewHosting.swift in Sources */,
 				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
 				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
 				88B4D358284A052600A8366B /* Router.swift in Sources */,
 				881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */,
+				8852BE56285573A400BCBEAA /* NavigationController.swift in Sources */,
 				92E61626283CF01F00D9AC00 /* TabBarController.swift in Sources */,
 				920D1E3A283966C200050935 /* PaletteViewModel.swift in Sources */,
 				927D4411283578F9001B8ED7 /* Sneaker360ViewModel.swift in Sources */,
 				30F82AE2284EACC500D0E380 /* FiltersViewModel.swift in Sources */,
 				92C220A428326B5600EC7D39 /* Sneaker.swift in Sources */,
 				88B4D34F2848CB2000A8366B /* CaptureButtonStyle.swift in Sources */,
+				8852BE5A285575CF00BCBEAA /* Screen.swift in Sources */,
 				886C26EC2844D2D800E91B4E /* PickerMediaItems.swift in Sources */,
 				30F82AE6284EBE5600D0E380 /* Brand.swift in Sources */,
 				9271445B283A864A002A05C4 /* SneakerDescriptionView.swift in Sources */,
@@ -753,6 +767,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		888BB10928533FAE006F894C /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fermoya/SwiftUIPager";
+			requirement = {
+				kind = exactVersion;
+				version = 2.4.0;
+			};
+		};
 		88B4D370284D6B0000A8366B /* XCRemoteSwiftPackageReference "BackgroundRemoval" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Ezaldeen99/BackgroundRemoval";
@@ -767,6 +789,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.2.1;
+			};
+		};
+		88B93C4C285560AE0055737C /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/fermoya/SwiftUIPager";
+			requirement = {
+				kind = exactVersion;
+				version = 2.4.0;
 			};
 		};
 		921B21192833BFD500B934C4 /* XCRemoteSwiftPackageReference "NukeUI" */ = {
@@ -785,14 +815,6 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		922E354328365E5800D8A0F9 /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/fermoya/SwiftUIPager";
-			requirement = {
-				kind = exactVersion;
-				version = 2.4.0;
-			};
-		};
 		924B8FB028535AAF0017920C /* XCRemoteSwiftPackageReference "MultiSlider" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yonat/MultiSlider";
@@ -804,6 +826,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		888BB10A28533FAE006F894C /* SwiftUIPager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 888BB10928533FAE006F894C /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
+			productName = SwiftUIPager;
+		};
 		88B4D366284BDADF00A8366B /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;
@@ -822,6 +849,11 @@
 			package = 88B4D373284D7B1300A8366B /* XCRemoteSwiftPackageReference "DominantColor" */;
 			productName = DominantColor;
 		};
+		88B93C4D285560AE0055737C /* SwiftUIPager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88B93C4C285560AE0055737C /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
+			productName = SwiftUIPager;
+		};
 		921B211A2833BFD500B934C4 /* NukeUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 921B21192833BFD500B934C4 /* XCRemoteSwiftPackageReference "NukeUI" */;
@@ -831,11 +863,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 922E353B283597B100D8A0F9 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		922E354428365E5800D8A0F9 /* SwiftUIPager */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 922E354328365E5800D8A0F9 /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
-			productName = SwiftUIPager;
 		};
 		924B8FB128535AAF0017920C /* MultiSlider */ = {
 			isa = XCSwiftPackageProductDependency;
