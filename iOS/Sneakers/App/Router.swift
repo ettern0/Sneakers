@@ -114,7 +114,7 @@ final class Router: NSObject, ObservableObject {
             let view = makeView(for: .choose)
 
             let searchViewController = SneakersHostingController(rootView: view)
-            let searchNavigationController = UINavigationController(rootViewController: searchViewController)
+            let searchNavigationController = NavigationController(rootViewController: searchViewController)
             searchNavigationController.tabBarItem = UITabBarItem(
                 title: nil,
                 image: UIImage(named: "TabBar/search"),
@@ -127,7 +127,7 @@ final class Router: NSObject, ObservableObject {
             let favoritesViewController = SneakersHostingController(
                 rootView: makeView(for: .favorites)
             )
-            let favoritesNavigationController = UINavigationController(rootViewController: favoritesViewController)
+            let favoritesNavigationController = NavigationController(rootViewController: favoritesViewController)
             favoritesNavigationController.tabBarItem = UITabBarItem(
                 title: nil,
                 image: UIImage(named: "TabBar/favorites"),
