@@ -15,11 +15,11 @@ public struct Filters: Codable {
     public let gender: [Int]
 
     public init(
-        minPrice: Double,
-        maxPrice: Double,
-        sizes: [String],
-        brands: [String],
-        gender: [Int]
+        minPrice: Double = 0.0,
+        maxPrice: Double = 0.0,
+        sizes: [String] = [],
+        brands: [String] = [],
+        gender: [Int] = []
     ) {
         self.minPrice = minPrice
         self.maxPrice = maxPrice

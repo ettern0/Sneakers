@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SneakerModels
 
 final class FiltersViewModel: ObservableObject {
     struct SliderModel {
@@ -61,7 +62,7 @@ final class FiltersViewModel: ObservableObject {
         self.priceRange = priceRange
     }
 
-    convenience init(filters: FilterDTO) {
+    convenience init(filters: Filters) {
         let initSlider: SliderModel = .init(range: filters.minPrice...filters.maxPrice, selectedRange: [])
         var genders: Set<Gender> = []
         filters.gender.forEach { gender in
@@ -99,24 +100,25 @@ final class FiltersViewModel: ObservableObject {
             return assertionFailure("Invalid URL.")
         }
 
-        let response: FilterDTO = try await HTTPClient.shared.fetch(url: url)
+        let response: FiltersResponse = try await HTTPClient.shared.fetch(url: url)
+        let filters = response.filters
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
             var genders: Set<Gender> = []
-            response.gender.forEach { gender in
+            filters.gender.forEach { gender in
                 genders.insert(gender == 0 ? .male : .female)
             }
 
             var sizes: Set<Size> = []
-            response.sizes.forEach { size in
+            filters.sizes.forEach { size in
                 if let dSize = Double(size) {
                     sizes.insert(.european(dSize))
                 }
             }
             var brands: Set<Brand> = []
-            response.brands.forEach { brand in
+            filters.brands.forEach { brand in
                 brands.insert(Brand(title: brand))
             }
 
@@ -128,12 +130,12 @@ final class FiltersViewModel: ObservableObject {
                 brands: _brands,
                 sizes: _sizes,
                 slider: .init(
-                    range: response.minPrice ... response.maxPrice,
-                    selectedRange: [response.minPrice, response.maxPrice]
+                    range: filters.minPrice ... filters.maxPrice,
+                    selectedRange: [filters.minPrice, filters.maxPrice]
                 )
             )
-            self.priceRange.min = response.minPrice
-            self.priceRange.max = response.maxPrice
+            self.priceRange.min = filters.minPrice
+            self.priceRange.max = filters.maxPrice
             self.genericFilters = self.initialGenericFilters
             self.refreshCompleted = true
         }

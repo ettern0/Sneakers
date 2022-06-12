@@ -46,6 +46,7 @@
 		88B4D372284D6B0000A8366B /* BackgroundRemoval in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D371284D6B0000A8366B /* BackgroundRemoval */; };
 		88B4D375284D7B1300A8366B /* DominantColor in Frameworks */ = {isa = PBXBuildFile; productRef = 88B4D374284D7B1300A8366B /* DominantColor */; };
 		88B4D377284DDF1500A8366B /* ColorFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B4D376284DDF1500A8366B /* ColorFinder.swift */; };
+		88B695052856A0E60025E20C /* SneakerModels in Frameworks */ = {isa = PBXBuildFile; productRef = 88B695042856A0E60025E20C /* SneakerModels */; };
 		88B93C4E285560AE0055737C /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 88B93C4D285560AE0055737C /* SwiftUIPager */; };
 		9208B9862840F526000866E6 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9852840F526000866E6 /* UserDefaults.swift */; };
 		9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9208B9872840FBD3000866E6 /* FavoritesView.swift */; };
@@ -60,7 +61,6 @@
 		922E353D283597B100D8A0F9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 922E353C283597B100D8A0F9 /* Lottie */; };
 		922E35402835984C00D8A0F9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E353F2835984C00D8A0F9 /* LottieView.swift */; };
 		924B8FB228535AAF0017920C /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 924B8FB128535AAF0017920C /* MultiSlider */; };
-		924B8FB428539E7A0017920C /* FilterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924B8FB328539E7A0017920C /* FilterDTO.swift */; };
 		9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9254CFDF283E2AA7005F751C /* ChooseView.swift */; };
 		92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714453283A5404002A05C4 /* OffsetModifier.swift */; };
 		92714456283A85D7002A05C4 /* RollUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714455283A85D7002A05C4 /* RollUpView.swift */; };
@@ -119,6 +119,7 @@
 		88B4D368284D58CA00A8366B /* PaletteControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteControl.swift; sourceTree = "<group>"; };
 		88B4D36A284D5AC800A8366B /* CoreUtils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreUtils; sourceTree = "<group>"; };
 		88B4D376284DDF1500A8366B /* ColorFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFinder.swift; sourceTree = "<group>"; };
+		88B695032856A0A60025E20C /* SneakerModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SneakerModels; path = ../Shared/SneakerModels; sourceTree = "<group>"; };
 		9208B9852840F526000866E6 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		9208B9872840FBD3000866E6 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		9208B989284112B6000866E6 /* SneakerUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakerUD.swift; sourceTree = "<group>"; };
@@ -129,7 +130,6 @@
 		920D1E39283966C200050935 /* PaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViewModel.swift; sourceTree = "<group>"; };
 		921B21142833A04200B934C4 /* ViewExtensionGetRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensionGetRect.swift; sourceTree = "<group>"; };
 		922E353F2835984C00D8A0F9 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		924B8FB328539E7A0017920C /* FilterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDTO.swift; sourceTree = "<group>"; };
 		9254CFDF283E2AA7005F751C /* ChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseView.swift; sourceTree = "<group>"; };
 		92714453283A5404002A05C4 /* OffsetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModifier.swift; sourceTree = "<group>"; };
 		92714455283A85D7002A05C4 /* RollUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollUpView.swift; sourceTree = "<group>"; };
@@ -162,6 +162,7 @@
 				922E353D283597B100D8A0F9 /* Lottie in Frameworks */,
 				8852BE64285659C300BCBEAA /* ColorSet in Frameworks */,
 				88B4D36C284D5AD900A8366B /* CoreUtils in Frameworks */,
+				88B695052856A0E60025E20C /* SneakerModels in Frameworks */,
 				888BB10B28533FAE006F894C /* SwiftUIPager in Frameworks */,
 				88B93C4E285560AE0055737C /* SwiftUIPager in Frameworks */,
 				88B4D367284BDADF00A8366B /* DesignSystem in Frameworks */,
@@ -188,7 +189,6 @@
 				30B78135285108510027B781 /* RangedSliderView.swift */,
 				30F82ADF284EACBE00D0E380 /* FiltersView.swift */,
 				30F82AE1284EACC500D0E380 /* FiltersViewModel.swift */,
-				924B8FB328539E7A0017920C /* FilterDTO.swift */,
 				301BDA50284FF25900FF24B2 /* Generic */,
 			);
 			path = Filters;
@@ -304,6 +304,7 @@
 		92C2208128326AD500EC7D39 = {
 			isa = PBXGroup;
 			children = (
+				88B695032856A0A60025E20C /* SneakerModels */,
 				8852BE62285658A600BCBEAA /* ColorSet */,
 				88B4D36A284D5AC800A8366B /* CoreUtils */,
 				88B4D362284BDA7900A8366B /* DesignSystem */,
@@ -417,6 +418,7 @@
 				924B8FB128535AAF0017920C /* MultiSlider */,
 				88B93C4D285560AE0055737C /* SwiftUIPager */,
 				8852BE63285659C300BCBEAA /* ColorSet */,
+				88B695042856A0E60025E20C /* SneakerModels */,
 			);
 			productName = Sneakers;
 			productReference = 92C2208A28326AD500EC7D39 /* Sneakers.app */;
@@ -519,7 +521,6 @@
 				92C220B128326B6A00EC7D39 /* HTTPClient.swift in Sources */,
 				30F82AE8284EBE9E00D0E380 /* Size.swift in Sources */,
 				881CA5402844F1940092265A /* CameraPreview.swift in Sources */,
-				924B8FB428539E7A0017920C /* FilterDTO.swift in Sources */,
 				92C2208E28326AD500EC7D39 /* SneakersApp.swift in Sources */,
 				881CA5332844E6220092265A /* CameraView.swift in Sources */,
 				9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */,
@@ -853,6 +854,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 88B4D373284D7B1300A8366B /* XCRemoteSwiftPackageReference "DominantColor" */;
 			productName = DominantColor;
+		};
+		88B695042856A0E60025E20C /* SneakerModels */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SneakerModels;
 		};
 		88B93C4D285560AE0055737C /* SwiftUIPager */ = {
 			isa = XCSwiftPackageProductDependency;

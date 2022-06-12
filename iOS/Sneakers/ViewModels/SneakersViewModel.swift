@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SneakerModels
 
 final class SneakersViewModel: ObservableObject {
 
@@ -40,6 +41,6 @@ final class SneakersViewModel: ObservableObject {
             return assertionFailure("Invalid URL.")
         }
 
-        let response: FilterDTO = try await HTTPClient.shared.fetch(url: url)
+        let response: FiltersResponse = try await HTTPClient.shared.fetch(url: url)
     }
 }

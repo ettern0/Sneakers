@@ -9,6 +9,7 @@ import SwiftUI
 import NukeUI
 import SwiftUIPager
 import DesignSystem
+import SneakerModels
 
 struct SneakersInput {
     let outfitColors: [UInt32]
@@ -25,7 +26,7 @@ struct SneakersListView: View {
     init(input: SneakersInput) {
         self.input = input
         self._viewModel = .init(wrappedValue: SneakersViewModel(input: input))
-        self._filterViewModel =  .init(wrappedValue: FiltersViewModel(filters: FilterDTO()))
+        self._filterViewModel =  .init(wrappedValue: FiltersViewModel(filters: Filters()))
     }
 
     var body: some View {
