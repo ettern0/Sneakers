@@ -59,7 +59,7 @@ struct ChooseView: View {
                 RoundedRectangle(cornerRadius: 5, style: .continuous)
                     .foregroundColor(.white)
                     .frame(maxHeight: .infinity)
-                    .shadow(radius: 15)
+                    .shadow(color: .black.opacity(0.1), radius: 15)
                 HStack {
                     Image(imageName)
                         .resizable()
@@ -73,12 +73,10 @@ struct ChooseView: View {
                             .font(.system(size: 25))
                             .bold()
                             .foregroundColor(.black)
-                        Text("Shot your \(description) and")
+                        Text("Shot your \(description) and\nexplore the results to match")
                             .font(.system(size: 13))
                             .foregroundColor(Color(.black).opacity(0.2))
-                        Text("explore the results to match")
-                            .font(.system(size: 13))
-                            .foregroundColor(Color(.black).opacity(0.2))
+                            .multilineTextAlignment(.trailing)
                     }
                     .padding(.bottom, 20)
                     .padding(.trailing, 12)
