@@ -15,9 +15,7 @@ struct ChooseView: View {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
                     Text("Scan")
-                        .font(.system(size: 27))
-                        .bold()
-                        .foregroundColor(.black)
+                        .font(.header1)
                     Text("Your color and match it")
                         .font(.system(size: 15))
                         .foregroundColor(Color(.black).opacity(0.2))
