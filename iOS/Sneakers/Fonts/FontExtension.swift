@@ -26,4 +26,23 @@ extension Font {
         assert(UIFont(name: name, size: size) != nil)
         return Font.custom(name, size: size)
     }
+
+    static func ralewaySemiBold(size: CGFloat) -> Font {
+        let name = "Raleway-SemiBold"
+        assert(UIFont(name: name, size: size) != nil)
+        return Font.custom(name, size: size)
+    }
+
+    static func checkAllFonts() {
+        let familyNames = UIFont.familyNames
+
+        for family in familyNames {
+            print("Family name " + family)
+            let fontNames = UIFont.fontNames(forFamilyName: family)
+
+            for font in fontNames {
+                print("    Font name: " + font)
+            }
+        }
+    }
 }
