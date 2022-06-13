@@ -129,8 +129,8 @@ struct SneakersController: RouteCollection {
 
     private func filters(req: Request) async throws -> String {
         guard let colors =  req.query[[UInt32].self, at: "palette"] else { throw Abort(.badRequest) }
+        guard let palettes = ColorPaletteGenerator.palettes(from: colors) else { throw Abort(.internalServerError) }
 
-        let palettes = ColorPaletteGenerator.palettes(from: colors)
         //MARK: TODO get the colors in some way from UI
         var ids: [UUID] = []
         var brands: Set<String> = []

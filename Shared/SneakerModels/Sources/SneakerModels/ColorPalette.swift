@@ -8,6 +8,7 @@
 import Foundation
 
 public struct ColorPalette: Codable {
+    public let harmony: ColorHarmony
     public let sourceColors: [UInt32]
     public let suggestedColors: [UInt32]
 
@@ -15,7 +16,12 @@ public struct ColorPalette: Codable {
         sourceColors + suggestedColors
     }
 
-    public init(sourceColors: [UInt32], suggestedColors: [UInt32]) {
+    public init(
+        harmony: ColorHarmony,
+        sourceColors: [UInt32],
+        suggestedColors: [UInt32]
+    ) {
+        self.harmony = harmony
         self.sourceColors = sourceColors
         self.suggestedColors = suggestedColors
     }
