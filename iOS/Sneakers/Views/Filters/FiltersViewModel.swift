@@ -67,7 +67,7 @@ final class FiltersViewModel: ObservableObject {
     }
 
     func onExploreTap() async throws {
-        //try await self.delegate?.fetchSneakers(filter: self)
+        // try await self.delegate?.fetchSneakers(filter: self)
     }
 
     func onResetTap() {
