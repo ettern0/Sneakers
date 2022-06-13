@@ -22,53 +22,42 @@ struct FiltersView: View {
 
     var body: some View {
         NavigationView {
-            if viewModel.refreshCompleted {
-                VStack(alignment: .leading) {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 32) {
-                            ForEach(Filter.allCases, id: \.self) { filter in
-                                createFilterView(for: filter)
-                            }
+            VStack(alignment: .leading) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 32) {
+                        ForEach(Filter.allCases, id: \.self) { filter in
+                            createFilterView(for: filter)
                         }
-                        .padding()
                     }
-                    Spacer()
-                    Button("Explore") {
-                        Task {
-                            do {
-                                try await viewModel.onExploreTap()
-                            }
-                        }
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                    .buttonStyle(LargeButtonStyle())
                     .padding()
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("Filter")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            Image(systemName: "xmark")
+                Spacer()
+                Button("Explore") {
+                    Task {
+                        do {
+                            try await viewModel.onExploreTap()
                         }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Reset") {
-                            viewModel.onResetTap()
-                            // TODO: Reset Slider
-                        }
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .buttonStyle(LargeButtonStyle())
+                .padding()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Filter")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
                     }
                 }
-            }
-        }
-        .onAppear {
-            Task {
-                do {
-                    try await viewModel.fetchFilter()
-                } catch {
-                    assertionFailure(error.localizedDescription)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Reset") {
+                        viewModel.onResetTap()
+                        // TODO: Reset Slider
+                    }
                 }
             }
         }

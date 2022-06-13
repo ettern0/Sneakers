@@ -51,26 +51,19 @@ final class FiltersViewModel: ObservableObject {
         case max
     }
 
-    private var initialGenericFilters: GenericFilters
     @Published var genericFilters: GenericFilters
-    @Published var refreshCompleted: Bool = false
     var priceRange: (min: Double, max: Double)
+    private let filters: Filters
 
-    init(initialGenericFilters: GenericFilters, priceRange: (Double, Double)) {
-        self.initialGenericFilters = initialGenericFilters
-        self.genericFilters = initialGenericFilters
+    init(filters: Filters, priceRange: (Double, Double)) {
+        self.filters = filters
         self.priceRange = priceRange
+        self.genericFilters = .init(genders: [], brands: [], sizes: [], slider: .init(range: 0...0, selectedRange: []))
+        self.fillFilters()
     }
 
     convenience init(filters: Filters) {
-        let initSlider: SliderModel = .init(range: filters.minPrice...filters.maxPrice, selectedRange: [])
-        var genders: Set<Gender> = []
-        filters.gender.forEach { gender in
-            genders.insert(gender == 0 ? .male : .female)
-        }
-        let _genders = genders.map({ GenericFilterModel(value: $0) })
-        let initialFilter: GenericFilters = .init(genders: _genders, brands: [], sizes: [], slider: initSlider)
-        self.init(initialGenericFilters: initialFilter, priceRange: (filters.minPrice, filters.maxPrice))
+        self.init(filters: filters, priceRange: (filters.minPrice, filters.maxPrice))
     }
 
     func onExploreTap() async throws {
@@ -78,9 +71,10 @@ final class FiltersViewModel: ObservableObject {
     }
 
     func onResetTap() {
-        genericFilters = initialGenericFilters
+        self.fillFilters()
     }
 
+    // TODO: rewrite
     func onReceiveSliderValue(_ value: Double, type: SliderValueType) {
         switch type {
         case .min:
@@ -90,18 +84,8 @@ final class FiltersViewModel: ObservableObject {
         }
     }
 
-    func fetchFilter() async throws {
-        if self.refreshCompleted { return }
-
-       // let strPalette = self.palette.map({ String($0) }).joined(separator: ",")
-        let urlString = Constants.baseURL + Endpoints.filter //+ strPalette
-
-        guard let url = URL(string: urlString) else {
-            return assertionFailure("Invalid URL.")
-        }
-
-        let response: FiltersResponse = try await HTTPClient.shared.fetch(url: url)
-        let filters = response.filters
+    func fillFilters() {
+        let filters = self.filters
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -125,7 +109,10 @@ final class FiltersViewModel: ObservableObject {
             let _genders = genders.map({ GenericFilterModel(value: $0) })
             let _brands = brands.map({ GenericFilterModel(value: $0) })
             let _sizes = sizes.map({ GenericFilterModel(value: $0) })
-            self.initialGenericFilters = .init(
+
+            self.priceRange.min = filters.minPrice
+            self.priceRange.max = filters.maxPrice
+            self.genericFilters = .init(
                 genders: _genders,
                 brands: _brands,
                 sizes: _sizes,
@@ -134,10 +121,6 @@ final class FiltersViewModel: ObservableObject {
                     selectedRange: [filters.minPrice, filters.maxPrice]
                 )
             )
-            self.priceRange.min = filters.minPrice
-            self.priceRange.max = filters.maxPrice
-            self.genericFilters = self.initialGenericFilters
-            self.refreshCompleted = true
         }
     }
 }

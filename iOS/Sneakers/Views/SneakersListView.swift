@@ -19,7 +19,6 @@ struct SneakersListView: View {
     let input: SneakersInput
 
     @StateObject @MainActor var viewModel: SneakersViewModel
-    @StateObject var filterViewModel: FiltersViewModel
     @State var showDetails: Bool = false
     @State var showFilters: Bool = false
 
@@ -34,7 +33,6 @@ struct SneakersListView: View {
     init(input: SneakersInput) {
         self.input = input
         self._viewModel = .init(wrappedValue: SneakersViewModel(input: input))
-        self._filterViewModel =  .init(wrappedValue: FiltersViewModel(filters: Filters()))
     }
 
     var body: some View {
@@ -64,7 +62,7 @@ struct SneakersListView: View {
                                 }
                             }
                             .sheet(isPresented: $showFilters) {
-                                FiltersView(viewModel: filterViewModel)
+                                FiltersView(viewModel: .init(filters: self.viewModel.filters ?? Filters()))
                             }
                     } else {
                         UpdateView()
