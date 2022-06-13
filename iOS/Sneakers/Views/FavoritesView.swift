@@ -8,21 +8,14 @@
 import SwiftUI
 
 struct FavoritesView: View {
-
-    var palletes: [PaletteViewModel] = []
-    var data: [[UInt32]: [SneakerUD]] = [:]
+    
+    @State var palletes: [PaletteViewModel] = []
+    @State var data: [[UInt32]: [SneakerUD]] = [:]
     @State var selectedType: Int = 0
     @State var searchText: String = ""
-
-    init() {
-        self.data = fetchDataFromUD()
-        self.data.keys.forEach { key in
-            self.palletes.append(PaletteViewModel(colors: key))
-        }
-    }
-
+    
     var body: some View {
-
+        
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading) {
                 Text("")
@@ -39,25 +32,30 @@ struct FavoritesView: View {
                 ForEach(palletes.indices, id: \.self) { index in
                     if let sneakers = data[palletes[index].key], !sneakers.isEmpty {
                         SneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), pallete: palletes[index])
-                        .padding(.bottom, 24)
+                            .padding(.bottom, 24)
                     }
                 }
             }
             .padding(.horizontal, 16)
+        }.onAppear {
+            data = fetchDataFromUD()
+            data.keys.forEach { key in
+                palletes.append(PaletteViewModel(colors: key))
+            }
         }
     }
-
+    
     func checkSearchForSneaker(_ sneaker: SneakerUD, _ searchStr: String) -> Bool {
         let searchUpper = searchStr.uppercased()
         return sneaker.brand.uppercased().contains(searchUpper) ||
-                sneaker.name.uppercased().contains(searchUpper) ||
-                searchText.isEmpty
+        sneaker.name.uppercased().contains(searchUpper) ||
+        searchText.isEmpty
     }
-
+    
     private struct SneakerView: View {
         let sneakers: [SneakerUD]
         let pallete: PaletteViewModel
-
+        
         var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
@@ -85,7 +83,7 @@ struct FavoritesView: View {
             }
         }
     }
-
+    
     func fetchDataFromUD() -> [[UInt32]: [SneakerUD]] {
         do {
             let defaults = UserDefaults.standard
