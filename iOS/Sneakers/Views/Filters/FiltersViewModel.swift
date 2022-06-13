@@ -67,7 +67,7 @@ final class FiltersViewModel: ObservableObject {
     }
 
     func onExploreTap() async throws {
-        //try await self.delegate?.fetchSneakers(filter: self)
+        // try await self.delegate?.fetchSneakers(filter: self)
     }
 
     func onResetTap() {
@@ -90,32 +90,15 @@ final class FiltersViewModel: ObservableObject {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            var genders: Set<Gender> = []
-            filters.gender.forEach { gender in
-                genders.insert(gender == 0 ? .male : .female)
-            }
-
-            var sizes: Set<Size> = []
-            filters.sizes.forEach { size in
-                if let dSize = Double(size) {
-                    sizes.insert(.european(dSize))
-                }
-            }
-            var brands: Set<Brand> = []
-            filters.brands.forEach { brand in
-                brands.insert(Brand(title: brand))
-            }
-
-            let _genders = genders.map({ GenericFilterModel(value: $0) })
-            let _brands = brands.map({ GenericFilterModel(value: $0) })
-            let _sizes = sizes.map({ GenericFilterModel(value: $0) })
-
             self.priceRange.min = filters.minPrice
             self.priceRange.max = filters.maxPrice
             self.genericFilters = .init(
-                genders: _genders,
-                brands: _brands,
-                sizes: _sizes,
+                genders: filters.gender.map { GenericFilterModel(value: $0 == 0 ? .male : .female) },
+                brands: filters.brands.map { GenericFilterModel(value: .init(title: $0)) },
+                sizes: filters.sizes.compactMap {
+                    guard let size = Double($0) else { return nil }
+                    return GenericFilterModel(value: .european(size))
+                },
                 slider: .init(
                     range: filters.minPrice ... filters.maxPrice,
                     selectedRange: [filters.minPrice, filters.maxPrice]

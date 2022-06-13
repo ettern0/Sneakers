@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		301BDA4F284FF15800FF24B2 /* GenericFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301BDA4E284FF15800FF24B2 /* GenericFilterModel.swift */; };
-		30B78136285108510027B781 /* RangedSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B78135285108510027B781 /* RangedSliderView.swift */; };
+		30438D202857DDDA0097D796 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30438D1F2857DDDA0097D796 /* FlexibleView.swift */; };
 		30F82AE0284EACBE00D0E380 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82ADF284EACBE00D0E380 /* FiltersView.swift */; };
 		30F82AE2284EACC500D0E380 /* FiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82AE1284EACC500D0E380 /* FiltersViewModel.swift */; };
 		30F82AE4284EBE4200D0E380 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F82AE3284EBE4200D0E380 /* Gender.swift */; };
@@ -61,6 +61,25 @@
 		922E353D283597B100D8A0F9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 922E353C283597B100D8A0F9 /* Lottie */; };
 		922E35402835984C00D8A0F9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E353F2835984C00D8A0F9 /* LottieView.swift */; };
 		924B8FB228535AAF0017920C /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 924B8FB128535AAF0017920C /* MultiSlider */; };
+		924EEFE92857914600E644F2 /* Raleway-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFD72857914500E644F2 /* Raleway-BoldItalic.ttf */; };
+		924EEFEA2857914600E644F2 /* Raleway-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFD82857914600E644F2 /* Raleway-MediumItalic.ttf */; };
+		924EEFEB2857914600E644F2 /* Raleway-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFD92857914600E644F2 /* Raleway-ThinItalic.ttf */; };
+		924EEFEC2857914600E644F2 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDA2857914600E644F2 /* Raleway-ExtraLight.ttf */; };
+		924EEFED2857914600E644F2 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDB2857914600E644F2 /* Raleway-Medium.ttf */; };
+		924EEFEF2857914600E644F2 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924EEFDD2857914600E644F2 /* FontExtension.swift */; };
+		924EEFF02857914600E644F2 /* Raleway-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDE2857914600E644F2 /* Raleway-ExtraBold.ttf */; };
+		924EEFF12857914600E644F2 /* Raleway-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDF2857914600E644F2 /* Raleway-ExtraBoldItalic.ttf */; };
+		924EEFF22857914600E644F2 /* Raleway-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE02857914600E644F2 /* Raleway-ExtraLightItalic.ttf */; };
+		924EEFF32857914600E644F2 /* Raleway-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE12857914600E644F2 /* Raleway-SemiBoldItalic.ttf */; };
+		924EEFF42857914600E644F2 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE22857914600E644F2 /* Raleway-Light.ttf */; };
+		924EEFF52857914600E644F2 /* Raleway-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE32857914600E644F2 /* Raleway-Black.ttf */; };
+		924EEFF62857914600E644F2 /* Raleway-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE42857914600E644F2 /* Raleway-BlackItalic.ttf */; };
+		924EEFF72857914600E644F2 /* Raleway-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE52857914600E644F2 /* Raleway-LightItalic.ttf */; };
+		924EEFF82857914600E644F2 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE62857914600E644F2 /* Raleway-Thin.ttf */; };
+		924EEFF92857914600E644F2 /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE72857914600E644F2 /* Raleway-Italic.ttf */; };
+		924EEFFA2857914600E644F2 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE82857914600E644F2 /* Raleway-Bold.ttf */; };
+		924EEFFE285796B100E644F2 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFFD285793EB00E644F2 /* Raleway-Regular.ttf */; };
+		924EEFFF2857BCCF00E644F2 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDC2857914600E644F2 /* Raleway-SemiBold.ttf */; };
 		9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9254CFDF283E2AA7005F751C /* ChooseView.swift */; };
 		92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714453283A5404002A05C4 /* OffsetModifier.swift */; };
 		92714456283A85D7002A05C4 /* RollUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714455283A85D7002A05C4 /* RollUpView.swift */; };
@@ -84,7 +103,7 @@
 
 /* Begin PBXFileReference section */
 		301BDA4E284FF15800FF24B2 /* GenericFilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericFilterModel.swift; sourceTree = "<group>"; };
-		30B78135285108510027B781 /* RangedSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangedSliderView.swift; sourceTree = "<group>"; };
+		30438D1F2857DDDA0097D796 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		30F82ADF284EACBE00D0E380 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		30F82AE1284EACC500D0E380 /* FiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewModel.swift; sourceTree = "<group>"; };
 		30F82AE3284EBE4200D0E380 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
@@ -130,6 +149,26 @@
 		920D1E39283966C200050935 /* PaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViewModel.swift; sourceTree = "<group>"; };
 		921B21142833A04200B934C4 /* ViewExtensionGetRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensionGetRect.swift; sourceTree = "<group>"; };
 		922E353F2835984C00D8A0F9 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		924EEFD72857914500E644F2 /* Raleway-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BoldItalic.ttf"; sourceTree = "<group>"; };
+		924EEFD82857914600E644F2 /* Raleway-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-MediumItalic.ttf"; sourceTree = "<group>"; };
+		924EEFD92857914600E644F2 /* Raleway-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ThinItalic.ttf"; sourceTree = "<group>"; };
+		924EEFDA2857914600E644F2 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
+		924EEFDB2857914600E644F2 /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
+		924EEFDC2857914600E644F2 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
+		924EEFDD2857914600E644F2 /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		924EEFDE2857914600E644F2 /* Raleway-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraBold.ttf"; sourceTree = "<group>"; };
+		924EEFDF2857914600E644F2 /* Raleway-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		924EEFE02857914600E644F2 /* Raleway-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		924EEFE12857914600E644F2 /* Raleway-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		924EEFE22857914600E644F2 /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
+		924EEFE32857914600E644F2 /* Raleway-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Black.ttf"; sourceTree = "<group>"; };
+		924EEFE42857914600E644F2 /* Raleway-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BlackItalic.ttf"; sourceTree = "<group>"; };
+		924EEFE52857914600E644F2 /* Raleway-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-LightItalic.ttf"; sourceTree = "<group>"; };
+		924EEFE62857914600E644F2 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Thin.ttf"; sourceTree = "<group>"; };
+		924EEFE72857914600E644F2 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic.ttf"; sourceTree = "<group>"; };
+		924EEFE82857914600E644F2 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
+		924EEFFB2857915E00E644F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		924EEFFD285793EB00E644F2 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		9254CFDF283E2AA7005F751C /* ChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseView.swift; sourceTree = "<group>"; };
 		92714453283A5404002A05C4 /* OffsetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModifier.swift; sourceTree = "<group>"; };
 		92714455283A85D7002A05C4 /* RollUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollUpView.swift; sourceTree = "<group>"; };
@@ -186,9 +225,9 @@
 		30F82AEB284EC70900D0E380 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				30B78135285108510027B781 /* RangedSliderView.swift */,
 				30F82ADF284EACBE00D0E380 /* FiltersView.swift */,
 				30F82AE1284EACC500D0E380 /* FiltersViewModel.swift */,
+				30438D1F2857DDDA0097D796 /* FlexibleView.swift */,
 				301BDA50284FF25900FF24B2 /* Generic */,
 			);
 			path = Filters;
@@ -270,6 +309,32 @@
 			path = LottieView;
 			sourceTree = "<group>";
 		};
+		924EEFD62857914500E644F2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				924EEFDD2857914600E644F2 /* FontExtension.swift */,
+				924EEFFD285793EB00E644F2 /* Raleway-Regular.ttf */,
+				924EEFD72857914500E644F2 /* Raleway-BoldItalic.ttf */,
+				924EEFD82857914600E644F2 /* Raleway-MediumItalic.ttf */,
+				924EEFD92857914600E644F2 /* Raleway-ThinItalic.ttf */,
+				924EEFDA2857914600E644F2 /* Raleway-ExtraLight.ttf */,
+				924EEFDB2857914600E644F2 /* Raleway-Medium.ttf */,
+				924EEFDC2857914600E644F2 /* Raleway-SemiBold.ttf */,
+				924EEFDE2857914600E644F2 /* Raleway-ExtraBold.ttf */,
+				924EEFDF2857914600E644F2 /* Raleway-ExtraBoldItalic.ttf */,
+				924EEFE02857914600E644F2 /* Raleway-ExtraLightItalic.ttf */,
+				924EEFE12857914600E644F2 /* Raleway-SemiBoldItalic.ttf */,
+				924EEFE22857914600E644F2 /* Raleway-Light.ttf */,
+				924EEFE32857914600E644F2 /* Raleway-Black.ttf */,
+				924EEFE42857914600E644F2 /* Raleway-BlackItalic.ttf */,
+				924EEFE52857914600E644F2 /* Raleway-LightItalic.ttf */,
+				924EEFE62857914600E644F2 /* Raleway-Thin.ttf */,
+				924EEFE72857914600E644F2 /* Raleway-Italic.ttf */,
+				924EEFE82857914600E644F2 /* Raleway-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		92714452283A53EE002A05C4 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,19 +390,21 @@
 		92C2208C28326AD500EC7D39 /* Sneakers */ = {
 			isa = PBXGroup;
 			children = (
+				924EEFFB2857915E00E644F2 /* Info.plist */,
+				924EEFD62857914500E644F2 /* Fonts */,
 				92714452283A53EE002A05C4 /* Modifiers */,
 				920D1E332839595700050935 /* Extensions */,
 				922E353E2835983800D8A0F9 /* LottieView */,
-				927D4415283595EA001B8ED7 /* lottieSwipe.json */,
-				920D1E2B28393BAF00050935 /* download360.json */,
 				88B4D356284A051800A8366B /* App */,
-				8897D97C28327867008A9A49 /* README.md */,
-				8897D97A28327861008A9A49 /* .swiftlint.yml */,
 				92C220AD28326B6A00EC7D39 /* Utilities */,
 				92C220AA28326B6600EC7D39 /* ViewModels */,
 				92C220A528326B5D00EC7D39 /* Views */,
 				92C220A028326B5600EC7D39 /* Models */,
 				92C2208D28326AD500EC7D39 /* SneakersApp.swift */,
+				920D1E2B28393BAF00050935 /* download360.json */,
+				927D4415283595EA001B8ED7 /* lottieSwipe.json */,
+				8897D97A28327861008A9A49 /* .swiftlint.yml */,
+				8897D97C28327867008A9A49 /* README.md */,
 				92C2209128326AD700EC7D39 /* Assets.xcassets */,
 			);
 			path = Sneakers;
@@ -470,11 +537,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				924EEFF32857914600E644F2 /* Raleway-SemiBoldItalic.ttf in Resources */,
+				924EEFF92857914600E644F2 /* Raleway-Italic.ttf in Resources */,
+				924EEFF02857914600E644F2 /* Raleway-ExtraBold.ttf in Resources */,
+				924EEFF62857914600E644F2 /* Raleway-BlackItalic.ttf in Resources */,
 				8897D97B28327861008A9A49 /* .swiftlint.yml in Resources */,
 				920D1E2C28393BAF00050935 /* download360.json in Resources */,
+				924EEFF82857914600E644F2 /* Raleway-Thin.ttf in Resources */,
+				924EEFEC2857914600E644F2 /* Raleway-ExtraLight.ttf in Resources */,
+				924EEFF12857914600E644F2 /* Raleway-ExtraBoldItalic.ttf in Resources */,
+				924EEFEA2857914600E644F2 /* Raleway-MediumItalic.ttf in Resources */,
+				924EEFF42857914600E644F2 /* Raleway-Light.ttf in Resources */,
 				927D4416283595EA001B8ED7 /* lottieSwipe.json in Resources */,
+				924EEFE92857914600E644F2 /* Raleway-BoldItalic.ttf in Resources */,
+				924EEFEB2857914600E644F2 /* Raleway-ThinItalic.ttf in Resources */,
+				924EEFED2857914600E644F2 /* Raleway-Medium.ttf in Resources */,
 				8897D97D28327867008A9A49 /* README.md in Resources */,
+				924EEFF72857914600E644F2 /* Raleway-LightItalic.ttf in Resources */,
+				924EEFFF2857BCCF00E644F2 /* Raleway-SemiBold.ttf in Resources */,
+				924EEFF52857914600E644F2 /* Raleway-Black.ttf in Resources */,
 				92C2209228326AD700EC7D39 /* Assets.xcassets in Resources */,
+				924EEFFA2857914600E644F2 /* Raleway-Bold.ttf in Resources */,
+				924EEFFE285796B100E644F2 /* Raleway-Regular.ttf in Resources */,
+				924EEFF22857914600E644F2 /* Raleway-ExtraLightItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +595,6 @@
 				881CA53A2844ED380092265A /* CameraService.swift in Sources */,
 				9271445D283A8676002A05C4 /* SneakerImageView.swift in Sources */,
 				881CA53C2844ED490092265A /* ImageResizer.swift in Sources */,
-				30B78136285108510027B781 /* RangedSliderView.swift in Sources */,
 				92C220AC28326B6600EC7D39 /* SneakersViewModel.swift in Sources */,
 				88B4D35F284BD66500A8366B /* ColorPickerView.swift in Sources */,
 				92C220A928326B5D00EC7D39 /* SneakerDetailView.swift in Sources */,
@@ -524,6 +608,7 @@
 				92C2208E28326AD500EC7D39 /* SneakersApp.swift in Sources */,
 				881CA5332844E6220092265A /* CameraView.swift in Sources */,
 				9208B9882840FBD3000866E6 /* FavoritesView.swift in Sources */,
+				924EEFEF2857914600E644F2 /* FontExtension.swift in Sources */,
 				30F82AE0284EACBE00D0E380 /* FiltersView.swift in Sources */,
 				920D1E2E28393FAB00050935 /* UpdateView.swift in Sources */,
 				92C220A828326B5D00EC7D39 /* SneakersListView.swift in Sources */,
@@ -533,6 +618,7 @@
 				30F82AED284ECE4000D0E380 /* GenericFilterView.swift in Sources */,
 				8852BE58285575AD00BCBEAA /* ViewHosting.swift in Sources */,
 				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
+				30438D202857DDDA0097D796 /* FlexibleView.swift in Sources */,
 				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
 				88B4D358284A052600A8366B /* Router.swift in Sources */,
 				881CA5382844ED1D0092265A /* CameraService+Extensions.swift in Sources */,
@@ -694,6 +780,7 @@
 				DEVELOPMENT_TEAM = XJB6H4WXH3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sneakers/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take a photo of your outfit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -725,6 +812,7 @@
 				DEVELOPMENT_TEAM = XJB6H4WXH3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sneakers/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "To take a photo of your outfit";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
