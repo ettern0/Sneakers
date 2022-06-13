@@ -9,17 +9,10 @@ import SwiftUI
 
 struct FavoritesView: View {
 
-    var palletes: [PaletteViewModel] = []
-    var data: [[UInt32]: [SneakerUD]] = [:]
+    @State var palletes: [PaletteViewModel] = []
+    @State var data: [[UInt32]: [SneakerUD]] = [:]
     @State var selectedType: Int = 0
     @State var searchText: String = ""
-
-    init() {
-        self.data = fetchDataFromUD()
-        self.data.keys.forEach { key in
-            self.palletes.append(PaletteViewModel(colors: key))
-        }
-    }
 
     var body: some View {
 
@@ -39,24 +32,31 @@ struct FavoritesView: View {
                 ForEach(palletes.indices, id: \.self) { index in
                     if let sneakers = data[palletes[index].key], !sneakers.isEmpty {
                         SneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), pallete: palletes[index])
-                        .padding(.bottom, 24)
+                            .padding(.bottom, 24)
                     }
                 }
             }
             .padding(.horizontal, 16)
+        }.onAppear {
+            data = fetchDataFromUD()
+            data.keys.forEach { key in
+                palletes.append(PaletteViewModel(colors: key))
+            }
         }
     }
 
     func checkSearchForSneaker(_ sneaker: SneakerUD, _ searchStr: String) -> Bool {
         let searchUpper = searchStr.uppercased()
         return sneaker.brand.uppercased().contains(searchUpper) ||
-                sneaker.name.uppercased().contains(searchUpper) ||
-                searchText.isEmpty
+        sneaker.name.uppercased().contains(searchUpper) ||
+        searchText.isEmpty
     }
 
     private struct SneakerView: View {
         let sneakers: [SneakerUD]
         let pallete: PaletteViewModel
+        @State var showDetails: Bool = false
+        @State var viewModel: SneakersViewModel = SneakersViewModel(input: SneakersInput(outfitColors: []))
 
         var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -79,6 +79,23 @@ struct FavoritesView: View {
                                 Text(sneaker.name.capitalized).font(.system(size: 12)).bold()
                             }
                             .frame(maxWidth: 100, maxHeight: 100)
+                        }
+                        .sheet(isPresented: $showDetails) {
+                            if let _sneaker = viewModel.detail {
+                                SneakerDetailView(sneaker: _sneaker, input: SneakersInput(outfitColors: []), viewModel: viewModel)
+                            }
+                        }
+                        .onTapGesture {
+                            Task {
+
+                                    try await viewModel.fetchSneakers(id: sneaker.id)
+                                    for index in 0..<viewModel.sneakers.count {
+                                        self.viewModel.detail = viewModel.sneakers[index]
+                                        showDetails = true
+                                        break
+                                    }
+
+                            }
                         }
                     }
                 }

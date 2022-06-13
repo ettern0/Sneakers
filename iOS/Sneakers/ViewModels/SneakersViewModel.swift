@@ -33,8 +33,14 @@ final class SneakersViewModel: ObservableObject {
         }.store(in: &cancelBag)
     }
 
-    func fetchSneakers() async throws {
-        let urlString = Constants.baseURL + Endpoints.portion
+    func fetchSneakers(id: String? = nil) async throws {
+        var urlString = Constants.baseURL
+
+        if let id = id {
+            urlString += Endpoints.portionID + "\(id)"
+        } else {
+            urlString += Endpoints.portion
+        }
 
         guard let url = URL(string: urlString) else {
             self.sneakers = []

@@ -17,8 +17,9 @@ struct SneakersController: RouteCollection {
         sneakers.get("all", use: all)
         sneakers.get("filters", ":palette", use: filters)
         sneakers.get("portion", ":count", use: portion)
-        sneakers.get("portion", use: portion) // With query parameter "id"
         sneakers.get("360", ":id", use: get360)
+        sneakers.get("portion", use: portion) // With query parameter "id"
+        sneakers.get("sneakersWithUserFilters", use: sneakersWithUserFilters)
         sneakers.post("create", use: create)
         sneakers.post("update", use: updateDetailInfo)
         sneakers.post("fillColors", use: fillColors)
@@ -31,6 +32,41 @@ struct SneakersController: RouteCollection {
 
     private func all(req: Request) async throws -> [Sneaker] {
         try await Sneaker.query(on: req.db).all()
+    }
+
+    private func sneakersWithUserFilters(req: Request) async throws -> [SneakerDTO] {
+
+        var respond: [SneakerDTO] = []
+
+        do {
+            let userFilters = try req.content.decode(UserFitersRequestData.self).userFilters
+
+            var idsColor: [UUID] = []
+            let colors = try await SneakerColorway.query(on: req.db).all()
+            colors.forEach { value in
+                if let id = value.sneakerID, let intColor = color(from: value.color), userFilters.colors.contains(intColor) {
+                    idsColor.append(id)
+                }
+            }
+
+            //Get a sneakers from color
+            // MARK: TODO sneakers from other filters
+            let sneakers = try await Sneaker.query(on: req.db)
+                .filter(\.$id ~~ idsColor)
+                .all()
+            respond = try await sneakers.asyncMap { sneaker in
+                var item = SneakerDTO(from: sneaker)
+                if let id = sneaker.id?.uuidString {
+                    req.parameters.set("id", to: id)
+                    item.images360 = try await get360(req: req).map(\.image)
+                }
+                return item
+            }
+
+        } catch {
+            return []
+        }
+        return respond
     }
 
     private func portion(req: Request) async throws -> [SneakerDTO] {
@@ -112,7 +148,7 @@ struct SneakersController: RouteCollection {
         return ("Updated \(count) from \(sneakers.count)")
     }
 
-    private func get360(req: Request) async throws -> [Sneaker360Presentation] {
+    func get360(req: Request) async throws -> [Sneaker360Presentation] {
         try await Sneaker360Presentation.query(on: req.db)
             .filter(\.$sneakerID == req.parameters.get("id"))
             .all()

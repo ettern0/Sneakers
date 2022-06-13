@@ -188,3 +188,9 @@ struct HSV {
         return CGPoint(x: CGFloat(h / 360), y: CGFloat(v))
     }
 }
+
+
+func color(from colorName: String) -> UInt32? {
+    return UInt32(123) // MARK: TODO
+    //return UInt32.random(in: 0…UInt32.max)
+}
