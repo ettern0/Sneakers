@@ -17,6 +17,10 @@ struct SneakersApp: App {
                 .ignoresSafeArea()
                 .preferredColorScheme(.light)
                 .environmentObject(router)
+                .onAppear {
+                    UIPageControl.appearance().currentPageIndicatorTintColor = .black
+                    UIPageControl.appearance().pageIndicatorTintColor = .init(white: 0.8, alpha: 1)
+                }
         }
     }
 }

@@ -18,10 +18,18 @@ struct SneakersInput {
 struct SneakersListView: View {
     let input: SneakersInput
 
-    @StateObject var viewModel: SneakersViewModel
+    @StateObject @MainActor var viewModel: SneakersViewModel
     @StateObject var filterViewModel: FiltersViewModel
     @State var showDetails: Bool = false
     @State var showFilters: Bool = false
+
+    var selectedIndexBinding: Binding<Int> {
+        .init {
+            self.viewModel.selectedPaletteIndex
+        } set: { newValue, _ in
+            self.viewModel.selectedPaletteIndex = newValue
+        }
+    }
 
     init(input: SneakersInput) {
         self.input = input
@@ -33,23 +41,36 @@ struct SneakersListView: View {
         ZStack {
             Color(.init(white: 0.95, alpha: 1))
                 .ignoresSafeArea()
-            if viewModel.sneakers.count != 0 {
-                VStack {
-                    Spacer()
-                    PaletteView(viewModel: .init(colors: input.outfitColors))
-                        .frame(width: getRect().width * 0.7, height: getRect().height * 0.07)
-                    PagerView(viewModel: viewModel, showDetail: $showDetails)
-                }
-                .frame(maxHeight: getRect().height / 2)
-                .sheet(isPresented: $showDetails) {
-                    if let sneaker = viewModel.detail {
-                        SneakerDetailView(sneaker: sneaker, input: input, viewModel: viewModel)
+            VStack {
+                if !viewModel.palettes.isEmpty {
+                    TabView(selection: selectedIndexBinding) {
+                        ForEach(Array(viewModel.palettes.enumerated()), id: \.element) { value in
+                            PaletteView(viewModel: .init(colors: value.element.allColors))
+                                .frame(width: getRect().width * 0.7, height: 40)
+                                .tag(value.offset)
+                        }
                     }
+                    .frame(height: 150)
+                    .tabViewStyle(.page(indexDisplayMode: .always))
                 }
-                .sheet(isPresented: $showFilters) {
-                    FiltersView(viewModel: filterViewModel)
-                }
-            } else { UpdateView() }
+
+                Group {
+                    if viewModel.sneakers.count != 0 {
+                        PagerView(viewModel: viewModel, showDetail: $showDetails)
+
+                            .sheet(isPresented: $showDetails) {
+                                if let sneaker = viewModel.detail {
+                                    SneakerDetailView(sneaker: sneaker, input: input, viewModel: viewModel)
+                                }
+                            }
+                            .sheet(isPresented: $showFilters) {
+                                FiltersView(viewModel: filterViewModel)
+                            }
+                    } else {
+                        UpdateView()
+                    }
+                }.frame(height: getRect().height / 2)
+            }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -63,9 +84,9 @@ struct SneakersListView: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.fetchSneakers()
+                    try await viewModel.fetchFilter()
                 } catch {
-                    assertionFailure("error downloading data in views")
+//                    assertionFailure("error downloading data in views")
                 }
             }
         }

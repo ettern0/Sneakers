@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ColorPalette: Codable {
+public struct ColorPalette: Codable, Hashable {
     public let harmony: ColorHarmony
     public let sourceColors: [UInt32]
     public let suggestedColors: [UInt32]

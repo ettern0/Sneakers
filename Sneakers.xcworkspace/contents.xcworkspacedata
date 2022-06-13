@@ -8,23 +8,6 @@
          location = "group:SneakerModels"
          name = "SneakerModels">
          <Group
-            location = "group:Tests"
-            name = "Tests">
-            <Group
-               location = "group:SneakerModelsTests"
-               name = "SneakerModelsTests">
-               <FileRef
-                  location = "group:SneakerModelsTests.swift">
-               </FileRef>
-            </Group>
-         </Group>
-         <FileRef
-            location = "group:README.md">
-         </FileRef>
-         <FileRef
-            location = "group:Package.swift">
-         </FileRef>
-         <Group
             location = "group:Sources"
             name = "Sources">
             <Group
@@ -44,6 +27,23 @@
                </FileRef>
             </Group>
          </Group>
+         <Group
+            location = "group:Tests"
+            name = "Tests">
+            <Group
+               location = "group:SneakerModelsTests"
+               name = "SneakerModelsTests">
+               <FileRef
+                  location = "group:SneakerModelsTests.swift">
+               </FileRef>
+            </Group>
+         </Group>
+         <FileRef
+            location = "group:README.md">
+         </FileRef>
+         <FileRef
+            location = "group:Package.swift">
+         </FileRef>
       </Group>
    </Group>
    <FileRef
