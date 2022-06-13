@@ -66,7 +66,6 @@
 		924EEFEB2857914600E644F2 /* Raleway-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFD92857914600E644F2 /* Raleway-ThinItalic.ttf */; };
 		924EEFEC2857914600E644F2 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDA2857914600E644F2 /* Raleway-ExtraLight.ttf */; };
 		924EEFED2857914600E644F2 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDB2857914600E644F2 /* Raleway-Medium.ttf */; };
-		924EEFEE2857914600E644F2 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDC2857914600E644F2 /* Raleway-SemiBold.ttf */; };
 		924EEFEF2857914600E644F2 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924EEFDD2857914600E644F2 /* FontExtension.swift */; };
 		924EEFF02857914600E644F2 /* Raleway-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDE2857914600E644F2 /* Raleway-ExtraBold.ttf */; };
 		924EEFF12857914600E644F2 /* Raleway-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDF2857914600E644F2 /* Raleway-ExtraBoldItalic.ttf */; };
@@ -80,6 +79,7 @@
 		924EEFF92857914600E644F2 /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE72857914600E644F2 /* Raleway-Italic.ttf */; };
 		924EEFFA2857914600E644F2 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFE82857914600E644F2 /* Raleway-Bold.ttf */; };
 		924EEFFE285796B100E644F2 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFFD285793EB00E644F2 /* Raleway-Regular.ttf */; };
+		924EEFFF2857BCCF00E644F2 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDC2857914600E644F2 /* Raleway-SemiBold.ttf */; };
 		9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9254CFDF283E2AA7005F751C /* ChooseView.swift */; };
 		92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714453283A5404002A05C4 /* OffsetModifier.swift */; };
 		92714456283A85D7002A05C4 /* RollUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714455283A85D7002A05C4 /* RollUpView.swift */; };
@@ -554,12 +554,12 @@
 				924EEFED2857914600E644F2 /* Raleway-Medium.ttf in Resources */,
 				8897D97D28327867008A9A49 /* README.md in Resources */,
 				924EEFF72857914600E644F2 /* Raleway-LightItalic.ttf in Resources */,
+				924EEFFF2857BCCF00E644F2 /* Raleway-SemiBold.ttf in Resources */,
 				924EEFF52857914600E644F2 /* Raleway-Black.ttf in Resources */,
 				92C2209228326AD700EC7D39 /* Assets.xcassets in Resources */,
 				924EEFFA2857914600E644F2 /* Raleway-Bold.ttf in Resources */,
 				924EEFFE285796B100E644F2 /* Raleway-Regular.ttf in Resources */,
 				924EEFF22857914600E644F2 /* Raleway-ExtraLightItalic.ttf in Resources */,
-				924EEFEE2857914600E644F2 /* Raleway-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
