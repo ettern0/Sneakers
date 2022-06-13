@@ -9,6 +9,7 @@ import Fluent
 import Vapor
 import Foundation
 import SneakerModels
+import ColorsMatcher
 
 struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
@@ -22,6 +23,7 @@ struct SneakersController: RouteCollection {
         sneakers.post("update", use: updateDetailInfo)
         sneakers.post("fillColors", use: fillColors)
         sneakers.get("colors", use: allColors)
+        sneakers.get("colorsForName", use: colorsForName)
         sneakers.group(":sneakerID") { sneaker in
             sneaker.delete(use: delete)
         }
@@ -131,6 +133,13 @@ struct SneakersController: RouteCollection {
     private func allColors(req: Request) async throws -> String {
         let allColors = try SneakerColorway.query(on: req.db).all().wait()
         let jsonData = try JSONEncoder().encode(allColors)
+        return String(decoding: jsonData, as: UTF8.self)
+    }
+
+    private func colorsForName(req: Request) throws -> String {
+        guard let colorName = req.query[String.self, at: "name"] else { throw Abort(.badRequest) }
+        let colors = ColorsMatcher.colors(for: colorName)
+        let jsonData = try JSONEncoder().encode(colors)
         return String(decoding: jsonData, as: UTF8.self)
     }
 

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 let colorsPath = #file.replacingOccurrences(of: "main.swift", with: "colors.json")
 let url = URL(fileURLWithPath: colorsPath)
 let json = try! Data(contentsOf: url)

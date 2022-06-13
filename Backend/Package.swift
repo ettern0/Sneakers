@@ -12,6 +12,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
         .package(path: "../Shared/SneakerModels"),
+        .package(path: "../Shared/ColorsMatcher"),
     ],
     targets: [
         .target(
@@ -21,6 +22,7 @@ let package = Package(
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
                 .product(name: "Vapor", package: "vapor"),
                 .byName(name: "SneakerModels"),
+                .byName(name: "ColorsMatcher"),
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of

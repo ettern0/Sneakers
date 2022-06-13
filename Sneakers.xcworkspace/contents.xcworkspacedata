@@ -4,6 +4,9 @@
    <Group
       location = "group:Shared"
       name = "Shared">
+      <FileRef
+         location = "group:ColorsMatcher">
+      </FileRef>
       <Group
          location = "group:SneakerModels"
          name = "SneakerModels">

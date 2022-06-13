@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88806152285805C900590D2C /* ColorsMatcher in Frameworks */ = {isa = PBXBuildFile; productRef = 88806151285805C900590D2C /* ColorsMatcher */; };
 		889C33D52857DFCA0059C21E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889C33D42857DFCA0059C21E /* main.swift */; };
-		889C33DE2857EA830059C21E /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889C33DD2857EA830059C21E /* ColorName.swift */; };
 		889C33E02857EAB80059C21E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889C33DF2857EAB80059C21E /* Color.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,12 +25,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		889C33D12857DFCA0059C21E /* ColorsMatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ColorsMatcher; sourceTree = BUILT_PRODUCTS_DIR; };
+		889C33D12857DFCA0059C21E /* ColorsMatcherDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ColorsMatcherDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		889C33D42857DFCA0059C21E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		889C33DB2857DFDF0059C21E /* colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = colors.json; sourceTree = "<group>"; };
-		889C33DC2857E5770059C21E /* colorNames.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = colorNames.json; sourceTree = "<group>"; };
-		889C33DD2857EA830059C21E /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorName.swift; sourceTree = "<group>"; };
 		889C33DF2857EAB80059C21E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		88FDAB402858050400E6C1A2 /* ColorsMatcher */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ColorsMatcher; path = ../Shared/ColorsMatcher; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,24 +37,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88806152285805C900590D2C /* ColorsMatcher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		88806150285805C900590D2C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		889C33C82857DFCA0059C21E = {
 			isa = PBXGroup;
 			children = (
+				88FDAB3F2858050400E6C1A2 /* Packages */,
 				889C33D32857DFCA0059C21E /* ColorsMatcher */,
 				889C33D22857DFCA0059C21E /* Products */,
+				88806150285805C900590D2C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		889C33D22857DFCA0059C21E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				889C33D12857DFCA0059C21E /* ColorsMatcher */,
+				889C33D12857DFCA0059C21E /* ColorsMatcherDemo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,20 +73,26 @@
 			isa = PBXGroup;
 			children = (
 				889C33D42857DFCA0059C21E /* main.swift */,
-				889C33DD2857EA830059C21E /* ColorName.swift */,
 				889C33DF2857EAB80059C21E /* Color.swift */,
 				889C33DB2857DFDF0059C21E /* colors.json */,
-				889C33DC2857E5770059C21E /* colorNames.json */,
 			);
 			path = ColorsMatcher;
+			sourceTree = "<group>";
+		};
+		88FDAB3F2858050400E6C1A2 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				88FDAB402858050400E6C1A2 /* ColorsMatcher */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		889C33D02857DFCA0059C21E /* ColorsMatcher */ = {
+		889C33D02857DFCA0059C21E /* ColorsMatcherDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 889C33D82857DFCA0059C21E /* Build configuration list for PBXNativeTarget "ColorsMatcher" */;
+			buildConfigurationList = 889C33D82857DFCA0059C21E /* Build configuration list for PBXNativeTarget "ColorsMatcherDemo" */;
 			buildPhases = (
 				889C33CD2857DFCA0059C21E /* Sources */,
 				889C33CE2857DFCA0059C21E /* Frameworks */,
@@ -87,9 +102,12 @@
 			);
 			dependencies = (
 			);
-			name = ColorsMatcher;
+			name = ColorsMatcherDemo;
+			packageProductDependencies = (
+				88806151285805C900590D2C /* ColorsMatcher */,
+			);
 			productName = ColorsMatcher;
-			productReference = 889C33D12857DFCA0059C21E /* ColorsMatcher */;
+			productReference = 889C33D12857DFCA0059C21E /* ColorsMatcherDemo */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -120,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				889C33D02857DFCA0059C21E /* ColorsMatcher */,
+				889C33D02857DFCA0059C21E /* ColorsMatcherDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -130,7 +148,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				889C33DE2857EA830059C21E /* ColorName.swift in Sources */,
 				889C33D52857DFCA0059C21E /* main.swift in Sources */,
 				889C33E02857EAB80059C21E /* Color.swift in Sources */,
 			);
@@ -282,7 +299,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		889C33D82857DFCA0059C21E /* Build configuration list for PBXNativeTarget "ColorsMatcher" */ = {
+		889C33D82857DFCA0059C21E /* Build configuration list for PBXNativeTarget "ColorsMatcherDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				889C33D92857DFCA0059C21E /* Debug */,
@@ -292,6 +309,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		88806151285805C900590D2C /* ColorsMatcher */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ColorsMatcher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 889C33C92857DFCA0059C21E /* Project object */;
 }
