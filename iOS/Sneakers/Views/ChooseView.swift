@@ -58,12 +58,9 @@ struct ChooseView: View {
     var header: some View {
         VStack(alignment: .leading) {
             Text("Scan")
-                .font(Font.ralewayRegular(size: 32))
-            Text("Your color and match it")
-                .font(.system(size: 15))
-                .foregroundColor(Color(.black).opacity(0.2))
+                .font(Font.ralewayBold(size: 32))
         }
-        .padding(.bottom, 36)
+        .padding(.bottom, 52)
     }
 
     private struct ChooseButtonContent: View {
@@ -85,14 +82,14 @@ struct ChooseView: View {
                     VStack(alignment: .trailing) {
                         Spacer()
                         Text(header)
-                            .font(.system(size: 25))
+                            .font(Font.ralewayMedium(size: 25))
                             .foregroundColor(.black)
                         Text(endPoint)
-                            .font(.system(size: 25))
+                            .font(Font.ralewayBold(size: 25))
                             .bold()
                             .foregroundColor(.black)
                         Text("Shot your \(description) and\nexplore the results to match")
-                            .font(.system(size: 13))
+                            .font(Font.ralewaySemiBold(size: 13))
                             .foregroundColor(Color(.black).opacity(0.2))
                             .multilineTextAlignment(.trailing)
                     }
