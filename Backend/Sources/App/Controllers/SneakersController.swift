@@ -21,6 +21,7 @@ struct SneakersController: RouteCollection {
         sneakers.post("create", use: create)
         sneakers.post("update", use: updateDetailInfo)
         sneakers.post("fillColors", use: fillColors)
+        sneakers.get("colors", use: allColors)
         sneakers.group(":sneakerID") { sneaker in
             sneaker.delete(use: delete)
         }
@@ -125,6 +126,12 @@ struct SneakersController: RouteCollection {
             }
         }
         return "ok"
+    }
+
+    private func allColors(req: Request) async throws -> String {
+        let allColors = try SneakerColorway.query(on: req.db).all().wait()
+        let jsonData = try JSONEncoder().encode(allColors)
+        return String(decoding: jsonData, as: UTF8.self)
     }
 
     private func filters(req: Request) async throws -> String {
