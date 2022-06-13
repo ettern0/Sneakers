@@ -66,6 +66,9 @@ struct SneakersListView: View {
                             }
                     } else {
                         UpdateView()
+                            .sheet(isPresented: $showFilters) {
+                                FiltersView(viewModel: .init(filters: Filters(minPrice: 0, maxPrice: 300, sizes: ["5","6","7","8","10"], brands: ["Jordan", "Nike"], gender: [0,1])))
+                            }// MARK: TODO Delete. It is for testing
                     }
                 }.frame(height: getRect().height / 2)
             }
