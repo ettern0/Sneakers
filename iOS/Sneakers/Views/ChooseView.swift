@@ -11,49 +11,59 @@ import DesignSystem
 struct ChooseView: View {
     @EnvironmentObject private var router: Router
 
+
     var body: some View {
-            VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
-                    Text("Scan")
-                        .font(.header1)
-                    Text("Your color and match it")
-                        .font(.system(size: 15))
-                        .foregroundColor(Color(.black).opacity(0.2))
-                }
-                .padding(.bottom, 36)
+        VStack(alignment: .leading) {
+            header
+            buttonSneakers
+            buttonOutfit
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+    }
 
-                Button {
-                    router.push(screen: .camera)
-                } label: {
-                    ChooseButtonContent(header: "Looking for",
-                                        endPoint: "Sneakers",
-                                        description: "outfit",
-                                        imageName: "sneakerChoose")
-                }
-                .padding(.bottom, 44)
+    var buttonSneakers: some View {
+        Button {
+            router.push(screen: .camera)
+        } label: {
+            ChooseButtonContent(header: "Looking for",
+                                endPoint: "Sneakers",
+                                description: "outfit",
+                                imageName: "sneakerChoose")
+        }
+        .padding(.bottom, 44)
+    }
 
-                Button {
-                    router.push(screen: .camera)
-                } label: {
-                    ZStack(alignment: .top) {
-                        ChooseButtonContent(header: "Looking for",
-                                            endPoint: "Outfit",
-                                            description: "sneakers",
-                                            imageName: "outfitChoose")
-                        .opacity(0.5)
+    var buttonOutfit: some View {
+        Button {
+            router.push(screen: .camera)
+        } label: {
+            ZStack(alignment: .top) {
+                ChooseButtonContent(header: "Looking for",
+                                    endPoint: "Outfit",
+                                    description: "sneakers",
+                                    imageName: "outfitChoose")
+                .opacity(0.5)
 
-                        Text("Coming soon")
-                            .foregroundColor(.black.opacity(0.4))
-                            .font(Font.system(size: 32, weight: .black))
-                            .padding(.top, 10)
-                    }
-                }
-                .padding(.bottom, 80)
-                .disabled(true)
-
-                Spacer()
+                Text("Coming soon")
+                    .foregroundColor(.black.opacity(0.4))
+                    .font(Font.system(size: 32, weight: .black))
+                    .padding(.top, 10)
             }
-            .padding(.horizontal, 16)
+        }
+        .padding(.bottom, 80)
+        .disabled(true)
+    }
+
+    var header: some View {
+        VStack(alignment: .leading) {
+            Text("Scan")
+                .font(Font.ralewayRegular(size: 32))
+            Text("Your color and match it")
+                .font(.system(size: 15))
+                .foregroundColor(Color(.black).opacity(0.2))
+        }
+        .padding(.bottom, 36)
     }
 
     private struct ChooseButtonContent: View {
