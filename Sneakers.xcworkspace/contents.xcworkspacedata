@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:Shared"
+      name = "Shared">
+      <Group
+         location = "group:SneakerModels"
+         name = "SneakerModels">
+         <Group
+            location = "group:Tests"
+            name = "Tests">
+            <Group
+               location = "group:SneakerModelsTests"
+               name = "SneakerModelsTests">
+               <FileRef
+                  location = "group:SneakerModelsTests.swift">
+               </FileRef>
+            </Group>
+         </Group>
+         <FileRef
+            location = "group:README.md">
+         </FileRef>
+         <FileRef
+            location = "group:Package.swift">
+         </FileRef>
+         <Group
+            location = "group:Sources"
+            name = "Sources">
+            <Group
+               location = "group:SneakerModels"
+               name = "SneakerModels">
+               <FileRef
+                  location = "group:ColorHarmony.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ColorPalette.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Filters.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:FiltersResponse.swift">
+               </FileRef>
+            </Group>
+         </Group>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:Backend">
+   </FileRef>
+   <FileRef
+      location = "group:iOS/Sneakers.xcodeproj">
+   </FileRef>
+</Workspace>
