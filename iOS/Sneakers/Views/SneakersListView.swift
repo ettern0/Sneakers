@@ -53,22 +53,24 @@ struct SneakersListView: View {
                 }
 
                 Group {
-                    if viewModel.sneakers.count != 0 { // TODO: нужно проверять на nil, так как пустой массив может быть, если просто нет кроссовок
-                        PagerView(viewModel: viewModel, showDetail: $showDetails)
-
-                            .sheet(isPresented: $showDetails) {
-                                if let sneaker = viewModel.detail {
-                                    SneakerDetailView(sneaker: sneaker, input: input, viewModel: viewModel)
+                    if let sneakers = viewModel.sneakers {
+                        if !sneakers.isEmpty {
+                            PagerView(viewModel: viewModel, showDetail: $showDetails)
+                                .sheet(isPresented: $showDetails) {
+                                    if let sneaker = viewModel.detail {
+                                        SneakerDetailView(sneaker: sneaker, input: input, viewModel: viewModel)
+                                    }
                                 }
-                            }
-                            .sheet(isPresented: $showFilters) {
-                                FiltersView(viewModel: .init(filters: self.viewModel.filters ?? Filters()))
-                            }
+                                .sheet(isPresented: $showFilters) {
+                                    FiltersView(viewModel: .init(filters: self.viewModel.filters ?? Filters()))
+                                }
+                        } else {
+                            Text("No result")
+                                .font(Font.ralewayRegular(size: 32))
+                                .opacity(0.3)
+                        }
                     } else {
                         UpdateView()
-                            .sheet(isPresented: $showFilters) {
-                                FiltersView(viewModel: .init(filters: Filters(minPrice: 0, maxPrice: 300, sizes: ["5","6","7","8","10"], brands: ["Jordan", "Nike"], gender: [0,1])))
-                            }// MARK: TODO Delete. It is for testing
                     }
                 }.frame(height: getRect().height / 2)
             }
@@ -95,35 +97,37 @@ struct SneakersListView: View {
         @Binding var showDetail: Bool
 
         var body: some View {
-            Pager(page: page, data: viewModel.sneakers) { sneaker in
-                LazyImage(source: sneaker.thumbnail) { state in
-                    if let image = state.imageContainer?.image {
-                        VStack(alignment: .leading, spacing: 5) {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding()
-                                .background(.white)
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                .onTapGesture {
-                                    withAnimation(Animation.easeInOut(duration: 0.3)) {
-                                        viewModel.detail = sneaker
-                                        showDetail = true
-                                    }
-                                }
+            if let sneakers = viewModel.sneakers {
+                Pager(page: page, data: sneakers) { sneaker in
+                    LazyImage(source: sneaker.thumbnail) { state in
+                        if let image = state.imageContainer?.image {
                             VStack(alignment: .leading, spacing: 5) {
-                                Text(sneaker.brand.capitalized)
-                                Text(sneaker.name.capitalized).font(.title3).bold()
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .padding()
+                                    .background(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                    .onTapGesture {
+                                        withAnimation(Animation.easeInOut(duration: 0.3)) {
+                                            viewModel.detail = sneaker
+                                            showDetail = true
+                                        }
+                                    }
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(sneaker.brand.capitalized)
+                                    Text(sneaker.name.capitalized).font(.title3).bold()
+                                }
                             }
                         }
                     }
                 }
+                .preferredItemSize(CGSize(width: getRect().width * 0.8, height: getRect().width * 0.8))
+                .itemSpacing(10)
+                .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
+                .interactive(rotation: true)
+                .interactive(scale: 0.5)
             }
-            .preferredItemSize(CGSize(width: getRect().width * 0.8, height: getRect().width * 0.8))
-            .itemSpacing(10)
-            .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
-            .interactive(rotation: true)
-            .interactive(scale: 0.5)
         }
     }
 }
