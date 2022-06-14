@@ -15,7 +15,7 @@ struct Button360: View {
         Button {
             show360 = sneaker.has360
         } label: {
-            Image(systemName: "arkit")
+            Image("threeD")
                 .resizable()
                 .foregroundColor(.black)
                 .opacity(sneaker.has360 ? 0.5 : 0)
