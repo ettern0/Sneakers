@@ -31,7 +31,6 @@ final class HTTPClient {
 
     func post<T: Codable, Body: Encodable>(url: URL, body: Body) async throws -> T {
         var request = URLRequest(url: url)
-        let encoder = JSONEncoder()
         let bodyData = try JSONEncoder().encode(body)
         request.httpBody = bodyData
         request.httpMethod = "POST"

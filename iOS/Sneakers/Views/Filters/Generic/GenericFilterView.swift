@@ -31,12 +31,16 @@ struct GenericFilterView<Element, Content>: View where Content: View, Element: H
             content(filter)
                 .foregroundColor(.black)
                 .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke()
+                        .foregroundColor(filter.isSelected ? .black : .clear)
+                )
                 .background(
                     RoundedRectangle(cornerRadius: 6)
                       .foregroundColor(.white)
                       .shadow(color: .black.opacity(0.1), radius: filter.isSelected ? 0 : 12)
-                      .border(filter.isSelected ? .black : .clear, width: 2)
-            )
+                )
             .onTapGesture {
                 guard let filterIndex = filters.firstIndex(of: filter) else { return }
                 filters[filterIndex].isSelected.toggle()

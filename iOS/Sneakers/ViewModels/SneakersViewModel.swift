@@ -11,7 +11,7 @@ import SwiftUI
 import Combine
 
 final class SneakersViewModel: ObservableObject {
-    @Published var sneakers: [Sneaker] = []
+    @Published var sneakers: [Sneaker]?
     @Published var selectedPaletteIndex: Int = 0
     private var filtersResponse: FiltersResponse? = nil
     @Published var palettes: [ColorPalette] = []
@@ -29,7 +29,7 @@ final class SneakersViewModel: ObservableObject {
             guard let self = self else { return }
             guard self.palettes.indices.contains(newValue) else { return }
             Task {
-                try? await self.fetchSneakers()
+                try? await self.fetchSneakers(filters: self.filters)
             }
         }.store(in: &cancelBag)
     }
@@ -64,9 +64,9 @@ final class SneakersViewModel: ObservableObject {
             self.sneakers = []
             return assertionFailure("Invalid URL.")
         }
-        let sneakerResponse: [Sneaker] = try await HTTPClient.shared.fetch(url: url)
+        let response: [Sneaker] = try await HTTPClient.shared.fetch(url: url)
         DispatchQueue.main.async {
-            self.sneakers = sneakerResponse
+            self.sneakers = response
         }
     }
 
@@ -84,7 +84,6 @@ final class SneakersViewModel: ObservableObject {
             self.filters = response.filters
             self.palettes = response.palettes
         }
-
-        try await self.fetchSneakers()
+        try await self.fetchSneakers(filters: self.filters)
     }
 }
