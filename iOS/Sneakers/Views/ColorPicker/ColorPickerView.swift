@@ -40,6 +40,7 @@ struct ColorPickerView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .cornerRadius(8)
                 Text("Base your choice on two main color")
                     .font(Font.ralewaySemiBold(size: 16))
             }

@@ -40,28 +40,12 @@ struct SneakersController: RouteCollection {
         do {
             let userFilters = try JSONDecoder().decode(UserFilters.self, from: req.body.data ?? .init())
 
-            var idsColor: [UUID] = []
-            let colors = try await SneakerColorway.query(on: req.db).all()
-
-            colorsLoop: for value in colors {
-                if let id = value.sneakerID,
-                   let intColors = ColorsMatcher.colors(for: value.color) {
-                    for sneakerColor in intColors {
-                        for desiredColor in userFilters.colors {
-                            let distance = ColorDistance.distance(from: sneakerColor, to: desiredColor)
-                            if distance < 0.2 {
-                                idsColor.append(id)
-                                break colorsLoop
-                            } // TODO: sort instead of filtering
-                        }
-                    }
-                }
-            }
+            let ids = try await self.sneakerIDs(for: [userFilters.colors], req: req)
 
             //Get a sneakers from color
             // MARK: TODO sneakers from other filters
             let sneakers = try await Sneaker.query(on: req.db)
-                .filter(\.$id ~~ idsColor)
+                .filter(\.$id ~~ ids)
                 .all()
             response = try await sneakers.asyncMap { sneaker in
                 var item = SneakerDTO(from: sneaker)
@@ -192,22 +176,13 @@ struct SneakersController: RouteCollection {
         guard let colors =  req.query[[UInt32].self, at: "palette"] else { throw Abort(.badRequest) }
         guard let palettes = ColorPaletteGenerator.palettes(from: colors) else { throw Abort(.internalServerError) }
 
-        //MARK: TODO get the colors in some way from UI
-        var ids: [UUID] = []
         var brands: Set<String> = []
         var prices: Set<Double> = []
         var sizes: Set<String> = []
         let genders: Set<Int> = [0, 1] //MARK: TODO Genders
 
-        let stringColors = ["white", "black"] // TODO:
-        let sneakers = try await SneakerColorway.query(on: req.db)
-            .filter(\.$color ~~ stringColors)
-            .all()
-        sneakers.forEach { value in
-            if let id = value.sneakerID {
-                ids.append(UUID(uuidString: id.uuidString) ?? UUID())
-            }
-        }
+        let rawPalettes = palettes.map(\.suggestedColors)
+        let ids = try await self.sneakerIDs(for: rawPalettes, req: req)
 
         let details = try await Sneaker.query(on: req.db)
             .filter(\.$id ~~ ids)
@@ -251,6 +226,35 @@ struct SneakersController: RouteCollection {
         } catch {
             throw Abort(.internalServerError)
         }
+    }
+
+    private func sneakerIDs(for palettes: [[UInt32]], req: Request) async throws -> [UUID] {
+        var idsColor: [(UUID, Float)] = []
+        let colors = try await SneakerColorway.query(on: req.db).all()
+
+        for value in colors {
+            if let id = value.sneakerID,
+               let intColors = ColorsMatcher.colors(for: value.color) {
+                sneakersLoop: for sneakerColor in intColors {
+                    for desiredColor in palettes.flatMap({ $0 }) {
+                        let distance = ColorDistance.distance(from: sneakerColor, to: desiredColor)
+
+                        if distance < 10 {
+                            idsColor.append((id, distance))
+                            continue sneakersLoop
+                        }
+                    }
+                }
+            }
+        }
+
+        let ids = idsColor
+            .removeDuplicates(keyPath: \.0)
+            .sorted(by: { $0.1 < $1.1 })
+            .prefix(20)
+            .map(\.0)
+
+        return ids
     }
 
     private func create(req: Request) async throws -> HTTPStatus {

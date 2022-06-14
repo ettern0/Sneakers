@@ -38,18 +38,13 @@ struct ChooseView: View {
         Button {
             router.push(screen: .camera)
         } label: {
-            ZStack(alignment: .top) {
-                ChooseButtonContent(header: "Looking for",
-                                    endPoint: "Outfit",
-                                    description: "sneakers",
-                                    imageName: "outfitChoose")
-                .opacity(0.5)
-
-                Text("Coming soon")
-                    .foregroundColor(.black.opacity(0.4))
-                    .font(Font.system(size: 32, weight: .black))
-                    .padding(.top, 10)
-            }
+            ChooseButtonContent(
+                header: "Looking for",
+                endPoint: "Outfit",
+                description: "sneakers",
+                imageName: "outfitChoose",
+                isCommingSoon: true
+            )
         }
         .padding(.bottom, 80)
         .disabled(true)
@@ -68,6 +63,15 @@ struct ChooseView: View {
         let endPoint: String
         let description: String
         let imageName: String
+        let isCommingSoon: Bool
+
+        init(header: String, endPoint: String, description: String, imageName: String, isCommingSoon: Bool = false) {
+            self.header = header
+            self.endPoint = endPoint
+            self.description = description
+            self.imageName = imageName
+            self.isCommingSoon = isCommingSoon
+        }
 
         var body: some View {
             ZStack(alignment: .top) {
@@ -96,7 +100,25 @@ struct ChooseView: View {
                     .padding(.bottom, 20)
                     .padding(.trailing, 12)
                 }
+
+                if isCommingSoon {
+                    HStack {
+                        Spacer()
+
+                        Text("Coming soon")
+                            .padding(4)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke()
+                                    .foregroundColor(.black)
+                            )
+                            .foregroundColor(.black)
+                            .font(.footnote)
+                            .padding()
+                    }
+                }
             }
+            .opacity(isCommingSoon ? 0.5 : 1)
         }
     }
 }
