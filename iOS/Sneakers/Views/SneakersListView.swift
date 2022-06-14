@@ -106,6 +106,8 @@ struct SneakersListView: View {
                             Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .padding()
+                                .background(.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                                 .onTapGesture {
                                     withAnimation(Animation.easeInOut(duration: 0.3)) {
