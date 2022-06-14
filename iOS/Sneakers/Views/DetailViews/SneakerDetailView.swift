@@ -53,18 +53,16 @@ struct SneakerDetailView: View {
 
         var body: some View {
             GeometryReader { proxy in
-                VStack {
-                    PaletteView(colors: colors)
+                VStack(alignment: .center) {
+                    PaletteView(colors: colors, frame: (.init(width: 32, height: 32)))
                         .frame(width: getRect().width / 2, height: 32)
                         .opacity(getHeaderOpacity() == 1 ? 1 : 0)
-                        .padding(.top)
-                    ZStack(alignment: .top) {
-                        SneakerImageView(sneaker: sneaker, view360Model: view360Model)
-                            .frame(width: proxy.size.width,
-                                   height: proxy.size.width * 0.8)
-                        main360Button
-                            .offset(y: proxy.size.width * 0.2)
-                    }
+                        .padding(.top, 24)
+                    SneakerImageView(sneaker: sneaker, view360Model: view360Model)
+                        .frame(width: proxy.size.width, height: proxy.size.width * 0.8)
+                        .padding(.bottom, 8)
+                    Button360(sneaker: sneaker, show360: $show360)
+                        .padding(.bottom, 24)
                 }
                 .opacity(getHeaderOpacity())
                 .modifier(OffsetModifier(offset: $offset))
@@ -90,15 +88,6 @@ struct SneakerDetailView: View {
                 )
             }
             .frame(width: getRect().width, height: getRect().width)
-        }
-
-        var main360Button: some View {
-            HStack {
-                Spacer()
-                Button360(sneaker: sneaker, show360: $show360)
-                    .frame(width: topBarHeight / 2, height: topBarHeight / 2, alignment: .trailing)
-                    .padding(.horizontal)
-            }
         }
 
         func changeImage(yOld: CGFloat, yNew: CGFloat) -> Bool {
