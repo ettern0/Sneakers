@@ -81,6 +81,9 @@
 		924EEFFE285796B100E644F2 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFFD285793EB00E644F2 /* Raleway-Regular.ttf */; };
 		924EEFFF2857BCCF00E644F2 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFDC2857914600E644F2 /* Raleway-SemiBold.ttf */; };
 		9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9254CFDF283E2AA7005F751C /* ChooseView.swift */; };
+		9258843428594905006191E0 /* FavoritesSneakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258843328594905006191E0 /* FavoritesSneakerView.swift */; };
+		9258843628594B57006191E0 /* FavoritesThumbNailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258843528594B57006191E0 /* FavoritesThumbNailView.swift */; };
+		9258843828594C10006191E0 /* FavoritesDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258843728594C10006191E0 /* FavoritesDescriptionView.swift */; };
 		92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714453283A5404002A05C4 /* OffsetModifier.swift */; };
 		92714456283A85D7002A05C4 /* RollUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714455283A85D7002A05C4 /* RollUpView.swift */; };
 		92714458283A85FF002A05C4 /* Button360View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92714457283A85FF002A05C4 /* Button360View.swift */; };
@@ -170,6 +173,9 @@
 		924EEFFB2857915E00E644F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		924EEFFD285793EB00E644F2 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		9254CFDF283E2AA7005F751C /* ChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseView.swift; sourceTree = "<group>"; };
+		9258843328594905006191E0 /* FavoritesSneakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesSneakerView.swift; sourceTree = "<group>"; };
+		9258843528594B57006191E0 /* FavoritesThumbNailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesThumbNailView.swift; sourceTree = "<group>"; };
+		9258843728594C10006191E0 /* FavoritesDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDescriptionView.swift; sourceTree = "<group>"; };
 		92714453283A5404002A05C4 /* OffsetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModifier.swift; sourceTree = "<group>"; };
 		92714455283A85D7002A05C4 /* RollUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollUpView.swift; sourceTree = "<group>"; };
 		92714457283A85FF002A05C4 /* Button360View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button360View.swift; sourceTree = "<group>"; };
@@ -344,6 +350,17 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		92588432285948E4006191E0 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				9208B9872840FBD3000866E6 /* FavoritesView.swift */,
+				9258843328594905006191E0 /* FavoritesSneakerView.swift */,
+				9258843528594B57006191E0 /* FavoritesThumbNailView.swift */,
+				9258843728594C10006191E0 /* FavoritesDescriptionView.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 		92714452283A53EE002A05C4 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,7 +453,7 @@
 			children = (
 				923CB330285933F100E23358 /* Choosing */,
 				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
-				9208B9872840FBD3000866E6 /* FavoritesView.swift */,
+				92588432285948E4006191E0 /* Favorites */,
 				920D1E342839599D00050935 /* PaletteView.swift */,
 				881CA5342844ED000092265A /* Camera */,
 				886C26EA2844D2C700E91B4E /* PhotoPicker */,
@@ -620,6 +637,7 @@
 				924EEFEF2857914600E644F2 /* FontExtension.swift in Sources */,
 				30F82AE0284EACBE00D0E380 /* FiltersView.swift in Sources */,
 				920D1E2E28393FAB00050935 /* UpdateView.swift in Sources */,
+				9258843428594905006191E0 /* FavoritesSneakerView.swift in Sources */,
 				92C220A828326B5D00EC7D39 /* SneakersListView.swift in Sources */,
 				9254CFE0283E2AA8005F751C /* ChooseView.swift in Sources */,
 				88B4D377284DDF1500A8366B /* ColorFinder.swift in Sources */,
@@ -627,6 +645,7 @@
 				30F82AED284ECE4000D0E380 /* GenericFilterView.swift in Sources */,
 				8852BE58285575AD00BCBEAA /* ViewHosting.swift in Sources */,
 				881CA5362844ED080092265A /* CameraService+Enums.swift in Sources */,
+				9258843628594B57006191E0 /* FavoritesThumbNailView.swift in Sources */,
 				30438D202857DDDA0097D796 /* FlexibleView.swift in Sources */,
 				88B4D3512848D1B500A8366B /* CameraModel.swift in Sources */,
 				88B4D358284A052600A8366B /* Router.swift in Sources */,
@@ -655,6 +674,7 @@
 				920D1E37283959DF00050935 /* SwipeView.swift in Sources */,
 				88B4D3552848D3C100A8366B /* Photo.swift in Sources */,
 				92714454283A5404002A05C4 /* OffsetModifier.swift in Sources */,
+				9258843828594C10006191E0 /* FavoritesDescriptionView.swift in Sources */,
 				927D440F283577F7001B8ED7 /* Sneaker360View.swift in Sources */,
 				922E35402835984C00D8A0F9 /* LottieView.swift in Sources */,
 			);

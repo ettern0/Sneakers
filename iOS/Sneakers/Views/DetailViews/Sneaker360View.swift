@@ -35,7 +35,7 @@ struct Sneaker360View: View {
                 })
     }
 
-    func makeDemoRotation() {
+   private func makeDemoRotation() {
 
         var delay: Double = 0
         for index in 0..<viewModel.images.count {
@@ -53,7 +53,7 @@ struct Sneaker360View: View {
         }
     }
 
-    func changeImage(xOld: CGFloat, xNew: CGFloat) {
+   private func changeImage(xOld: CGFloat, xNew: CGFloat) {
         guard abs(xOld - xNew) > getRect().width / 10 else { return }
         var index: Int = 0
 
