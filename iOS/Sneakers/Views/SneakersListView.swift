@@ -116,7 +116,9 @@ struct SneakersListView: View {
                                     }
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text(sneaker.brand.capitalized)
-                                    Text(sneaker.name.capitalized).font(.title3).bold()
+                                        .font(Font.ralewayMediumItalic(size: 15))
+                                    Text(sneaker.name.capitalized)
+                                        .font(Font.ralewayBold(size: 20))
                                 }
                             }
                         }
