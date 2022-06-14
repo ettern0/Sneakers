@@ -54,6 +54,7 @@ struct SneakerDescriptionView: View {
                 HStack(spacing: 20) {
                     MarketButtonView(market: "StocX", strURL: "https://stockx.com")
                     MarketButtonView(market: "Goods", strURL: "https://www.stadiumgoods.com")
+                    MarketButtonView(market: "Goat", strURL: "https://www.goat.com")
                 }
             }
         }
