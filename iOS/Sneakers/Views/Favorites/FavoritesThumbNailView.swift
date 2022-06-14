@@ -8,7 +8,7 @@
 import SwiftUI
 import NukeUI
 
-struct ThumbNailView: View {
+struct FavoritesThumbNailView: View {
     let thumbnail: String
 
     var body: some View {

@@ -27,15 +27,20 @@ struct FavoritesView: View {
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
-            ScrollView {
-                ForEach(colors.indices, id: \.self) { index in
-                    if let sneakers = data[colors[index]], !sneakers.isEmpty {
-                        SneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), colors: colors[index])
-                            .padding(.bottom, 24)
+            if selectedType == 0 {
+                ScrollView {
+                    ForEach(colors.indices, id: \.self) { index in
+                        if let sneakers = data[colors[index]], !sneakers.isEmpty {
+                            let palette = colors[index]
+                            FavoritesSneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), colors: palette)
+                                .padding(.bottom, 24)
+                        }
                     }
                 }
+                .padding(.horizontal, 16)
+            } else {
+                Spacer()
             }
-            .padding(.horizontal, 16)
         }.onAppear {
             data = fetchDataFromUD()
             data.keys.forEach { palette in
@@ -44,65 +49,14 @@ struct FavoritesView: View {
         }
     }
 
-    func checkSearchForSneaker(_ sneaker: SneakerUD, _ searchStr: String) -> Bool {
+    private func checkSearchForSneaker(_ sneaker: SneakerUD, _ searchStr: String) -> Bool {
         let searchUpper = searchStr.uppercased()
         return sneaker.brand.uppercased().contains(searchUpper) ||
         sneaker.name.uppercased().contains(searchUpper) ||
         searchText.isEmpty
     }
 
-    private struct SneakerView: View {
-        let sneakers: [SneakerUD]
-        let colors: [UInt32]
-        @State var showDetails: Bool = false
-        @State var viewModel: SneakersViewModel = SneakersViewModel(input: SneakersInput(outfitColors: []))
-
-        var body: some View {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(sneakers) { sneaker in
-                        VStack {
-                            PaletteView(colors: colors, frame: (.init(width: 24, height: 24)))
-                                .frame(maxWidth: 100, maxHeight: 100)
-                            let url = URL(string: sneaker.thumbnail)
-                            AsyncImage(
-                                url: url,
-                                content: { image in
-                                    image.resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 100, height: 100)
-                                }, placeholder: { ProgressView() }
-                            )
-                            VStack(alignment: .leading) {
-                                Text(sneaker.brand.capitalized).font(.system(size: 10)).italic()
-                                Text(sneaker.name.capitalized).font(.system(size: 12)).bold()
-                            }
-                            .frame(maxWidth: 100, maxHeight: 100)
-                        }
-                        .sheet(isPresented: $showDetails) {
-                            if let _sneaker = viewModel.detail {
-                                SneakerDetailView(sneaker: _sneaker, colors: colors, viewModel: viewModel)
-                            }
-                        }
-                        .onTapGesture {
-                            Task {
-                                try await viewModel.fetchSneakers(id: sneaker.id)
-                                if let sneakers = viewModel.sneakers {
-                                    for index in 0..<(viewModel.sneakers?.count ?? 0) {
-                                        self.viewModel.detail = sneakers[index]
-                                        showDetails = true
-                                        break
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    func fetchDataFromUD() -> [[UInt32]: [SneakerUD]] {
+    private func fetchDataFromUD() -> [[UInt32]: [SneakerUD]] {
         do {
             let defaults = UserDefaults.standard
             return try defaults.decode([[UInt32]: [SneakerUD]].self, forKey: "favorites")

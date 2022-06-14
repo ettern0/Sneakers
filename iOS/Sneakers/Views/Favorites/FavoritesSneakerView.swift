@@ -19,21 +19,18 @@ struct FavoritesSneakerView: View {
                 ForEach(sneakers) { sneaker in
                     VStack {
                         paletteView
-                        ThumbNailView(thumbnail: sneaker.thumbnail)
-
-                        VStack(alignment: .leading) {
-                            Text(sneaker.brand.capitalized).font(.system(size: 10)).italic()
-                            Text(sneaker.name.capitalized).font(.system(size: 12)).bold()
-                        }
-                        .frame(maxWidth: 100, maxHeight: 100)
+                        FavoritesThumbNailView(thumbnail: sneaker.thumbnail)
+                        FavoritesDescriptionView(brand: sneaker.brand, name: sneaker.name)
                     }
+                    .frame(width: 140, height: 200)
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .shadow(radius: 5)
                     .sheet(isPresented: $showDetails) {
                         if let _sneaker = viewModel.detail {
                             SneakerDetailView(sneaker: _sneaker, colors: colors, viewModel: viewModel)
                         }
                     }
-                    .frame(width: 140, height: 200)
-                    .shadow(color: .black, radius: 5)
                     .onTapGesture {
                         Task {
                             try await viewModel.fetchSneakers(id: sneaker.id)
@@ -55,10 +52,5 @@ struct FavoritesSneakerView: View {
         PaletteView(colors: colors, frame: (.init(width: 24, height: 24)))
             .frame(maxWidth: 100, maxHeight: 100)
     }
-
-    var descriptionView: some View {
-        
-    }
-
 
 }
