@@ -15,7 +15,7 @@ struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let sneakers = routes.grouped("sneakers")
         sneakers.get("all", use: all)
-        sneakers.get("filters", ":palette", use: filters)
+        sneakers.get("filters", use: filters)
         sneakers.get("portion", ":count", use: portion)
         sneakers.get("360", ":id", use: get360)
         sneakers.get("portion", use: portion) // With query parameter "id"
