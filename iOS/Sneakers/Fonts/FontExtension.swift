@@ -33,6 +33,12 @@ extension Font {
         return Font.custom(name, size: size)
     }
 
+    static func ralewayMediumItalic(size: CGFloat) -> Font {
+        let name = "Raleway-MediumItalic"
+        assert(UIFont(name: name, size: size) != nil)
+        return Font.custom(name, size: size)
+    }
+
     static func checkAllFonts() {
         let familyNames = UIFont.familyNames
 
