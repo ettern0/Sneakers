@@ -16,9 +16,8 @@ struct Button360: View {
             show360 = sneaker.has360
         } label: {
             Image("threeD")
-                .resizable()
                 .foregroundColor(.black)
-                .opacity(sneaker.has360 ? 0.5 : 0)
+                .opacity(sneaker.has360 ? 1 : 0)
         }
     }
 }
