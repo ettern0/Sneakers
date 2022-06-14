@@ -35,17 +35,25 @@ struct SneakersController: RouteCollection {
     }
 
     private func sneakersWithUserFilters(req: Request) async throws -> [SneakerDTO] {
-
-        var respond: [SneakerDTO] = []
+        var response: [SneakerDTO] = []
 
         do {
             let userFilters = try req.content.decode(UserFitersRequestData.self).userFilters
 
             var idsColor: [UUID] = []
             let colors = try await SneakerColorway.query(on: req.db).all()
-            colors.forEach { value in
-                if let id = value.sneakerID, let intColor = color(from: value.color), userFilters.colors.contains(intColor) {
-                    idsColor.append(id)
+
+            colorsLoop: for value in colors {
+                if let id = value.sneakerID,
+                   let intColors = ColorsMatcher.colors(for: value.color) {
+                    for sneakerColor in intColors {
+                        for desiredColor in userFilters.colors {
+                            if ColorDistance.distance(from: sneakerColor, to: desiredColor) < 0.1 {
+                                idsColor.append(id)
+                                break colorsLoop
+                            }
+                        }
+                    }
                 }
             }
 
@@ -54,7 +62,7 @@ struct SneakersController: RouteCollection {
             let sneakers = try await Sneaker.query(on: req.db)
                 .filter(\.$id ~~ idsColor)
                 .all()
-            respond = try await sneakers.asyncMap { sneaker in
+            response = try await sneakers.asyncMap { sneaker in
                 var item = SneakerDTO(from: sneaker)
                 if let id = sneaker.id?.uuidString {
                     req.parameters.set("id", to: id)
@@ -66,7 +74,7 @@ struct SneakersController: RouteCollection {
         } catch {
             return []
         }
-        return respond
+        return response
     }
 
     private func portion(req: Request) async throws -> [SneakerDTO] {
