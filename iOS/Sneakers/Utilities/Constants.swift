@@ -16,6 +16,6 @@ enum Endpoints {
     static let all = "sneakers/all"
     static let portion = "sneakers/portion/20"
     static let portionID = "sneakers/portion/?id="
-    static let filter = "sneakers/filters/palette?palette="
+    static let filter = "sneakers/filters/?palette="
     static let userFilters = "sneakers/sneakersWithUserFilters"
 }
