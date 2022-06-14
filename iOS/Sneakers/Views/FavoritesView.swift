@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    
+
     @State var palletes: [PaletteViewModel] = []
     @State var data: [[UInt32]: [SneakerUD]] = [:]
     @State var selectedType: Int = 0
     @State var searchText: String = ""
-    
+
     var body: some View {
-        
+
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading) {
                 Text("")
@@ -44,18 +44,20 @@ struct FavoritesView: View {
             }
         }
     }
-    
+
     func checkSearchForSneaker(_ sneaker: SneakerUD, _ searchStr: String) -> Bool {
         let searchUpper = searchStr.uppercased()
         return sneaker.brand.uppercased().contains(searchUpper) ||
         sneaker.name.uppercased().contains(searchUpper) ||
         searchText.isEmpty
     }
-    
+
     private struct SneakerView: View {
         let sneakers: [SneakerUD]
         let pallete: PaletteViewModel
-        
+        @State var showDetails: Bool = false
+        @State var viewModel: SneakersViewModel = SneakersViewModel(input: SneakersInput(outfitColors: []))
+
         var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
@@ -78,12 +80,29 @@ struct FavoritesView: View {
                             }
                             .frame(maxWidth: 100, maxHeight: 100)
                         }
+                        .sheet(isPresented: $showDetails) {
+                            if let _sneaker = viewModel.detail {
+                                SneakerDetailView(sneaker: _sneaker, input: SneakersInput(outfitColors: []), viewModel: viewModel)
+                            }
+                        }
+                        .onTapGesture {
+                            Task {
+                                try await viewModel.fetchSneakers(id: sneaker.id)
+                                if let sneakers = viewModel.sneakers {
+                                    for index in 0..<(viewModel.sneakers?.count ?? 0) {
+                                        self.viewModel.detail = sneakers[index]
+                                        showDetails = true
+                                        break
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
-    
+
     func fetchDataFromUD() -> [[UInt32]: [SneakerUD]] {
         do {
             let defaults = UserDefaults.standard

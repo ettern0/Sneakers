@@ -9,20 +9,22 @@ import Fluent
 import Vapor
 import Foundation
 import SneakerModels
+import ColorsMatcher
 
 struct SneakersController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let sneakers = routes.grouped("sneakers")
         sneakers.get("all", use: all)
-        sneakers.get("filters", ":palette", use: filters)
+        sneakers.get("filters", use: filters)
         sneakers.get("portion", ":count", use: portion)
         sneakers.get("360", ":id", use: get360)
         sneakers.get("portion", use: portion) // With query parameter "id"
-        sneakers.get("sneakersWithUserFilters", use: sneakersWithUserFilters)
+        sneakers.post("sneakersWithUserFilters", use: sneakersWithUserFilters)
         sneakers.post("create", use: create)
         sneakers.post("update", use: updateDetailInfo)
         sneakers.post("fillColors", use: fillColors)
         sneakers.get("colors", use: allColors)
+        sneakers.get("colorsForName", use: colorsForName)
         sneakers.group(":sneakerID") { sneaker in
             sneaker.delete(use: delete)
         }
@@ -33,17 +35,26 @@ struct SneakersController: RouteCollection {
     }
 
     private func sneakersWithUserFilters(req: Request) async throws -> [SneakerDTO] {
-
-        var respond: [SneakerDTO] = []
+        var response: [SneakerDTO] = []
 
         do {
-            let userFilters = try req.content.decode(UserFitersRequestData.self).userFilters
+            let userFilters = try JSONDecoder().decode(UserFilters.self, from: req.body.data ?? .init())
 
             var idsColor: [UUID] = []
             let colors = try await SneakerColorway.query(on: req.db).all()
-            colors.forEach { value in
-                if let id = value.sneakerID, let intColor = color(from: value.color), userFilters.colors.contains(intColor) {
-                    idsColor.append(id)
+
+            colorsLoop: for value in colors {
+                if let id = value.sneakerID,
+                   let intColors = ColorsMatcher.colors(for: value.color) {
+                    for sneakerColor in intColors {
+                        for desiredColor in userFilters.colors {
+                            let distance = ColorDistance.distance(from: sneakerColor, to: desiredColor)
+                            if distance < 0.2 {
+                                idsColor.append(id)
+                                break colorsLoop
+                            } // TODO: sort instead of filtering
+                        }
+                    }
                 }
             }
 
@@ -52,7 +63,7 @@ struct SneakersController: RouteCollection {
             let sneakers = try await Sneaker.query(on: req.db)
                 .filter(\.$id ~~ idsColor)
                 .all()
-            respond = try await sneakers.asyncMap { sneaker in
+            response = try await sneakers.asyncMap { sneaker in
                 var item = SneakerDTO(from: sneaker)
                 if let id = sneaker.id?.uuidString {
                     req.parameters.set("id", to: id)
@@ -64,7 +75,7 @@ struct SneakersController: RouteCollection {
         } catch {
             return []
         }
-        return respond
+        return response
     }
 
     private func portion(req: Request) async throws -> [SneakerDTO] {
@@ -167,6 +178,13 @@ struct SneakersController: RouteCollection {
     private func allColors(req: Request) async throws -> String {
         let allColors = try SneakerColorway.query(on: req.db).all().wait()
         let jsonData = try JSONEncoder().encode(allColors)
+        return String(decoding: jsonData, as: UTF8.self)
+    }
+
+    private func colorsForName(req: Request) throws -> String {
+        guard let colorName = req.query[String.self, at: "name"] else { throw Abort(.badRequest) }
+        let colors = ColorsMatcher.colors(for: colorName)
+        let jsonData = try JSONEncoder().encode(colors)
         return String(decoding: jsonData, as: UTF8.self)
     }
 

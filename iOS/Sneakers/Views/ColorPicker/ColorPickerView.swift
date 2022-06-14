@@ -32,7 +32,7 @@ struct ColorPickerView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Detect")
-                    .font(.system(size: 32, weight: .bold))
+                    .font(Font.ralewayBold(size: 32))
             }
             .padding(.horizontal, 40)
 
@@ -42,7 +42,7 @@ struct ColorPickerView: View {
                     .scaledToFit()
                     .cornerRadius(8)
                 Text("Base your choice on two main color")
-                    .font(.system(size: 16, weight: .bold))
+                    .font(Font.ralewaySemiBold(size: 16))
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 40)
@@ -56,10 +56,13 @@ struct ColorPickerView: View {
                 .padding(.horizontal, 40)
                 .padding(.vertical, 16)
 
-                Button("Explore results") {
+                Button {
                     let selectedColors = selectedIndices.map { colors[$0] }
                     let input = SneakersInput(outfitColors: selectedColors)
                     router.push(screen: .sneakers(input))
+                } label: {
+                    Text("Explore results")
+                        .font(Font.ralewayMedium(size: 18))
                 }
                 .disabled(selectedIndices.count != 2)
                 .buttonStyle(LargeButtonStyle())
