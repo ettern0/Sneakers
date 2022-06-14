@@ -57,7 +57,7 @@ struct ChooseView: View {
 
     var header: some View {
         VStack(alignment: .leading) {
-            Text("Scan")
+            Text("Search")
                 .font(Font.ralewayBold(size: 32))
         }
         .padding(.bottom, 52)
