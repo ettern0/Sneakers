@@ -19,7 +19,7 @@ struct SneakersController: RouteCollection {
         sneakers.get("portion", ":count", use: portion)
         sneakers.get("360", ":id", use: get360)
         sneakers.get("portion", use: portion) // With query parameter "id"
-        sneakers.get("sneakersWithUserFilters", use: sneakersWithUserFilters)
+        sneakers.post("sneakersWithUserFilters", use: sneakersWithUserFilters)
         sneakers.post("create", use: create)
         sneakers.post("update", use: updateDetailInfo)
         sneakers.post("fillColors", use: fillColors)
@@ -38,7 +38,7 @@ struct SneakersController: RouteCollection {
         var response: [SneakerDTO] = []
 
         do {
-            let userFilters = try req.content.decode(UserFitersRequestData.self).userFilters
+            let userFilters = try JSONDecoder().decode(UserFilters.self, from: req.body.data ?? .init())
 
             var idsColor: [UUID] = []
             let colors = try await SneakerColorway.query(on: req.db).all()
@@ -48,10 +48,11 @@ struct SneakersController: RouteCollection {
                    let intColors = ColorsMatcher.colors(for: value.color) {
                     for sneakerColor in intColors {
                         for desiredColor in userFilters.colors {
-                            if ColorDistance.distance(from: sneakerColor, to: desiredColor) < 0.1 {
+                            let distance = ColorDistance.distance(from: sneakerColor, to: desiredColor)
+                            if distance < 0.2 {
                                 idsColor.append(id)
                                 break colorsLoop
-                            }
+                            } // TODO: sort instead of filtering
                         }
                     }
                 }

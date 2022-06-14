@@ -25,15 +25,33 @@ final class SneakersViewModel: ObservableObject {
     init(input: SneakersInput) {
         self.input = input
 
-        $selectedPaletteIndex.sink { [weak self] _ in
+        $selectedPaletteIndex.sink { [weak self] newValue in
             guard let self = self else { return }
+            guard self.palettes.indices.contains(newValue) else { return }
             Task {
                 try? await self.fetchSneakers()
             }
         }.store(in: &cancelBag)
     }
 
-    func fetchSneakers(id: String? = nil) async throws {
+    func fetchSneakers(filters: Filters? = nil) async throws {
+        let urlString = Constants.baseURL + Endpoints.userFilters
+
+        guard let url = URL(string: urlString) else {
+            return assertionFailure("Invalid URL.")
+        }
+
+        let colors = palettes[selectedPaletteIndex].suggestedColors
+        let emptyFilters = Filters(minPrice: 0, maxPrice: 0, sizes: [], brands: [], gender: [])
+        let body = UserFilters(filters: filters ?? emptyFilters, colors: colors)
+        let response: [Sneaker] = try await HTTPClient.shared.post(url: url, body: body)
+
+        await MainActor.run {
+            self.sneakers = response
+        }
+    }
+
+    func fetchSneakers(id: String?) async throws {
         var urlString = Constants.baseURL
 
         if let id = id {

@@ -53,7 +53,7 @@ struct SneakersListView: View {
                 }
 
                 Group {
-                    if viewModel.sneakers.count != 0 {
+                    if viewModel.sneakers.count != 0 { // TODO: нужно проверять на nil, так как пустой массив может быть, если просто нет кроссовок
                         PagerView(viewModel: viewModel, showDetail: $showDetails)
 
                             .sheet(isPresented: $showDetails) {
@@ -84,11 +84,7 @@ struct SneakersListView: View {
         }
         .onAppear {
             Task {
-                do {
-                    try await viewModel.fetchFilter()
-                } catch {
-//                    assertionFailure("error downloading data in views")
-                }
+                try? await viewModel.fetchFilter()
             }
         }
     }

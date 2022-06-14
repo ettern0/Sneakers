@@ -17,4 +17,5 @@ enum Endpoints {
     static let portion = "sneakers/portion/20"
     static let portionID = "sneakers/portion/?id="
     static let filter = "sneakers/filters/palette?palette="
+    static let userFilters = "sneakers/sneakersWithUserFilters"
 }
