@@ -13,6 +13,7 @@ struct SneakerTopBarView: View {
     let height: CGFloat
     @Binding var show360: Bool
     let offset: CGFloat
+    let colors: [UInt32]
 
     var body: some View {
         HStack(alignment: .center) {
@@ -20,7 +21,7 @@ struct SneakerTopBarView: View {
                 .frame(width: height, height: height)
             VStack(alignment: .leading, spacing: 0) {
                 Text(sneaker.name.capitalized)
-                PaletteView(viewModel: PaletteViewModel.instance)
+                PaletteView(colors: colors)
                     .frame(width: height, height: height * 0.2)
             }
             Spacer()

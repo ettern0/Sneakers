@@ -9,15 +9,15 @@ import SwiftUI
 
 struct SneakerDescriptionView: View {
     let sneaker: Sneaker
-    let input: SneakersInput
     let viewModel: SneakersViewModel
+    let colors: [UInt32]
     @State var isFavorite: Bool = false
 
-    init(viewModel: SneakersViewModel, sneaker: Sneaker, input: SneakersInput) {
+    init(viewModel: SneakersViewModel, sneaker: Sneaker, colors: [UInt32]) {
         self.viewModel = viewModel
         self.sneaker = sneaker
-        self.input = input
-        self._isFavorite = State(initialValue: checkStatusUD())
+        self.colors = colors
+        self._isFavorite = State(initialValue: checkStatusUD(colors: colors))
     }
 
     var body: some View {
@@ -31,7 +31,7 @@ struct SneakerDescriptionView: View {
                 }
                 Spacer()
                 Button {
-                    changeStatusUD()
+                    changeStatusUD(colors: colors)
                 } label: {
                     LikeButtonView(isFavorite: isFavorite)
                 }
@@ -63,21 +63,20 @@ struct SneakerDescriptionView: View {
         }
     }
 
-    private func changeStatusUD() {
+    private func changeStatusUD(colors: [UInt32]) {
         let defaults = UserDefaults.standard
-        let palette = PaletteViewModel.instance
 
         do {
             var favorites = try defaults.decode([[UInt32]: [SneakerUD]].self, forKey: "favorites")
-            if var collection = favorites[palette.key] {
+            if var collection = favorites[colors] {
                 if isFavorite {
                     collection.removeAll(where: { $0.id == sneaker.id })
                 } else {
                     collection.append(SneakerUD(from: sneaker))
                 }
-                favorites[palette.key] = collection
+                favorites[colors] = collection
             } else if !isFavorite {
-                favorites[palette.key] = [SneakerUD(from: sneaker)]
+                favorites[colors] = [SneakerUD(from: sneaker)]
             }
             try defaults.encode(favorites, forKey: "favorites")
             isFavorite.toggle()
@@ -86,12 +85,11 @@ struct SneakerDescriptionView: View {
         }
     }
 
-    private func checkStatusUD() -> Bool {
+    private func checkStatusUD(colors: [UInt32]) -> Bool {
         do {
             let defaults = UserDefaults.standard
             let favorites = try defaults.decode([[UInt32]: [SneakerUD]].self, forKey: "favorites")
-            let palette = PaletteViewModel.instance
-            if let collection = favorites[palette.key] {
+            if let collection = favorites[colors] {
                 if collection.contains(where: { $0.id == sneaker.id }) {
                     return true
                 }

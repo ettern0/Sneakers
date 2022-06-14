@@ -43,7 +43,7 @@ struct SneakersListView: View {
                 if !viewModel.palettes.isEmpty {
                     TabView(selection: selectedIndexBinding) {
                         ForEach(Array(viewModel.palettes.enumerated()), id: \.element) { value in
-                            PaletteView(viewModel: .init(colors: value.element.allColors))
+                            PaletteView(colors: value.element.allColors)
                                 .frame(width: getRect().width * 0.7, height: 40)
                                 .tag(value.offset)
                         }
@@ -58,7 +58,8 @@ struct SneakersListView: View {
                             PagerView(viewModel: viewModel, showDetail: $showDetails)
                                 .sheet(isPresented: $showDetails) {
                                     if let sneaker = viewModel.detail {
-                                        SneakerDetailView(sneaker: sneaker, input: input, viewModel: viewModel)
+                                        let colors = viewModel.palettes[viewModel.selectedPaletteIndex].allColors
+                                        SneakerDetailView(sneaker: sneaker, colors: colors, viewModel: viewModel)
                                     }
                                 }
                                 .sheet(isPresented: $showFilters) {

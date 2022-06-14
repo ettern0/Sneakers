@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct PaletteView: View {
-    @StateObject var viewModel: PaletteViewModel
-    // let position: Axis.Set
-    let paletteHeight: CGFloat = 12
+    let colors: [UInt32]
 
     var body: some View {
         HStack(spacing: 10) {
-            ForEach(viewModel.palette, id: \.self) { color in
-                color.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            ForEach(colors.indices, id: \.self) { index in
+                Color(rgb: colors[index])
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             }
         }
     }

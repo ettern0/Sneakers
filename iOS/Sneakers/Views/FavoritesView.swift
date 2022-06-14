@@ -9,13 +9,12 @@ import SwiftUI
 
 struct FavoritesView: View {
 
-    @State var palletes: [PaletteViewModel] = []
+    @State var colors: [[UInt32]] = []
     @State var data: [[UInt32]: [SneakerUD]] = [:]
     @State var selectedType: Int = 0
     @State var searchText: String = ""
 
     var body: some View {
-
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading) {
                 Text("")
@@ -29,9 +28,9 @@ struct FavoritesView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
             ScrollView {
-                ForEach(palletes.indices, id: \.self) { index in
-                    if let sneakers = data[palletes[index].key], !sneakers.isEmpty {
-                        SneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), pallete: palletes[index])
+                ForEach(colors.indices, id: \.self) { index in
+                    if let sneakers = data[colors[index]], !sneakers.isEmpty {
+                        SneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), colors: colors[index])
                             .padding(.bottom, 24)
                     }
                 }
@@ -39,8 +38,8 @@ struct FavoritesView: View {
             .padding(.horizontal, 16)
         }.onAppear {
             data = fetchDataFromUD()
-            data.keys.forEach { key in
-                palletes.append(PaletteViewModel(colors: key))
+            data.keys.forEach { palette in
+                colors.append(palette)
             }
         }
     }
@@ -54,7 +53,7 @@ struct FavoritesView: View {
 
     private struct SneakerView: View {
         let sneakers: [SneakerUD]
-        let pallete: PaletteViewModel
+        let colors: [UInt32]
         @State var showDetails: Bool = false
         @State var viewModel: SneakersViewModel = SneakersViewModel(input: SneakersInput(outfitColors: []))
 
@@ -63,7 +62,7 @@ struct FavoritesView: View {
                 HStack {
                     ForEach(sneakers) { sneaker in
                         VStack {
-                            PaletteView(viewModel: pallete)
+                            PaletteView(colors: colors)
                                 .frame(maxWidth: 100, maxHeight: 100)
                             let url = URL(string: sneaker.thumbnail)
                             AsyncImage(
@@ -82,7 +81,7 @@ struct FavoritesView: View {
                         }
                         .sheet(isPresented: $showDetails) {
                             if let _sneaker = viewModel.detail {
-                                SneakerDetailView(sneaker: _sneaker, input: SneakersInput(outfitColors: []), viewModel: viewModel)
+                                SneakerDetailView(sneaker: _sneaker, colors: colors, viewModel: viewModel)
                             }
                         }
                         .onTapGesture {

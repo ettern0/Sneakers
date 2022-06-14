@@ -10,14 +10,14 @@ import NukeUI
 
 struct SneakerDetailView: View {
     var sneaker: Sneaker
-    let input: SneakersInput
+    let colors: [UInt32]
     let viewModel: SneakersViewModel
     @StateObject var view360Model: Sneaker360ViewModel
     @State var show360: Bool = false
 
-    init(sneaker: Sneaker, input: SneakersInput, viewModel: SneakersViewModel) {
+    init(sneaker: Sneaker, colors: [UInt32], viewModel: SneakersViewModel) {
         self.sneaker = sneaker
-        self.input = input
+        self.colors = colors
         self.viewModel = viewModel
         self._view360Model = .init(wrappedValue: Sneaker360ViewModel(sneakerViewModel: viewModel))
     }
@@ -27,9 +27,9 @@ struct SneakerDetailView: View {
             Color(.init(white: 2, alpha: 1))
                 .ignoresSafeArea()
             ScrollView(.vertical, showsIndicators: false) {
-                SneakerHeaderView(viewModel: viewModel, sneaker: sneaker, view360Model: view360Model, show360: $show360)
+                SneakerHeaderView(viewModel: viewModel, sneaker: sneaker, view360Model: view360Model, show360: $show360, colors: colors)
                     .zIndex(1)
-                SneakerDescriptionView(viewModel: viewModel, sneaker: sneaker, input: input)
+                SneakerDescriptionView(viewModel: viewModel, sneaker: sneaker, colors: colors)
                     .zIndex(0)
             }
             .coordinateSpace(name: "DETAILSCROLL")
@@ -49,11 +49,12 @@ struct SneakerDetailView: View {
         @State var offset: CGFloat = 0
         let maxHeight: CGFloat = UIScreen.main.bounds.width
         let topBarHeight: CGFloat = UIScreen.main.bounds.height / 10
+        let colors: [UInt32]
 
         var body: some View {
             GeometryReader { proxy in
                 VStack {
-                    PaletteView(viewModel: PaletteViewModel.instance)
+                    PaletteView(colors: colors)
                         .frame(width: getRect().width / 2, height: 32)
                         .opacity(getHeaderOpacity() == 1 ? 1 : 0)
                         .padding(.top)
@@ -80,7 +81,7 @@ struct SneakerDetailView: View {
                         Color.white
                             .offset(y: -proxy.frame(in: .global).minY + initialGlobalYPosition)
                             .frame(maxHeight: topBarHeight)
-                        SneakerTopBarView(sneaker: sneaker, height: topBarHeight, show360: $show360, offset: 0)
+                        SneakerTopBarView(sneaker: sneaker, height: topBarHeight, show360: $show360, offset: 0, colors: colors)
                             .offset(y: -proxy.frame(in: .global).minY + initialGlobalYPosition)
                             .animation(.easeInOut, value: offset)
                     }
