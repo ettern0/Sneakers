@@ -22,7 +22,8 @@ struct SneakerDescriptionView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text(sneaker.brand.capitalized).font(.system(size: 17)).opacity(0.8)
+            Text(sneaker.brand.capitalized)
+                .font(Font.ralewayMediumItalic(size: 18))
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(sneaker.name.capitalized).font(.system(size: 22)).bold()
