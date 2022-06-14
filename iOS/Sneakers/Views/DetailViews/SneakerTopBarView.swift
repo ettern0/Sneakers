@@ -21,12 +21,13 @@ struct SneakerTopBarView: View {
                 .frame(width: height, height: height)
             VStack(alignment: .leading, spacing: 0) {
                 Text(sneaker.name.capitalized)
-                PaletteView(colors: colors)
+                    .font(Font.ralewayRegular(size: 15))
+                PaletteView(colors: colors, frame: (.init(width: 12, height: 12)), cornerRadius: 2)
                     .frame(width: height, height: height * 0.2)
             }
             Spacer()
             Button360(sneaker: sneaker, show360: $show360)
-                .frame(width: height / 2, height: height / 2)
+                .frame(maxHeight: height / 2)
         }
         .padding(.top, offset)
         .padding([.trailing, .leading])
