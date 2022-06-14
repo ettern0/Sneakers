@@ -43,7 +43,7 @@ struct SneakersListView: View {
                 if !viewModel.palettes.isEmpty {
                     TabView(selection: selectedIndexBinding) {
                         ForEach(Array(viewModel.palettes.enumerated()), id: \.element) { value in
-                            PaletteView(colors: value.element.allColors)
+                            PaletteView(colors: value.element.allColors, frame: (.init(width: 44, height: 44)))
                                 .frame(width: getRect().width * 0.7, height: 40)
                                 .tag(value.offset)
                         }

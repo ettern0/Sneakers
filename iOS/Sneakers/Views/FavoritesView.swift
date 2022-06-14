@@ -62,7 +62,7 @@ struct FavoritesView: View {
                 HStack {
                     ForEach(sneakers) { sneaker in
                         VStack {
-                            PaletteView(colors: colors)
+                            PaletteView(colors: colors, frame: (.init(width: 24, height: 24)))
                                 .frame(maxWidth: 100, maxHeight: 100)
                             let url = URL(string: sneaker.thumbnail)
                             AsyncImage(
