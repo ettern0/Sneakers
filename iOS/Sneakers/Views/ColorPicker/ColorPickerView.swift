@@ -30,44 +30,54 @@ struct ColorPickerView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Detect")
-                    .font(Font.ralewayBold(size: 32))
-            }
-            .padding(.horizontal, 40)
-
-            VStack(alignment: .center) {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .cornerRadius(8)
-                Text("Base your choice on two main color")
-                    .font(Font.ralewaySemiBold(size: 16))
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 40)
-            .padding(.vertical, 12)
-
-            VStack(spacing: 0) {
-                PaletteControl(
-                    colors: colors,
-                    selectedIndices: $selectedIndices
-                )
-                .padding(.horizontal, 40)
-                .padding(.vertical, 16)
-
-                Button {
-                    let selectedColors = selectedIndices.map { colors[$0] }
-                    let input = SneakersInput(outfitColors: selectedColors)
-                    router.push(screen: .sneakers(input))
-                } label: {
-                    Text("Explore results")
-                        .font(Font.ralewayMedium(size: 18))
-                }
-                .disabled(selectedIndices.count != 2)
-                .buttonStyle(LargeButtonStyle())
-                .padding(16)
-            }.frame(maxWidth: .infinity)
+            headerView
+            descriprionView
+            paletteView
         }
+    }
+
+    var headerView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Detect")
+                .font(Font.ralewayBold(size: 32))
+        }
+        .padding(.horizontal, 40)
+    }
+
+    var descriprionView: some View {
+        VStack(alignment: .center) {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(8)
+            Text("Base your choice on two main color")
+                .font(Font.ralewaySemiBold(size: 16))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 40)
+        .padding(.vertical, 12)
+    }
+
+    var paletteView: some View {
+        VStack(spacing: 0) {
+            PaletteControl(
+                colors: colors,
+                selectedIndices: $selectedIndices
+            )
+            .padding(.horizontal, 40)
+            .padding(.vertical, 16)
+
+            Button {
+                let selectedColors = selectedIndices.map { colors[$0] }
+                let input = SneakersInput(outfitColors: selectedColors)
+                router.push(screen: .sneakers(input))
+            } label: {
+                Text("Explore results")
+                    .font(Font.ralewayMedium(size: 18))
+            }
+            .disabled(selectedIndices.count != 2)
+            .buttonStyle(LargeButtonStyle())
+            .padding(16)
+        }.frame(maxWidth: .infinity)
     }
 }

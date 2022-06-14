@@ -59,6 +59,7 @@
 		921B211B2833BFD500B934C4 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 921B211A2833BFD500B934C4 /* NukeUI */; };
 		922E353D283597B100D8A0F9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 922E353C283597B100D8A0F9 /* Lottie */; };
 		922E35402835984C00D8A0F9 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922E353F2835984C00D8A0F9 /* LottieView.swift */; };
+		923CB3322859340600E23358 /* ChooseButtonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923CB3312859340600E23358 /* ChooseButtonContent.swift */; };
 		924B8FB228535AAF0017920C /* MultiSlider in Frameworks */ = {isa = PBXBuildFile; productRef = 924B8FB128535AAF0017920C /* MultiSlider */; };
 		924EEFE92857914600E644F2 /* Raleway-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFD72857914500E644F2 /* Raleway-BoldItalic.ttf */; };
 		924EEFEA2857914600E644F2 /* Raleway-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 924EEFD82857914600E644F2 /* Raleway-MediumItalic.ttf */; };
@@ -147,6 +148,7 @@
 		920D1E36283959DF00050935 /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		921B21142833A04200B934C4 /* ViewExtensionGetRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensionGetRect.swift; sourceTree = "<group>"; };
 		922E353F2835984C00D8A0F9 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		923CB3312859340600E23358 /* ChooseButtonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseButtonContent.swift; sourceTree = "<group>"; };
 		924EEFD72857914500E644F2 /* Raleway-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BoldItalic.ttf"; sourceTree = "<group>"; };
 		924EEFD82857914600E644F2 /* Raleway-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-MediumItalic.ttf"; sourceTree = "<group>"; };
 		924EEFD92857914600E644F2 /* Raleway-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -307,6 +309,15 @@
 			path = LottieView;
 			sourceTree = "<group>";
 		};
+		923CB330285933F100E23358 /* Choosing */ = {
+			isa = PBXGroup;
+			children = (
+				9254CFDF283E2AA7005F751C /* ChooseView.swift */,
+				923CB3312859340600E23358 /* ChooseButtonContent.swift */,
+			);
+			path = Choosing;
+			sourceTree = "<group>";
+		};
 		924EEFD62857914500E644F2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,7 +434,7 @@
 		92C220A528326B5D00EC7D39 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9254CFDF283E2AA7005F751C /* ChooseView.swift */,
+				923CB330285933F100E23358 /* Choosing */,
 				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
 				9208B9872840FBD3000866E6 /* FavoritesView.swift */,
 				920D1E342839599D00050935 /* PaletteView.swift */,
@@ -593,6 +604,7 @@
 				9271445D283A8676002A05C4 /* SneakerImageView.swift in Sources */,
 				881CA53C2844ED490092265A /* ImageResizer.swift in Sources */,
 				92C220AC28326B6600EC7D39 /* SneakersViewModel.swift in Sources */,
+				923CB3322859340600E23358 /* ChooseButtonContent.swift in Sources */,
 				88B4D35F284BD66500A8366B /* ColorPickerView.swift in Sources */,
 				92C220A928326B5D00EC7D39 /* SneakerDetailView.swift in Sources */,
 				88B4D369284D58CA00A8366B /* PaletteControl.swift in Sources */,
