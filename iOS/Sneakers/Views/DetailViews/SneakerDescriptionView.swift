@@ -26,8 +26,12 @@ struct SneakerDescriptionView: View {
                 .font(Font.ralewayMediumItalic(size: 18))
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(sneaker.name.capitalized).font(.system(size: 22)).bold()
-                    Text("Price range: 120.000$  - 180.000$").font(.system(size: 12)).italic().padding(.bottom, 15).opacity(0.5)
+                    Text(sneaker.name.capitalized)
+                        .font(Font.ralewayBold(size: 22))
+                    Text("Price range: 120.000$  - 180.000$")
+                        .font(Font.ralewaySemiBold(size: 13))
+                        .padding(.bottom, 36)
+                        .opacity(0.5)
                 }
                 Spacer()
                 Button {
@@ -36,12 +40,48 @@ struct SneakerDescriptionView: View {
                     LikeButtonView(isFavorite: isFavorite)
                 }
             }
-            Text("Description".capitalized).font(.system(size: 15)).bold().padding(.bottom, 10)
-            Text(sneaker.description.capitalized.replacingOccurrences(of: "<Br>", with: "")).font(.system(size: 12))
-            Text(sneaker.description.capitalized.replacingOccurrences(of: "<Br>", with: "")).font(.system(size: 12))
+            Text("Description".capitalized)
+                .font(Font.ralewayBold(size: 18))
+                .padding(.bottom, 10)
+            Text(sneaker.description.capitalized.replacingOccurrences(of: "<Br>", with: ""))
+                .font(Font.ralewayRegular(size: 16))
+                .padding(.bottom, 36)
+            Text("Marketplace".capitalized)
+                .font(Font.ralewayBold(size: 18))
+                .padding(.bottom, 10)
+            // MARK: TODO Fetch marketplaces from backend
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    MarketButtonView(market: "StocX", strURL: "https://stockx.com")
+                    MarketButtonView(market: "Goods", strURL: "https://www.stadiumgoods.com")
+                }
+            }
         }
         .padding()
         .background(Color.white)
+    }
+
+    private struct MarketButtonView: View {
+        @Environment(\.openURL) var openURL
+        let market: String
+        let strURL: String
+
+        var body: some View {
+            Button {
+                if let url = URL(string: strURL) {
+                    openURL(url)
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .frame(width: 60, height: 32)
+                    .foregroundColor(.black.opacity(0.03))
+                    .overlay {
+                        Text(market)
+                            .font(Font.ralewayMedium(size: 14))
+                            .foregroundColor(.black)
+                    }
+            }
+        }
     }
 
     private struct LikeButtonView: View {
