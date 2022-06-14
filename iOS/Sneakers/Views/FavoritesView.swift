@@ -87,14 +87,14 @@ struct FavoritesView: View {
                         }
                         .onTapGesture {
                             Task {
-
-                                    try await viewModel.fetchSneakers(id: sneaker.id)
-                                    for index in 0..<viewModel.sneakers.count {
-                                        self.viewModel.detail = viewModel.sneakers[index]
+                                try await viewModel.fetchSneakers(id: sneaker.id)
+                                if let sneakers = viewModel.sneakers {
+                                    for index in 0..<(viewModel.sneakers?.count ?? 0) {
+                                        self.viewModel.detail = sneakers[index]
                                         showDetails = true
                                         break
                                     }
-
+                                }
                             }
                         }
                     }
