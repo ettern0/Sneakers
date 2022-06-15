@@ -44,13 +44,12 @@ struct Sneaker: Identifiable, Codable, Hashable {
     }
 }
 
+extension Sneaker {
+    var minPrice: Double? {
+        self.resellPricesStockX.map(\.price).min()
+    }
 
-//extension Sneaker {
-//    var minPrice: Double? {
-//        self.resellPricesStockX.map(\.price).min()
-//    }
-//
-//    var maxPrice: Double? {
-//        self.resellPricesStockX.map(\.price).max()
-//    }
-//}
+    var maxPrice: Double? {
+        self.resellPricesStockX.map(\.price).max()
+    }
+}
