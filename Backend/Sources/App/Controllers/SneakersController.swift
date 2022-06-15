@@ -52,12 +52,18 @@ struct SneakersController: RouteCollection {
                 if let id = sneaker.id?.uuidString {
                     req.parameters.set("id", to: id)
                     item.images360 = try await get360(req: req).map(\.image)
-//
-//                    let sizeAndPrice = try await SneakerSizeAndPrice.query(on: <#T##Database#>)
-//
-//                    if let data = try await getProductInfoFromStockX(urlKey: sneaker.idStockX) {
-//                        item.resellPricesStockX = data.resellPricesStockX
-//                    }
+
+                    let sizeAndPrices = try await SneakerSizeAndPrice.query(on: req.db)
+                        .filter(\.$sneakerID  == req.parameters.get("id"))
+                        .all()
+
+                    sizeAndPrices.forEach { value in
+                        let jsonData = Data(value.prices.utf8)
+                        let jsonDecoder = JSONDecoder()
+                        do {
+                            item.resellPricesStockX = try jsonDecoder.decode([SneakerDTO.ResellPrice].self, from: jsonData)
+                        } catch { }
+                    }
                 }
                 return item
             }
@@ -101,10 +107,10 @@ struct SneakersController: RouteCollection {
                                 images: data.images360
                             )
                             images360 = try await get360(req: req).map(\.image)
+                        }
                     }
+                    item.images360 = images360
                 }
-                item.images360 = images360
-            }
                 return item
             }
             return result
@@ -240,16 +246,16 @@ struct SneakersController: RouteCollection {
         for value in colors {
             if let id = value.sneakerID,
                let intColors = ColorsMatcher.colors(for: value.color) {
-                sneakersLoop: for sneakerColor in intColors {
-                    for desiredColor in palettes.flatMap({ $0 }) {
-                        let distance = ColorDistance.distance(from: sneakerColor, to: desiredColor)
+            sneakersLoop: for sneakerColor in intColors {
+                for desiredColor in palettes.flatMap({ $0 }) {
+                    let distance = ColorDistance.distance(from: sneakerColor, to: desiredColor)
 
-                        if distance < 10 {
-                            idsColor.append((id, distance))
-                            continue sneakersLoop
-                        }
+                    if distance < 10 {
+                        idsColor.append((id, distance))
+                        continue sneakersLoop
                     }
                 }
+            }
             }
         }
 
