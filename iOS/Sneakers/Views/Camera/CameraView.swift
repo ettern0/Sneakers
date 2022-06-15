@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import Combine
+
+private var cancellable: AnyCancellable? // TODO: move to view model
 
 struct CameraView: View {
     @EnvironmentObject private var router: Router
@@ -16,17 +19,23 @@ struct CameraView: View {
     @State private var showGallerySheet: Bool = false
     @ObservedObject var mediaItems = PickedMediaItems()
 
+    private func observeImage() {
+        cancellable = self.mediaItems.$items.sink { models in
+            guard let image = models.first?.photo else { return }
+            let colors = ColorFinder().colors(from: image)
+            let input = ColorPickerInput(image: image, colors: colors)
+            router.push(screen: .colorPicker(input))
+        }
+    }
+
     private var captureButton: some View {
         Button {
             model.capturePhoto()
-            if let image = UIImage(named: "man") {
-                let colors = ColorFinder().colors(from: image)
-                let input = ColorPickerInput(image: image, colors: colors)
-                router.push(screen: .colorPicker(input))
-            }
+            observeImage()
         } label: {
             EmptyView()
-        }.buttonStyle(CaptureButtonStyle())
+        }
+        .buttonStyle(CaptureButtonStyle())
     }
 
     private var galleryButton: some View {
