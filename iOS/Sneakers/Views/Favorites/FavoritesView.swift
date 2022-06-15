@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FavoritesView: View {
-
     @State var colors: [[UInt32]] = []
     @State var data: [[UInt32]: [SneakerUD]] = [:]
     @State var selectedType: Int = 0
@@ -28,18 +27,22 @@ struct FavoritesView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
             if selectedType == 0 {
-                ScrollView {
-                    ForEach(colors.indices, id: \.self) { index in
-                        if let sneakers = data[colors[index]], !sneakers.isEmpty {
-                            let palette = colors[index]
-                            FavoritesSneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), colors: palette)
-                                .padding(.bottom, 24)
+                if colors.isEmpty {
+                    emptyScreen(type: "sneakers")
+                } else {
+                    ScrollView {
+                        ForEach(colors.indices, id: \.self) { index in
+                            if let sneakers = data[colors[index]], !sneakers.isEmpty {
+                                let palette = colors[index]
+                                FavoritesSneakerView(sneakers: sneakers.filter({ checkSearchForSneaker($0, searchText) }), colors: palette)
+                                    .padding(.bottom, 24)
+                            }
                         }
                     }
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
             } else {
-                Spacer()
+                emptyScreen(type: "outfit")
             }
         }.onAppear {
             data = fetchDataFromUD()
@@ -62,6 +65,18 @@ struct FavoritesView: View {
             return try defaults.decode([[UInt32]: [SneakerUD]].self, forKey: "favorites")
         } catch {
             return [:]
+        }
+    }
+
+    private func emptyScreen(type: String) -> some View {
+        GeometryReader { proxy in
+            VStack(alignment: .center) {
+                Spacer()
+                Text("No \(type) in favorites")
+                    .font(.ralewayRegular(size: 24))
+                    .foregroundColor(.gray)
+                Spacer()
+            }.frame(width: proxy.size.width, height: proxy.size.height)
         }
     }
 }
