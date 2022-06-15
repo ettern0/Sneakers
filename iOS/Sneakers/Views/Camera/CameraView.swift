@@ -41,6 +41,7 @@ struct CameraView: View {
     private var galleryButton: some View {
         Button {
             showGallerySheet = true
+            observeImage()
         } label: {
             Image("gallery")
                 .tint(.black)
