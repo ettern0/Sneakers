@@ -62,9 +62,6 @@ struct SneakersListView: View {
                                         SneakerDetailView(sneaker: sneaker, colors: colors, viewModel: viewModel)
                                     }
                                 }
-                                .sheet(isPresented: $showFilters) {
-                                    FiltersView(viewModel: .init(filters: self.viewModel.filters ?? Filters()))
-                                }
                         } else {
                             Text("No result")
                                 .font(Font.ralewayRegular(size: 32))
@@ -73,7 +70,11 @@ struct SneakersListView: View {
                     } else {
                         UpdateView()
                     }
-                }.frame(height: getRect().height / 2)
+                }
+                .frame(height: getRect().height / 2)
+                .sheet(isPresented: $showFilters) {
+                    FiltersView(viewModel: .init(filters: self.viewModel.filters ?? Filters()))
+                }
             }
         }
         .toolbar {
