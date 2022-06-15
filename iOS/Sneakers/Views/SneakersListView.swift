@@ -78,7 +78,11 @@ struct SneakersListView: View {
                             filters: self.viewModel.filters ?? Filters(),
                             userFilters: self.$viewModel.userFilters
                         )
-                    )
+                    ) {
+                        Task {
+                            try? await viewModel.fetchSneakers()
+                        }
+                    }
                 }
             }
         }

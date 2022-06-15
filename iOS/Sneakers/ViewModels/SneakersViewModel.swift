@@ -30,12 +30,13 @@ final class SneakersViewModel: ObservableObject {
             guard let self = self else { return }
             guard self.palettes.indices.contains(newValue) else { return }
             Task {
-                try? await self.fetchSneakers(filters: self.filters)
+                try? await self.fetchSneakers()
             }
         }.store(in: &cancelBag)
     }
 
-    func fetchSneakers(filters: Filters? = nil) async throws {
+    func fetchSneakers() async throws {
+        let filters = self.userFilters ?? self.filters
         let urlString = Constants.baseURL + Endpoints.userFilters
 
         guard let url = URL(string: urlString) else {
@@ -85,6 +86,6 @@ final class SneakersViewModel: ObservableObject {
             self.filters = response.filters
             self.palettes = response.palettes
         }
-        try await self.fetchSneakers(filters: self.filters)
+        try await self.fetchSneakers()
     }
 }

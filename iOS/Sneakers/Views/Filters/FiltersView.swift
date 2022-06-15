@@ -20,6 +20,8 @@ struct FiltersView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: FiltersViewModel
 
+    let onApply: () -> Void
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -35,6 +37,7 @@ struct FiltersView: View {
                 Button("Explore") {
                     Task {
                         try? await viewModel.onExploreTap()
+                        self.onApply()
                     }
                     presentationMode.wrappedValue.dismiss()
                 }
@@ -54,7 +57,6 @@ struct FiltersView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Reset") {
                         viewModel.onResetTap()
-                        // TODO: Reset Slider
                     }
                 }
             }

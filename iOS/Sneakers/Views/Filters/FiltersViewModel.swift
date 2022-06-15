@@ -35,7 +35,7 @@ final class FiltersViewModel: ObservableObject {
         var sizes: [GenericFilterModel<Size>]
         var slider: SliderModel
 
-        var filters: Filters {
+        var userFilters: Filters {
             Filters(
                 minPrice: slider.selectedRange[0],
                 maxPrice: slider.selectedRange[1],
@@ -63,7 +63,7 @@ final class FiltersViewModel: ObservableObject {
     }
 
     func onExploreTap() async throws {
-        self.userFilters = genericFilters.filters
+        self.userFilters = genericFilters.userFilters
     }
 
     func onResetTap() {
