@@ -10,6 +10,6 @@ import DominantColor
 
 extension UIImage {
     func findDominantColors() -> [UIColor] {
-        (try? self.dominantColorFrequencies(with: .low).map(\.color)) ?? []
+        (try? self.dominantColorFrequencies(with: .best).map(\.color)) ?? []
     }
 }
