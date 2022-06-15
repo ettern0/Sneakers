@@ -4,7 +4,7 @@
 //
 //  Created by Evgeny Serdyukov on 22.05.2022.
 //
-
+import Foundation
 import SwiftUI
 
 struct SneakerDescriptionView: View {
@@ -28,10 +28,12 @@ struct SneakerDescriptionView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(sneaker.name.capitalized)
                         .font(Font.ralewayBold(size: 22))
-                    Text("Price range: 120.000$  - 180.000$")
-                        .font(Font.ralewaySemiBold(size: 13))
-                        .padding(.bottom, 36)
-                        .opacity(0.5)
+                    if let min = sneaker.minPrice, let max = sneaker.maxPrice {
+                        Text("Price range: \(priceFormat(min))  - \(priceFormat(max))")
+                            .font(Font.ralewaySemiBold(size: 13))
+                            .padding(.bottom, 36)
+                            .opacity(0.5)
+                    }
                 }
                 Spacer()
                 Button {
@@ -52,7 +54,7 @@ struct SneakerDescriptionView: View {
             // MARK: TODO Fetch marketplaces from backend
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    MarketButtonView(market: "StocX", strURL: "https://stockx.com")
+                    MarketButtonView(market: "StockX", strURL: sneaker.resellLinkStockX)
                     MarketButtonView(market: "Goods", strURL: "https://www.stadiumgoods.com")
                     MarketButtonView(market: "Goat", strURL: "https://www.goat.com")
                 }
@@ -69,7 +71,7 @@ struct SneakerDescriptionView: View {
 
         var body: some View {
             Button {
-                if let url = URL(string: strURL) {
+                if let url = URL(string: strURL.replacingOccurrences(of: "'", with: "")) {
                     openURL(url)
                 }
             } label: {
@@ -141,4 +143,15 @@ struct SneakerDescriptionView: View {
         }
     }
 
+}
+
+func priceFormat(_ from: Double) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .currency
+    numberFormatter.maximumFractionDigits = 2
+    numberFormatter.minimumFractionDigits = 2
+    if let digit = numberFormatter.string(from: NSNumber(value: from)) {
+        return digit
+    }
+    return ""
 }
