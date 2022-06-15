@@ -42,12 +42,14 @@ struct SneakerDescriptionView: View {
                     LikeButtonView(isFavorite: isFavorite)
                 }
             }
-            Text("Description".capitalized)
-                .font(Font.ralewayBold(size: 18))
-                .padding(.bottom, 10)
-            Text(sneaker.description.capitalized.replacingOccurrences(of: "<Br>", with: ""))
-                .font(Font.ralewayRegular(size: 16))
-                .padding(.bottom, 36)
+            if !sneaker.description.isEmpty {
+                Text("Description".capitalized)
+                    .font(Font.ralewayBold(size: 18))
+                    .padding(.bottom, 10)
+                Text(sneaker.description.capitalized.replacingOccurrences(of: "<Br>", with: ""))
+                    .font(Font.ralewayRegular(size: 16))
+                    .padding(.bottom, 36)
+            }
             Text("Marketplace".capitalized)
                 .font(Font.ralewayBold(size: 18))
                 .padding(.bottom, 10)
