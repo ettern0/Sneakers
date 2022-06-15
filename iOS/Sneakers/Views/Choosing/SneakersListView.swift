@@ -34,7 +34,6 @@ struct SneakersListView: View {
         self.input = input
         self._viewModel = .init(wrappedValue: SneakersViewModel(input: input))
     }
-
     var body: some View {
         ZStack {
             Color(.init(white: 0.95, alpha: 1))
@@ -55,7 +54,8 @@ struct SneakersListView: View {
                 Group {
                     if let sneakers = viewModel.sneakers {
                         if !sneakers.isEmpty {
-                            PagerView(viewModel: viewModel, showDetail: $showDetails)
+                            PagerView(viewModel: viewModel, showDetail: $showDetails, page: .first())
+                                .animation(Animation.spring(), value: viewModel.sneakers)
                                 .sheet(isPresented: $showDetails) {
                                     if let sneaker = viewModel.detail {
                                         let colors = viewModel.palettes[viewModel.selectedPaletteIndex].allColors
@@ -102,44 +102,46 @@ struct SneakersListView: View {
         }
     }
 
-    struct PagerView: View {
+    private struct PagerView: View {
         let viewModel: SneakersViewModel
-        @StateObject var page: Page = .first()
         @Binding var showDetail: Bool
+        var page: Page
 
         var body: some View {
-            if let sneakers = viewModel.sneakers {
-                Pager(page: page, data: sneakers) { sneaker in
-                    LazyImage(source: sneaker.thumbnail) { state in
-                        if let image = state.imageContainer?.image {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .padding()
-                                    .background(.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                    .onTapGesture {
-                                        withAnimation(Animation.easeInOut(duration: 0.3)) {
-                                            viewModel.detail = sneaker
-                                            showDetail = true
-                                        }
-                                    }
+            VStack{
+                if let sneakers = viewModel.sneakers {
+                    Pager(page: page, data: sneakers) { sneaker in
+                        LazyImage(source: sneaker.thumbnail) { state in
+                            if let image = state.imageContainer?.image {
                                 VStack(alignment: .leading, spacing: 5) {
-                                    Text(sneaker.brand.capitalized)
-                                        .font(Font.ralewayMediumItalic(size: 15))
-                                    Text(sneaker.name.capitalized)
-                                        .font(Font.ralewayBold(size: 20))
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding()
+                                        .background(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                        .onTapGesture {
+                                            withAnimation(Animation.easeInOut(duration: 0.3)) {
+                                                viewModel.detail = sneaker
+                                                showDetail = true
+                                            }
+                                        }
+                                    VStack(alignment: .leading, spacing: 5) {
+                                        Text(sneaker.brand.capitalized)
+                                            .font(Font.ralewayMediumItalic(size: 15))
+                                        Text(sneaker.name.capitalized)
+                                            .font(Font.ralewayBold(size: 20))
+                                    }
                                 }
                             }
                         }
                     }
+                    .preferredItemSize(CGSize(width: getRect().width * 0.8, height: getRect().width * 0.8))
+                    .itemSpacing(10)
+                    .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
+                    .interactive(rotation: true)
+                    .interactive(scale: 0.5)
                 }
-                .preferredItemSize(CGSize(width: getRect().width * 0.8, height: getRect().width * 0.8))
-                .itemSpacing(10)
-                .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
-                .interactive(rotation: true)
-                .interactive(scale: 0.5)
             }
         }
     }
