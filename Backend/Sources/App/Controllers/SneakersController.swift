@@ -110,6 +110,19 @@ struct SneakersController: RouteCollection {
                         }
                     }
                     item.images360 = images360
+
+                    let sizeAndPrices = try await SneakerSizeAndPrice.query(on: req.db)
+                        .filter(\.$sneakerID  == req.parameters.get("id"))
+                        .all()
+
+                    sizeAndPrices.forEach { value in
+                        let jsonData = Data(value.prices.utf8)
+                        let jsonDecoder = JSONDecoder()
+                        do {
+                            item.resellPricesStockX = try jsonDecoder.decode([SneakerDTO.ResellPrice].self, from: jsonData)
+                        } catch { }
+                    }
+                    
                 }
                 return item
             }
