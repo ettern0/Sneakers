@@ -8,7 +8,8 @@
 import SwiftUI
 import Combine
 
-private var cancellable: AnyCancellable? // TODO: move to view model
+private var cancellable1: AnyCancellable? // TODO: move to view model
+private var cancellable2: AnyCancellable? // TODO: move to view model
 
 struct CameraView: View {
     @EnvironmentObject private var router: Router
@@ -20,8 +21,17 @@ struct CameraView: View {
     @ObservedObject var mediaItems = PickedMediaItems()
 
     private func observeImage() {
-        cancellable = self.mediaItems.$items.sink { models in
+        cancellable1 = self.mediaItems.$items.sink { models in
             guard let image = models.first?.photo else { return }
+            let colors = ColorFinder().colors(from: image)
+            let input = ColorPickerInput(image: image, colors: colors)
+            router.push(screen: .colorPicker(input))
+        }
+
+        cancellable2 = self.model.$photo.sink { photo in
+            guard let photo = photo else { return }
+            guard let image = photo.image else { return }
+//            guard let image = models.first?.photo else { return }
             let colors = ColorFinder().colors(from: image)
             let input = ColorPickerInput(image: image, colors: colors)
             router.push(screen: .colorPicker(input))
@@ -87,6 +97,8 @@ struct CameraView: View {
                     )
                     .onAppear {
                         model.configure()
+                        model.photo = nil
+                        mediaItems.items = []
                     }
                     .alert(isPresented: $model.showAlertError, content: {
                         errorAlert
