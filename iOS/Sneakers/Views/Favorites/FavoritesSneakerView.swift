@@ -17,28 +17,33 @@ struct FavoritesSneakerView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(sneakers) { sneaker in
-                    VStack {
-                        paletteView
-                        FavoritesThumbNailView(thumbnail: sneaker.thumbnail)
-                        FavoritesDescriptionView(brand: sneaker.brand, name: sneaker.name)
-                    }
-                    .frame(width: 140, height: 200)
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .shadow(radius: 5)
-                    .sheet(isPresented: $showDetails) {
-                        if let _sneaker = viewModel.detail {
-                            SneakerDetailView(sneaker: _sneaker, colors: colors, viewModel: viewModel)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .frame(width: 150, height: 210)
+                            .foregroundColor(.white)
+                        VStack {
+                            paletteView
+                            FavoritesThumbNailView(thumbnail: sneaker.thumbnail)
+                            FavoritesDescriptionView(brand: sneaker.brand, name: sneaker.name)
                         }
-                    }
-                    .onTapGesture {
-                        Task {
-                            try await viewModel.fetchSneakers(id: sneaker.id)
-                            if let sneakers = viewModel.sneakers {
-                                for index in 0..<(viewModel.sneakers?.count ?? 0) {
-                                    self.viewModel.detail = sneakers[index]
-                                    showDetails = true
-                                    break
+                        .frame(width: 140, height: 200)
+                        .background(Color.white)
+                        .cornerRadius(5)
+                        .shadow(radius: 1)
+                        .sheet(isPresented: $showDetails) {
+                            if let _sneaker = viewModel.detail {
+                                SneakerDetailView(sneaker: _sneaker, colors: colors, viewModel: viewModel)
+                            }
+                        }
+                        .onTapGesture {
+                            Task {
+                                try await viewModel.fetchSneakers(id: sneaker.id)
+                                if let sneakers = viewModel.sneakers {
+                                    for index in 0..<(viewModel.sneakers?.count ?? 0) {
+                                        self.viewModel.detail = sneakers[index]
+                                        showDetails = true
+                                        break
+                                    }
                                 }
                             }
                         }
