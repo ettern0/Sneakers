@@ -16,4 +16,11 @@ enum Size: Hashable {
             return String(value)
         }
     }
+
+    var rawValue: String {
+        switch self {
+        case .european(let value):
+            return String(value)
+        }
+    }
 }

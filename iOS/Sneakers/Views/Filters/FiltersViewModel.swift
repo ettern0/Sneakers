@@ -29,21 +29,21 @@ final class FiltersViewModel: ObservableObject {
         var selectedRange: [CGFloat]
     }
 
-    static let currency: NumberFormatter = {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.minimumFractionDigits = 0
-            formatter.maximumFractionDigits = 9
-            formatter.currencyCode = ""
-            formatter.currencySymbol = ""
-            return formatter
-    }()
-
     struct GenericFilters {
         var genders: [GenericFilterModel<Gender>]
         var brands: [GenericFilterModel<Brand>]
         var sizes: [GenericFilterModel<Size>]
         var slider: SliderModel
+
+        var filters: Filters {
+            Filters(
+                minPrice: slider.selectedRange[0],
+                maxPrice: slider.selectedRange[1],
+                sizes: sizes.filter(\.isSelected).map(\.value.rawValue),
+                brands: brands.filter(\.isSelected).map(\.value.title),
+                gender: genders.filter(\.isSelected).map(\.value.rawValue)
+            )
+        }
     }
 
     enum SliderValueType {
@@ -52,56 +52,50 @@ final class FiltersViewModel: ObservableObject {
     }
 
     @Published var genericFilters: GenericFilters
-    var priceRange: (min: Double, max: Double)
+    @Binding var userFilters: Filters?
     private let filters: Filters
 
-    init(filters: Filters, priceRange: (Double, Double)) {
+    init(filters: Filters, userFilters: Binding<Filters?>) {
+        self._userFilters = userFilters
         self.filters = filters
-        self.priceRange = priceRange
         self.genericFilters = .init(genders: [], brands: [], sizes: [], slider: .init(range: 0...1, selectedRange: []))
         self.fillFilters()
     }
 
-    convenience init(filters: Filters) {
-        self.init(filters: filters, priceRange: (filters.minPrice, filters.maxPrice))
-    }
-
     func onExploreTap() async throws {
-        // try await self.delegate?.fetchSneakers(filter: self)
+        self.userFilters = genericFilters.filters
     }
 
     func onResetTap() {
+        self.userFilters = .init(minPrice: self.filters.minPrice, maxPrice: self.filters.maxPrice, sizes: [], brands: [], gender: [])
         self.fillFilters()
-    }
-
-    // TODO: rewrite
-    func onReceiveSliderValue(_ value: Double, type: SliderValueType) {
-        switch type {
-        case .min:
-            priceRange.min = value
-        case .max:
-            priceRange.max = value
-        }
     }
 
     func fillFilters() {
         let filters = self.filters
 
+        let selectedGenders = Set(self.userFilters?.gender ?? [])
+        let selectedBrands = Set(self.userFilters?.brands ?? [])
+        let selectedSizes = Set(self.userFilters?.sizes ?? [])
+        let selectedRange = [self.userFilters?.minPrice ?? filters.minPrice, self.userFilters?.maxPrice ?? filters.maxPrice]
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            self.priceRange.min = filters.minPrice
-            self.priceRange.max = filters.maxPrice
             self.genericFilters = .init(
-                genders: filters.gender.map { GenericFilterModel(value: $0 == 0 ? .male : .female) },
-                brands: filters.brands.map { GenericFilterModel(value: .init(title: $0)) },
+                genders: filters.gender.map {
+                    GenericFilterModel(value: $0 == 0 ? .male : .female, isSelected: selectedGenders.contains($0))
+                },
+                brands: filters.brands.map {
+                    GenericFilterModel(value: .init(title: $0), isSelected: selectedBrands.contains($0))
+                },
                 sizes: filters.sizes.compactMap {
                     guard let size = Double($0) else { return nil }
-                    return GenericFilterModel(value: .european(size))
+                    return GenericFilterModel(value: .european(size), isSelected: selectedSizes.contains($0))
                 },
                 slider: .init(
                     range: filters.minPrice ... filters.maxPrice,
-                    selectedRange: [filters.minPrice, filters.maxPrice]
+                    selectedRange: selectedRange.map { CGFloat($0) }
                 )
             )
         }

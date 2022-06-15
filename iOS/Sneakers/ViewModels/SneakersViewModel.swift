@@ -16,6 +16,7 @@ final class SneakersViewModel: ObservableObject {
     private var filtersResponse: FiltersResponse? = nil
     @Published var palettes: [ColorPalette] = []
     @Published var filters: Filters? = nil
+    @Published var userFilters: Filters? = nil
     @Published var active: Int = 0
     @Published var drag: Float = 0.0
     @Published var detail: Sneaker?

@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum Gender: CaseIterable {
-    case male
-    case female
+enum Gender: Int, CaseIterable {
+    case male = 0
+    case female = 1
 
     var imageName: String {
         switch self {

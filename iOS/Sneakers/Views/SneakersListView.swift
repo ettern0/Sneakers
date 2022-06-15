@@ -73,7 +73,12 @@ struct SneakersListView: View {
                 }
                 .frame(height: getRect().height / 2)
                 .sheet(isPresented: $showFilters) {
-                    FiltersView(viewModel: .init(filters: self.viewModel.filters ?? Filters()))
+                    FiltersView(
+                        viewModel: .init(
+                            filters: self.viewModel.filters ?? Filters(),
+                            userFilters: self.$viewModel.userFilters
+                        )
+                    )
                 }
             }
         }
