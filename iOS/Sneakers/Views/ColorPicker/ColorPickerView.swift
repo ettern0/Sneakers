@@ -68,7 +68,12 @@ struct ColorPickerView: View {
             .padding(.vertical, 16)
 
             Button {
-                let selectedColors = selectedIndices.map { colors[$0] }
+                var selectedColors: [UInt32] = []
+                for index in 0..<selectedIndices.count {
+                    if index < colors.count {
+                        selectedColors.append(colors[index])
+                    }
+                }
                 let input = SneakersInput(outfitColors: selectedColors)
                 router.push(screen: .sneakers(input))
             } label: {
