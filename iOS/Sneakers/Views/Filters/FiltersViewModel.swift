@@ -10,7 +10,7 @@ import SwiftUI
 import SneakerModels
 
 final class FiltersViewModel: ObservableObject {
-    struct SliderModel {
+    struct SliderModel: Equatable {
         var labelText: String {
             guard let first = selectedRange.first, let second = selectedRange.last else { return "" }
             let numberFormatter = NumberFormatter()
@@ -58,7 +58,7 @@ final class FiltersViewModel: ObservableObject {
     init(filters: Filters, priceRange: (Double, Double)) {
         self.filters = filters
         self.priceRange = priceRange
-        self.genericFilters = .init(genders: [], brands: [], sizes: [], slider: .init(range: 0...0, selectedRange: []))
+        self.genericFilters = .init(genders: [], brands: [], sizes: [], slider: .init(range: 0...1, selectedRange: []))
         self.fillFilters()
     }
 

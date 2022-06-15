@@ -34,9 +34,7 @@ struct FiltersView: View {
                 Spacer()
                 Button("Explore") {
                     Task {
-                        do {
-                            try await viewModel.onExploreTap()
-                        }
+                        try? await viewModel.onExploreTap()
                     }
                     presentationMode.wrappedValue.dismiss()
                 }
