@@ -63,11 +63,11 @@ func getPricesFromFlightClub(resellLink: String, styleID: String) async throws -
     request.setValue(token, forHTTPHeaderField: "x-csrf-token")
 
     do {
-        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
+        // let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any]
         // let results = json?["results"] as? [[String: Any]] ?? []
         return [SneakerDTO.ResellPrice(size: "", price: 0.0)]
     }
-    catch {
-        return [SneakerDTO.ResellPrice(size: "", price: 0.0)]
-    }
+//    catch {
+//        return [SneakerDTO.ResellPrice(size: "", price: 0.0)]
+//    }
 }

@@ -52,10 +52,15 @@ struct SneakersController: RouteCollection {
                 if let id = sneaker.id?.uuidString {
                     req.parameters.set("id", to: id)
                     item.images360 = try await get360(req: req).map(\.image)
+//
+//                    let sizeAndPrice = try await SneakerSizeAndPrice.query(on: <#T##Database#>)
+//
+//                    if let data = try await getProductInfoFromStockX(urlKey: sneaker.idStockX) {
+//                        item.resellPricesStockX = data.resellPricesStockX
+//                    }
                 }
                 return item
             }
-
         } catch {
             return []
         }
