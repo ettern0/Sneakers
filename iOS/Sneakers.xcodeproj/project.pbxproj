@@ -320,6 +320,7 @@
 			children = (
 				9254CFDF283E2AA7005F751C /* ChooseView.swift */,
 				923CB3312859340600E23358 /* ChooseButtonContent.swift */,
+				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
 			);
 			path = Choosing;
 			sourceTree = "<group>";
@@ -452,7 +453,6 @@
 			isa = PBXGroup;
 			children = (
 				923CB330285933F100E23358 /* Choosing */,
-				92C220A628326B5D00EC7D39 /* SneakersListView.swift */,
 				92588432285948E4006191E0 /* Favorites */,
 				920D1E342839599D00050935 /* PaletteView.swift */,
 				881CA5342844ED000092265A /* Camera */,
