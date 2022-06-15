@@ -30,7 +30,6 @@ extension Screen {
             view = AnyView(ColorPickerView(input: input))
         case .sneakers(let input):
             view = AnyView(SneakersListView(input: input))
-
         case .favorites:
             view = AnyView(FavoritesView())
         }
